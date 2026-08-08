@@ -1,0 +1,99 @@
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R5 V5
+ * Hallmark · genre: atmospheric · macrostructure: Map / Diagram · theme: custom · enrichment: none · nav: N9 · footer: Ft5
+ * vibe: "克制 沉浸 档案感 照片主导" · paper: oklch(13% 0.012 75) · accent: photo-derived
+ * display: Songti SC · body: PingFang SC · axes: dark / roman-serif / chromatic-photo
+ * studied: no · context: explicit · v1.1.0
+ */
+:root {
+  color-scheme: dark;
+
+  --color-void: oklch(5.4% 0.014 235);
+  --color-paper: oklch(10% 0.018 232 / 0.76);
+  --color-paper-2: oklch(15% 0.022 232 / 0.72);
+  --color-paper-3: oklch(22% 0.026 232 / 0.72);
+  --color-ink: oklch(95% 0.01 220);
+  --color-ink-2: oklch(82% 0.015 220);
+  --color-muted: oklch(65% 0.015 220);
+  --color-neutral: oklch(48% 0.012 220);
+  --color-rule: oklch(82% 0.014 220 / 0.2);
+  --color-rule-2: oklch(82% 0.014 220 / 0.12);
+  --color-accent: oklch(87% 0.035 205);
+  --color-accent-ink: oklch(10% 0.015 230);
+  --color-focus: oklch(85% 0.06 205);
+  --color-danger: oklch(68% 0.16 28);
+  --color-danger-ink: oklch(96% 0.012 35);
+  --color-success: oklch(72% 0.11 145);
+  --color-overlay: oklch(4% 0.014 230 / 0.82);
+  --color-shadow: oklch(0% 0 0 / 0.5);
+  --color-glass: oklch(76% 0.006 250 / 0.07);
+  --color-glass-strong: oklch(80% 0.007 250 / 0.11);
+  /* Plain light silver glass: a translucent face, blur underneath, and no colored glow. */
+  --glass-surface:
+    linear-gradient(135deg, oklch(96% 0.006 250 / 0.06), oklch(86% 0.006 250 / 0.025) 42%, transparent 72%),
+    oklch(80% 0.006 250 / 0.09);
+  --glass-surface-strong:
+    linear-gradient(135deg, oklch(98% 0.006 250 / 0.08), oklch(88% 0.006 250 / 0.03) 42%, transparent 72%),
+    oklch(82% 0.007 250 / 0.14);
+  --glass-edge: oklch(96% 0.006 250 / 0.16);
+  --glass-edge-strong: oklch(100% 0.008 250 / 0.27);
+  --glass-highlight: oklch(100% 0 0 / 0.14);
+  --glass-shadow: 0 1.2rem 3rem oklch(0% 0 0 / 0.32);
+  --glass-blur: 30px;
+  --glass-saturation: 115%;
+  --glass-refraction: linear-gradient(112deg, transparent 24%, oklch(100% 0 0 / 0.018) 46%, transparent 68%);
+  --glass-frost: 6px;
+  /* Kept as a compatibility alias for scene accents; the palette is now neutral-cool. */
+  --color-lavender: var(--color-accent);
+
+  /* The launch CTA is the reference face: one stable sans across the product. */
+  --font-display: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', ui-sans-serif, sans-serif;
+  --font-body: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', ui-sans-serif, sans-serif;
+  --font-mono: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', ui-sans-serif, sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.25rem;
+  --text-lg: 1.5625rem;
+  --text-xl: 1.953rem;
+  --text-2xl: 2.441rem;
+  --text-3xl: 3.052rem;
+  --text-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
+
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 9rem;
+  --page-gutter: clamp(1rem, 3vw, 3rem);
+
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-pill: 999px;
+  --rule-hair: 1px;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+  --dur-layout: 800ms;
+  --dur-dive: 1000ms;
+  --dur-echo: 900ms;
+  --dur-collapse: 1200ms;
+
+  --z-base: 1;
+  --z-raised: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+}

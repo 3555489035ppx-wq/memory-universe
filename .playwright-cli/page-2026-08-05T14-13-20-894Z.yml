@@ -1,0 +1,22 @@
+- generic [ref=e3]:
+  - banner "主要导航":
+    - link "Memuniverse 首页" [ref=e8] [cursor=pointer]:
+      - /url: /
+      - text: Memuniverse
+    - generic [ref=e9]:
+      - button "音乐层 本地播放" [ref=e11] [cursor=pointer]:
+        - generic [ref=e13]: 音乐层
+        - generic [ref=e14]: 本地播放
+      - link "记忆档案" [ref=e15] [cursor=pointer]:
+        - /url: /archive
+  - status [ref=e16]: 正在打开 Memuniverse…
+  - region "音乐与节奏视觉":
+    - button "Choose File"
+    - generic [ref=e17]:
+      - button "展开" [ref=e19] [cursor=pointer]
+      - generic [ref=e20]:
+        - button "选择并播放音乐" [ref=e21] [cursor=pointer]: ▶
+        - generic "还没有选择音乐" [ref=e22]:
+          - strong [ref=e25]: Memuniverse / 音乐层
+        - button "选择音乐" [ref=e26] [cursor=pointer]
+  - generic "状态通知"

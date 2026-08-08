@@ -1,0 +1,166 @@
+- generic [ref=f1e3]:
+  - banner "主要导航":
+    - link "Memuniverse 首页" [ref=f1e8] [cursor=pointer]:
+      - /url: /
+      - text: Memuniverse
+    - generic [ref=f1e9]:
+      - generic [ref=f1e10]:
+        - button "音乐层 1 个连接" [expanded] [ref=f1e47] [cursor=pointer]:
+          - generic [ref=f1e13]: 音乐层
+          - generic [ref=f1e14]: 1 个连接
+        - complementary "音乐层" [ref=f1e48]:
+          - generic [ref=f1e49]:
+            - generic [ref=f1e50]:
+              - paragraph [ref=f1e51]: SOUNDTRACK LAYER
+              - heading "歌单 / 队列" [level=2] [ref=f1e52]
+              - paragraph [ref=f1e53]: 让某段记忆有一条可返回的声音线索。
+            - button "关闭音乐层" [ref=f1e54] [cursor=pointer]: ×
+          - generic [ref=f1e55]:
+            - generic [ref=f1e57]: 本机音乐服务已连接
+            - button "管理" [active] [ref=f1e58] [cursor=pointer]
+          - tablist "音乐平台" [ref=f1e59]:
+            - tab "N 网易云音乐 已登录" [selected] [ref=f1e60] [cursor=pointer]:
+              - generic [ref=f1e61]: "N"
+              - generic [ref=f1e62]: 网易云音乐
+              - generic "已登录" [ref=f1e63]
+            - tab "Q QQ 音乐 未登录" [ref=f1e64] [cursor=pointer]:
+              - generic [ref=f1e65]: Q
+              - generic [ref=f1e66]: QQ 音乐
+              - generic "未登录" [ref=f1e67]
+          - generic [ref=f1e68]:
+            - img "一个可怜的帅哥" [ref=f1e69]
+            - generic [ref=f1e70]:
+              - strong [ref=f1e71]: 一个可怜的帅哥
+              - generic [ref=f1e72]: SVIP
+            - button "账号" [ref=f1e73] [cursor=pointer]
+          - tablist "音乐内容" [ref=f1e74]:
+            - button "当前队列 279" [ref=f1e1823] [cursor=pointer]:
+              - text: 当前队列
+              - generic [ref=f1e76]: "279"
+            - button "我的歌单 7" [ref=f1e77] [cursor=pointer]:
+              - text: 我的歌单
+              - generic [ref=f1e78]: "7"
+          - generic [ref=f1e80]:
+            - button "一个可怜的帅哥喜欢的音乐 一个可怜的帅哥喜欢的音乐 277 首歌曲" [ref=f1e1839] [cursor=pointer]:
+              - img "一个可怜的帅哥喜欢的音乐" [ref=f1e1840]
+              - generic [ref=f1e1841]:
+                - strong [ref=f1e1842]: 一个可怜的帅哥喜欢的音乐
+                - generic [ref=f1e1843]: 277 首歌曲
+              - generic [ref=f1e1844]: →
+            - button "Help me Help me 148 首歌曲" [ref=f1e1845] [cursor=pointer]:
+              - img "Help me" [ref=f1e1846]
+              - generic [ref=f1e1847]:
+                - strong [ref=f1e1848]: Help me
+                - generic [ref=f1e1849]: 148 首歌曲
+              - generic [ref=f1e1850]: →
+            - button "晚睡早起 晚睡早起 8 首歌曲" [ref=f1e1851] [cursor=pointer]:
+              - img "晚睡早起" [ref=f1e1852]
+              - generic [ref=f1e1853]:
+                - strong [ref=f1e1854]: 晚睡早起
+                - generic [ref=f1e1855]: 8 首歌曲
+              - generic [ref=f1e1856]: →
+            - button "早睡早起 早睡早起 16 首歌曲" [ref=f1e1857] [cursor=pointer]:
+              - img "早睡早起" [ref=f1e1858]
+              - generic [ref=f1e1859]:
+                - strong [ref=f1e1860]: 早睡早起
+                - generic [ref=f1e1861]: 16 首歌曲
+              - generic [ref=f1e1862]: →
+            - button "早起早睡 早起早睡 219 首歌曲" [ref=f1e1863] [cursor=pointer]:
+              - img "早起早睡" [ref=f1e1864]
+              - generic [ref=f1e1865]:
+                - strong [ref=f1e1866]: 早起早睡
+                - generic [ref=f1e1867]: 219 首歌曲
+              - generic [ref=f1e1868]: →
+            - button "Drift Phonk | 百首必听漂移冯克佳曲 Drift Phonk | 百首必听漂移冯克佳曲 135 首歌曲" [ref=f1e1869] [cursor=pointer]:
+              - img "Drift Phonk | 百首必听漂移冯克佳曲" [ref=f1e1870]
+              - generic [ref=f1e1871]:
+                - strong [ref=f1e1872]: Drift Phonk | 百首必听漂移冯克佳曲
+                - generic [ref=f1e1873]: 135 首歌曲
+              - generic [ref=f1e1874]: →
+            - button "欧美R&B rnb｜节奏邂逅旋律 欧美R&B rnb｜节奏邂逅旋律 445 首歌曲" [ref=f1e1875] [cursor=pointer]:
+              - img "欧美R&B rnb｜节奏邂逅旋律" [ref=f1e1876]
+              - generic [ref=f1e1877]:
+                - strong [ref=f1e1878]: 欧美R&B rnb｜节奏邂逅旋律
+                - generic [ref=f1e1879]: 445 首歌曲
+              - generic [ref=f1e1880]: →
+        - dialog [ref=f1e1881]:
+          - banner [ref=f1e1882]:
+            - generic [ref=f1e1883]:
+              - paragraph [ref=f1e1884]: ACCOUNT BRIDGE / 已连接
+              - heading "连接你的音乐世界" [level=2] [ref=f1e1885]
+              - paragraph [ref=f1e1886]: 账号只交给本机音乐服务处理，记忆宇宙不保存密码或原始 Cookie。
+            - button "关闭登录窗口" [ref=f1e1887] [cursor=pointer]: ×
+          - tablist "选择音乐平台" [ref=f1e1888]:
+            - tab "N 网易云音乐" [selected] [ref=f1e1889] [cursor=pointer]:
+              - generic [ref=f1e1890]: "N"
+              - text: 网易云音乐
+            - tab "Q QQ 音乐" [ref=f1e1891] [cursor=pointer]:
+              - generic [ref=f1e1892]: Q
+              - text: QQ 音乐
+          - generic [ref=f1e1893]:
+            - complementary [ref=f1e1894]:
+              - paragraph [ref=f1e1895]: 01 / SOURCE
+              - strong [ref=f1e1896]: 网易云音乐
+              - paragraph [ref=f1e1897]: 把你的歌单作为记忆的另一条索引。登录只为读取歌单、搜索和播放地址，原始音乐文件不会进入项目数据。
+              - generic [ref=f1e1898]: 本地连接 · 可随时退出
+            - status [ref=f1e1902]:
+              - generic [ref=f1e1904]:
+                - strong [ref=f1e1905]: 一个可怜的帅哥
+                - generic [ref=f1e1906]: SVIP
+              - paragraph [ref=f1e1907]: 歌单和播放地址会通过本机服务读取。你可以继续使用当前账号，或切换账号。
+              - generic [ref=f1e1908]:
+                - button "继续使用" [ref=f1e1909] [cursor=pointer]
+                - button "切换账号" [ref=f1e1910] [cursor=pointer]
+          - group [ref=f1e1911]:
+            - generic "连接设置 ＋" [ref=f1e1912] [cursor=pointer]
+      - link "记忆档案" [ref=f1e15] [cursor=pointer]:
+        - /url: /archive
+  - generic:
+    - main "记忆宇宙":
+      - region "当前数据源":
+        - generic: 演示宇宙
+        - link "进入我的记忆" [ref=f1e86] [cursor=pointer]:
+          - /url: /universe?source=personal
+      - navigation "空间观察方式":
+        - button "时间" [pressed] [ref=f1e87] [cursor=pointer]
+        - button "人物" [ref=f1e88] [cursor=pointer]
+        - button "地点" [ref=f1e89] [cursor=pointer]
+        - button "情绪" [ref=f1e90] [cursor=pointer]
+      - paragraph: 过去在深处，现在更靠近你
+      - generic "时间范围" [ref=f1e91]:
+        - generic [ref=f1e92]: 2022—2025
+        - generic [ref=f1e93]:
+          - generic [ref=f1e94]: 时间范围起点
+          - slider "时间范围起点": "0"
+        - generic [ref=f1e95]:
+          - generic [ref=f1e96]: 时间范围终点
+          - slider "时间范围终点": "100"
+      - group "键盘浏览记忆。使用方向键切换，回车聚焦或进入，Shift 加回车加入星座选择，Esc 退出聚焦。":
+        - generic: 01 / 60
+        - button "上一段记忆" [ref=f1e97] [cursor=pointer]: ←
+        - button "2022.01.01 雨停后的路口" [ref=f1e98] [cursor=pointer]:
+          - generic [ref=f1e99]: 2022.01.01
+          - text: 雨停后的路口
+        - button "选择雨停后的路口" [ref=f1e100] [cursor=pointer]: 选择
+        - button "下一段记忆" [ref=f1e101] [cursor=pointer]: →
+  - region "音乐与节奏视觉":
+    - button "Choose File"
+    - generic [ref=f1e17]:
+      - button "收起" [expanded] [ref=f1e1824] [cursor=pointer]
+      - generic [ref=f1e20]:
+        - button "暂停音乐" [ref=f1e1838] [cursor=pointer]: Ⅱ
+        - generic "艾丽" [ref=f1e1826]:
+          - generic [ref=f1e24]:
+            - strong [ref=f1e25]: 艾丽
+            - generic [ref=f1e1827]: 那奇沃夫
+        - button "换一段" [ref=f1e1828] [cursor=pointer]
+      - generic [ref=f1e1829]:
+        - generic [ref=f1e1830]:
+          - generic [ref=f1e1831]: 01:19
+          - slider "音乐进度" [ref=f1e1832] [cursor=pointer]: "79.7"
+          - generic [ref=f1e1833]: 02:17
+        - generic [ref=f1e1834]:
+          - generic [ref=f1e1835]: 音量
+          - slider "音量" [ref=f1e1836] [cursor=pointer]: "0.72"
+          - status [ref=f1e1837]: 72%
+  - generic "状态通知"

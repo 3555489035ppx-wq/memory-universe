@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "rewrites": [
+    { "source": "/universe", "destination": "/index.html" },
+    { "source": "/memory/:id", "destination": "/index.html" },
+    { "source": "/constellation/:id", "destination": "/index.html" },
+    { "source": "/archive", "destination": "/index.html" },
+    { "source": "/settings", "destination": "/index.html" },
+    { "source": "/about", "destination": "/index.html" },
+    { "source": "/privacy", "destination": "/index.html" }
+  ]
+}

@@ -1,0 +1,85 @@
+- generic [ref=f1e3]:
+  - banner "主要导航":
+    - link "Memuniverse 首页" [ref=f1e8] [cursor=pointer]:
+      - /url: /
+      - text: Memuniverse
+    - generic [ref=f1e9]:
+      - generic [ref=f1e10]:
+        - button "音乐层 1 个连接" [expanded] [ref=f1e63] [cursor=pointer]:
+          - generic [ref=f1e13]: 音乐层
+          - generic [ref=f1e14]: 1 个连接
+        - complementary "音乐层" [ref=f1e64]:
+          - generic [ref=f1e65]:
+            - generic [ref=f1e66]:
+              - heading "歌单 / 队列" [level=2] [ref=f1e67]
+              - paragraph [ref=f1e68]: QUEUE · 选择一条声音线索
+            - button "关闭音乐层" [ref=f1e69] [cursor=pointer]: ×
+          - generic [ref=f1e70]:
+            - generic [ref=f1e72]: 本机音乐服务已连接
+            - button "管理" [ref=f1e73] [cursor=pointer]
+          - tablist "音乐平台" [ref=f1e74]:
+            - tab "网易云音乐 已登录" [selected] [ref=f1e75] [cursor=pointer]:
+              - generic [ref=f1e76]: 网易云音乐
+              - generic "已登录" [ref=f1e77]
+            - tab "QQ 音乐 未登录" [ref=f1e78] [cursor=pointer]:
+              - generic [ref=f1e79]: QQ 音乐
+              - generic "未登录" [ref=f1e80]
+          - generic [ref=f1e81]:
+            - img "一个可怜的帅哥" [ref=f1e82]
+            - generic [ref=f1e83]:
+              - strong [ref=f1e84]: 一个可怜的帅哥
+              - generic [ref=f1e85]: SVIP
+            - button "账号" [ref=f1e86] [cursor=pointer]
+          - tablist "音乐内容" [ref=f1e87]:
+            - button "当前队列 0" [active] [ref=f1e88] [cursor=pointer]:
+              - text: 当前队列
+              - generic [ref=f1e89]: "0"
+            - button "我的歌单 7" [ref=f1e90] [cursor=pointer]:
+              - text: 我的歌单
+              - generic [ref=f1e91]: "7"
+          - generic [ref=f1e92]:
+            - generic [ref=f1e93]:
+              - generic [ref=f1e139]: ∿
+              - strong [ref=f1e140]: 队列还是空的
+              - paragraph [ref=f1e141]: 从歌单里选择一首，或从电脑导入一段本地音乐。
+            - button "导入本地音频" [ref=f1e142] [cursor=pointer]
+      - link "记忆档案" [ref=f1e15] [cursor=pointer]:
+        - /url: /archive
+  - generic:
+    - main "记忆宇宙":
+      - region "当前数据源":
+        - generic: 演示宇宙
+        - link "进入我的记忆" [ref=f1e47] [cursor=pointer]:
+          - /url: /universe?source=personal
+      - navigation "空间观察方式":
+        - button "时间" [pressed] [ref=f1e48] [cursor=pointer]
+        - button "人物" [ref=f1e49] [cursor=pointer]
+        - button "地点" [ref=f1e50] [cursor=pointer]
+        - button "情绪" [ref=f1e51] [cursor=pointer]
+      - paragraph: 过去在深处，现在更靠近你
+      - generic "时间范围" [ref=f1e52]:
+        - generic [ref=f1e53]: 2022—2025
+        - generic [ref=f1e54]:
+          - generic [ref=f1e55]: 时间范围起点
+          - slider "时间范围起点": "0"
+        - generic [ref=f1e56]:
+          - generic [ref=f1e57]: 时间范围终点
+          - slider "时间范围终点": "100"
+      - group "键盘浏览记忆。使用方向键切换，回车聚焦或进入，Shift 加回车加入星座选择，Esc 退出聚焦。":
+        - generic: 01 / 60
+        - button "上一段记忆" [ref=f1e58] [cursor=pointer]: ←
+        - button "2022.01.01 雨停后的路口" [ref=f1e59] [cursor=pointer]:
+          - generic [ref=f1e60]: 2022.01.01
+          - text: 雨停后的路口
+        - button "选择雨停后的路口" [ref=f1e61] [cursor=pointer]: 选择
+        - button "下一段记忆" [ref=f1e62] [cursor=pointer]: →
+  - region "音乐与节奏视觉":
+    - button "Choose File"
+    - generic [ref=f1e17]:
+      - button "展开" [ref=f1e19] [cursor=pointer]
+      - generic [ref=f1e20]:
+        - button "选择并播放音乐" [ref=f1e21] [cursor=pointer]: ▶
+        - generic "还没有选择音乐" [ref=f1e22]:
+          - strong [ref=f1e25]: Memuniverse / 音乐层
+        - button "选择音乐" [ref=f1e26] [cursor=pointer]
+  - generic "状态通知"

@@ -1,0 +1,16 @@
+- generic [ref=f3e3]:
+  - banner "主要导航":
+    - link "Memuniverse 首页" [ref=f3e8] [cursor=pointer]:
+      - /url: /
+      - text: Memuniverse
+    - link "本地与隐私" [ref=f3e10] [cursor=pointer]:
+      - /url: /settings
+  - main [ref=f3e11]:
+    - region [ref=f3e12]:
+      - generic "Memuniverse 启动画面" [ref=f3e13]:
+        - generic [ref=f3e14]:
+          - heading "Memuniverse" [level=1] [ref=f3e15]
+          - paragraph [ref=f3e16]: 记忆宇宙
+          - link "点击进入" [ref=f3e17] [cursor=pointer]:
+            - /url: /universe?source=demo
+  - generic "状态通知"
