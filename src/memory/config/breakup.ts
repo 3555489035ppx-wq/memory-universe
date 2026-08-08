@@ -19,4 +19,3 @@ export const breakupTemplate = assertValidTemplateConfig<MemoryTemplateConfig>({
     { id: 'release', start: 0.88, end: 1, layout: 'broken-heart', label: '放下', camera: 'pullback' },
   ],
 });
-

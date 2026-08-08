@@ -20,4 +20,3 @@ export const universityTemplate = assertValidTemplateConfig<MemoryTemplateConfig
     { id: 'system', start: 0.9, end: 1, layout: 'galaxy', label: '星系', camera: 'pullback' },
   ],
 });
-

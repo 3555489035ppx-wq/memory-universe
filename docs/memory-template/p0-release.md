@@ -1,6 +1,6 @@
 # Memuniverse Memory Template System V1｜发布回归报告
 
-日期：2026-08-08  
+日期：2026-08-08
 范围：桌面端 Web App；不新增移动端专属实现。
 
 ## 交付内容

@@ -19,4 +19,3 @@ export const careerTemplate = assertValidTemplateConfig<MemoryTemplateConfig>({
     { id: 'forward', start: 0.84, end: 1, layout: 'helix', label: '继续向前', camera: 'pullback' },
   ],
 });
-

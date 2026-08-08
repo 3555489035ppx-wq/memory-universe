@@ -19,4 +19,3 @@ export const loveTemplate = assertValidTemplateConfig<MemoryTemplateConfig>({
     { id: 'afterglow', start: 0.82, end: 1, layout: 'heart', label: '余温', camera: 'pullback' },
   ],
 });
-
