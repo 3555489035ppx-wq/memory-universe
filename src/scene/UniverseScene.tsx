@@ -4,11 +4,13 @@ import { AdditiveBlending, Color } from 'three';
 import type { Group, Points, PointsMaterial, ShaderMaterial } from 'three';
 
 import { useSceneStore, type SceneMode } from '../stores/sceneStore';
+import { useMemoryTemplateStore } from '../stores/memoryTemplateStore';
 import { useSettingsStore } from '../stores/settingsStore';
 import { useMusicStore } from '../stores/musicStore';
 import { MemoryLODRenderer } from './MemoryLODRenderer';
 import { PerformanceGovernor } from './PerformanceGovernor';
 import { RelationshipLines } from './RelationshipLines';
+import { MemoryTemplateLayer } from '../memory/scene/MemoryTemplateLayer';
 
 function spatialDust(count: number): Float32Array {
   const result = new Float32Array(count * 3);
@@ -293,6 +295,8 @@ function SpatialDust(): ReactNode {
 
 export function UniverseScene(): ReactNode {
   const mode = useSceneStore((state) => state.mode);
+  const templateSession = useMemoryTemplateStore((state) => state.session);
+  const templateActive = templateSession !== null && templateSession.status !== 'error';
 
   return (
     <>
@@ -302,7 +306,8 @@ export function UniverseScene(): ReactNode {
         <>
           <SpatialDust />
           <RelationshipLines />
-          <MemoryLODRenderer />
+          {!templateActive && <MemoryLODRenderer />}
+          {templateActive && <MemoryTemplateLayer />}
           <PerformanceGovernor />
         </>
       ) : null}

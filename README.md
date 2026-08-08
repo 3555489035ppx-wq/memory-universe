@@ -4,7 +4,7 @@ Memuniverse 是一个 Local First（本地优先）的中文 Web 产品：照片
 
 ## 工程状态
 
-v1.0.0 工程交付版本。核心导入、IndexedDB 持久化、记忆编辑、星座关系、备份导出/恢复、错误状态和生产预览已完成桌面端回归。
+v1.0.0 工程交付版本。核心导入、IndexedDB 持久化、记忆编辑、星座关系、备份导出/恢复、错误状态、生产预览和五套 Memory Template（记忆模板）播放链路已完成桌面端回归。
 
 ## 本地运行
 
@@ -57,4 +57,5 @@ Memuniverse 的记忆核心不依赖在线 API、远程图片、远程字体或 
 - `src/engine/import`：图片验证、EXIF、方向归一化、衍生图与导入队列。
 - `src/engine/backup`：ZIP 导出、路径/大小策略、校验和、事务恢复。
 - `src/engine/layout`、`src/scene`：确定性布局、持久 Canvas、LOD、纹理生命周期和性能档位。
+- `src/memory`：模板注册表、确定性 3D 布局、Timeline/CameraDirector、单时钟协调器和模板预览控件。
 - `e2e`：Production Preview 下的导入、探索、编辑、备份恢复和桌面端回归。

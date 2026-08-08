@@ -7,7 +7,10 @@ import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { PerspectiveCamera, Vector3 } from 'three';
 
 import { useSceneStore } from '../stores/sceneStore';
+import { useMemoryTemplateStore } from '../stores/memoryTemplateStore';
 import { useSettingsStore } from '../stores/settingsStore';
+import { getMemoryTemplate } from '../memory/config';
+import { cameraPoseForProgress } from '../memory/engine/CameraDirector';
 import { useSceneLayout } from './useSceneLayout';
 import {
   CameraPoseStack,
@@ -53,6 +56,11 @@ export function CameraRig(): ReactNode {
   const focusedMemoryId = useSceneStore((state) => state.focusedMemoryId);
   const setCameraState = useSceneStore((state) => state.setCameraState);
   const motionSetting = useSettingsStore((state) => state.settings.motion);
+  const templateId = useMemoryTemplateStore((state) => state.session?.templateId ?? null);
+  const templateHeroPhotoId = useMemoryTemplateStore((state) => state.session?.heroPhotoId ?? null);
+  const templateProgressBucket = useMemoryTemplateStore((state) =>
+    state.session ? Math.round(state.session.progress * 20) : -1,
+  );
   const machine = useRef(new CameraStateMachine());
   const poses = useRef(new CameraPoseStack());
   const previousMode = useRef(mode);
@@ -118,7 +126,17 @@ export function CameraRig(): ReactNode {
         let nextFocused = focusedMemoryId;
         let fallback: CameraState = 'navigating';
 
-        if (priorMode === 'memory') {
+        if (templateId && templateProgressBucket >= 0) {
+          const config = getMemoryTemplate(templateId);
+          const templatePose = cameraPoseForProgress(
+            config,
+            templateProgressBucket / 20,
+            templateHeroPhotoId,
+          );
+          position = new Vector3(...templatePose.position);
+          target = new Vector3(...templatePose.target);
+          fallback = 'navigating';
+        } else if (priorMode === 'memory') {
           const restored = poseStack.pop();
           if (restored) {
             position = new Vector3(...restored.position);
@@ -190,6 +208,9 @@ export function CameraRig(): ReactNode {
     motionSetting,
     scenePositions,
     setCameraState,
+    templateHeroPhotoId,
+    templateId,
+    templateProgressBucket,
     view,
   ]);
 

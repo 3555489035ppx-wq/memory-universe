@@ -2973,6 +2973,202 @@ button:disabled,
   font-size: var(--text-xs);
 }
 
+/* Memory template system: one quiet glass surface for preview and playback. */
+.memory-template-launcher,
+.memory-template-preview {
+  position: fixed;
+  z-index: 8;
+  width: min(48rem, calc(100vw - var(--page-gutter) * 2));
+  border: 1px solid oklch(94% 0.02 220 / 0.22);
+  border-radius: 1.25rem;
+  background:
+    linear-gradient(145deg, oklch(28% 0.025 220 / 0.5), oklch(5% 0.02 230 / 0.68)),
+    oklch(10% 0.02 230 / 0.28);
+  box-shadow:
+    inset 0 1px 0 oklch(100% 0 0 / 0.18),
+    0 1.5rem 4rem oklch(0% 0 0 / 0.34);
+  backdrop-filter: blur(26px) saturate(125%);
+  pointer-events: auto;
+}
+
+.app-shell:has(.memory-template-preview) > .music-experience--dock {
+  inset-block-end: 0.9rem;
+  width: min(38rem, calc(100vw - var(--page-gutter) * 2));
+  visibility: visible;
+  pointer-events: none;
+}
+
+.app-shell:has(.memory-template-preview) > .music-experience--dock .music-console {
+  pointer-events: auto;
+}
+
+.memory-template-launcher {
+  inset-block-end: 5.85rem;
+  inset-inline-start: 50%;
+  padding: 1.2rem 1.25rem 1.25rem;
+  transform: translateX(-50%);
+}
+
+.memory-template-launcher__heading,
+.memory-template-preview__meta,
+.memory-template-preview__buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.memory-template-launcher__heading h2,
+.memory-template-preview__copy h2 {
+  margin: 0.2rem 0 0;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.6vw, 1.85rem);
+  font-weight: 400;
+}
+
+.memory-template-launcher__heading > span,
+.memory-template-preview__meta,
+.memory-template-preview__status {
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+}
+
+.memory-template-launcher__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin-block-start: 1rem;
+}
+
+.memory-template-card {
+  display: flex;
+  min-height: 7.8rem;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding: 0.85rem;
+  border: 1px solid oklch(96% 0 0 / 0.12);
+  border-radius: 0.85rem;
+  background: oklch(100% 0 0 / 0.045);
+}
+
+.memory-template-card p,
+.memory-template-card h3,
+.memory-template-card span {
+  margin: 0;
+}
+
+.memory-template-card p {
+  color: oklch(84% 0.06 180 / 0.78);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+}
+
+.memory-template-card h3 {
+  margin-block-start: 0.3rem;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.memory-template-card span {
+  display: block;
+  margin-block-start: 0.25rem;
+  color: var(--color-muted);
+  font-size: 0.67rem;
+  line-height: 1.45;
+}
+
+.memory-template-card__action,
+.memory-template-preview__buttons button {
+  min-height: 2.25rem;
+  padding: 0.42rem 0.85rem;
+  border: 1px solid oklch(96% 0 0 / 0.24);
+  border-radius: 999px;
+  background: linear-gradient(145deg, oklch(100% 0 0 / 0.16), oklch(100% 0 0 / 0.04));
+  box-shadow: inset 0 1px 0 oklch(100% 0 0 / 0.24), 0 0.45rem 1.4rem oklch(0% 0 0 / 0.2);
+  color: var(--color-ink);
+  cursor: pointer;
+  font-size: 0.68rem;
+  transition: transform 180ms var(--ease-out), border-color 180ms var(--ease-out), background 180ms var(--ease-out);
+}
+
+.memory-template-card__action:hover,
+.memory-template-card__action:focus-visible,
+.memory-template-preview__buttons button:hover,
+.memory-template-preview__buttons button:focus-visible {
+  border-color: oklch(96% 0 0 / 0.46);
+  background: linear-gradient(145deg, oklch(100% 0 0 / 0.24), oklch(100% 0 0 / 0.08));
+  transform: translateY(-1px);
+}
+
+.memory-template-preview {
+  inset-block-end: 7.5rem;
+  inset-inline-start: 50%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 1.2fr);
+  gap: 1.5rem;
+  align-items: end;
+  padding: 1rem 1.25rem;
+  transform: translateX(-50%);
+}
+
+.memory-template-preview__copy p:not(.eyebrow) {
+  max-width: 28rem;
+  margin: 0.55rem 0 0;
+  color: var(--color-muted);
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.memory-template-preview__status {
+  display: block;
+  margin-block-start: 0.65rem;
+}
+
+.memory-template-preview__controls {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.memory-template-preview__seek input {
+  width: 100%;
+  accent-color: var(--color-ink-2);
+}
+
+.memory-template-preview__buttons {
+  justify-content: flex-end;
+}
+
+.memory-template-preview__buttons .secondary {
+  border-color: oklch(96% 0 0 / 0.14);
+  background: transparent;
+  color: var(--color-muted);
+}
+
+.memory-template-preview--error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  color: var(--color-ink);
+}
+
+.memory-template-preview--error button {
+  min-height: 2.25rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid oklch(96% 0 0 / 0.22);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
 .range-control {
   position: relative;
   display: grid;

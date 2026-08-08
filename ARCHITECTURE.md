@@ -26,6 +26,15 @@
 - `LocalTextureManager` 管理 Blob URL、引用计数、LRU 和质量预算；Memory 删除、数据源切换和 Canvas 卸载都会释放纹理。
 - `PerformanceGovernor` 在 auto 档位按帧率逐级调整 effective quality；手动档位不会被自动覆盖。LOD、关系线数量、DPR 和粒子数量随档位收敛。
 
+## Memory Template System
+
+- 模板系统复用现有 Universe 的单一 R3F Canvas、CameraControls 和音乐层，不创建第二个 renderer、相机或数据库。
+- `src/memory/config` 是五套叙事模板的唯一注册表；每套模板通过连续 `TimelinePhase[]` 描述布局、镜头和阶段标签，启动时做 0..1 覆盖校验。
+- `LayoutEngine` 以模板 seed、照片 ID 和布局策略生成确定性目标位姿；`TimelineEngine` 支持任意进度随机访问并输出照片变换与 CameraDirector 位姿。
+- `MemoryTemplateLayer` 将照片作为真实 R3F 对象渲染，Hero 使用 preview LOD，其余照片使用 thumbnail LOD，并受现有 effective quality 预算限制。
+- 播放优先使用现有音乐层的时间状态；无音乐时由 `FallbackPlaybackClock` 提供静音播放。`MemoryPlaybackCoordinator` 将唯一时钟映射到模板状态，暂停、Seek、Replay 和完成不会写入 IndexedDB。
+- 模板会话是可退出的运行时状态；照片和元数据仍只来自现有 IndexedDB，退出后原 Universe 布局与导航恢复。
+
 ## 安全与隐私
 
 - 记忆数据 P0 不接在线 AI、远程图片、远程字体或 CDN；音乐层是独立的可选本机连接器，不参与照片和记忆数据存储。

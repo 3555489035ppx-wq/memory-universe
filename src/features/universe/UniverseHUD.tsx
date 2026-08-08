@@ -7,6 +7,8 @@ import { useUiStore } from '../../stores/uiStore';
 import { ConstellationComposer } from '../constellation/ConstellationComposer';
 import { UniverseKeyboardNavigator } from './UniverseKeyboardNavigator';
 import { formatMemoryDate, placeName } from './formatMemory';
+import { TemplateLauncher } from '../../memory/ui/TemplateLauncher';
+import { TemplatePreview } from '../../memory/ui/TemplatePreview';
 
 const VIEW_LABELS: ReadonlyArray<{ id: UniverseView; label: string }> = [
   { id: 'time', label: '时间' },
@@ -161,6 +163,9 @@ export function UniverseHUD(): ReactNode {
           <small>照片仅在当前浏览器处理与保存。</small>
         </section>
       )}
+
+      <TemplateLauncher />
+      <TemplatePreview />
 
       {inspected && dataset && (
         <aside className="hover-inspector" aria-live="polite">

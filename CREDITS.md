@@ -37,3 +37,9 @@ Demo 使用 60 张本地化的 CC0 图片。图片通过 Openverse 索引人工�
 2. 复制或改写源码、Shader、算法或示例时记录上游文件、固定 commit、对应 MEMENTO 文件和修改说明。
 3. 代码许可证不自动覆盖照片、字体、图标、模型、HDR、音频等资产；每类资产单独核验。
 4. 任何素材替换都必须同步更新 `demo-asset-credits.json`，不得只更新展示图或文档。
+
+## Memory Template System
+
+模板布局使用 Three.js CSS3D Periodic Table 官方示例中“同一批对象、多组目标位姿、统一插值”的数学思路，并在 `src/memory/layouts` 中以 TypeScript 纯函数重写为 WebGL/R3F 运行时；没有复制 CSS3DRenderer、DOM 卡片、示例素材或示例 UI。研究来源、MIT 许可与不采用范围记录在 `MEMUNIVERSE_TEMPLATE_OPEN_SOURCE_NOTES.md`。
+
+模板本身不携带商业歌曲、封面、歌词或远程音频；播放只连接用户本地音频或现有本机音乐服务，测试使用静音 fallback clock。
