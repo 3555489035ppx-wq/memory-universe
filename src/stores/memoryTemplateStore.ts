@@ -72,7 +72,7 @@ export const useMemoryTemplateStore = create<MemoryTemplateState>((set, get) => 
         templateId,
         source,
         memoryIds: selected,
-        heroPhotoId: heroFallback(selected, heroPhotoId),
+        heroPhotoId: heroFallback(selected, heroPhotoId ?? overrides?.heroPhotoId),
         status: 'preview',
         progress: 0,
         startedAt: null,

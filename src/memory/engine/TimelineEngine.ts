@@ -66,6 +66,7 @@ export function evaluateState(progress: number, context: TimelineContext): Timel
   const { phase, index } = phaseAt(context.config, clamped);
   const local = applyEasing(localProgress(phase, clamped), phase.easing);
   const targetLayout = phaseLayout(context, phase, index, local);
+  const visibleCount = Math.max(0, Math.min(context.memories.length, phase.visibleCount ?? context.memories.length));
   const photos = context.memories.flatMap((memory, memoryIndex): TemplatePhotoState[] => {
     const target = targetLayout[memory.id];
     if (!target) return [];
@@ -73,7 +74,7 @@ export function evaluateState(progress: number, context: TimelineContext): Timel
     const heroHidden = context.heroPhotoId === memory.id && clamped < 0.56;
     return [{
       memory,
-      transform: { ...target, opacity: heroHidden ? 0 : opacity },
+      transform: { ...target, opacity: memoryIndex < visibleCount && !heroHidden ? opacity : 0 },
       emphasis: emphasize(memory.id, context.heroPhotoId, phase, local, memoryIndex, context.memories.length),
     }];
   });
