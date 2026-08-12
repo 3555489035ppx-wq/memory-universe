@@ -403,7 +403,9 @@ export function MusicExperience(): ReactNode {
     // browser Fullscreen API so the scene can also occupy the whole window
     // when the user explicitly presses the control.
     if (nextImmersiveOpen) {
-      void document.documentElement.requestFullscreen().catch(() => undefined);
+      void document.documentElement
+        .requestFullscreen({ navigationUI: 'hide' })
+        .catch(() => undefined);
     } else if (document.fullscreenElement) {
       void document.exitFullscreen().catch(() => undefined);
     }
@@ -481,11 +483,11 @@ export function MusicExperience(): ReactNode {
 
   useEffect(() => {
     const handleFullscreenChange = (): void => {
-      // Escape and browser chrome controls can leave fullscreen without going
-      // through the app button. Keep the store and the rendered shell aligned.
-      if (!document.fullscreenElement && useUiStore.getState().immersiveOpen) {
-        setImmersiveOpen(false);
-      }
+      // Keep the scene-only website state aligned with the browser Fullscreen
+      // API, including a user pressing Escape or leaving fullscreen from the
+      // browser chrome. The Windows taskbar itself is outside the page and is
+      // hidden only by real browser fullscreen, never by page CSS.
+      setImmersiveOpen(Boolean(document.fullscreenElement));
     };
     document.addEventListener('fullscreenchange', handleFullscreenChange);
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
