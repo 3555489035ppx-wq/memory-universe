@@ -38,7 +38,7 @@ Human review: confirm, edit, reject, or regenerate before anything is persisted 
 
 ## 8. Demo Result
 
-The [Live Demo](https://memory-universe-two.vercel.app/universe?source=demo) opens the complete high-school memory template with built-in images and local music. A user can understand the core experience in about three minutes.
+The [Live Demo](https://memory-universe-two.vercel.app/) opens the product homepage. Click **体验高中回忆 Demo** to enter the complete high-school memory template with built-in images and local music; the core experience takes about three minutes.
 
 ## 9. Future Plan
 
