@@ -9,7 +9,7 @@ Memory Universe（记忆宇宙）不是普通相册，也不是单纯的视频�
 ## Live Demo
 
 - 本地演示：`http://localhost:5173/universe?source=demo&demo=high-school`
-- 公开地址：部署后填写在此处
+- 公开地址：[GitHub Pages Demo](https://3555489035ppx-wq.github.io/memory-universe/)
 
 打开演示不需要登录、不需要导入照片，也不需要音乐平台账号。它会加载 96 张内置 CC0 演示图片和一首本地 Demo 音轨，直接进入“那年夏天”高中回忆模板。
 
