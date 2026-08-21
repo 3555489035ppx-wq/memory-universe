@@ -10,8 +10,7 @@ Memory Universe is not a normal photo album or a video player. It turns photos, 
 
 ## Live Demo
 
-- 本地演示：<http://localhost:5173/universe?source=demo&demo=high-school>
-- 公开地址：[Vercel Demo](https://memory-universe-two.vercel.app/universe?source=demo)
+- 公开网址：<https://memory-universe-two.vercel.app/universe?source=demo>
 
 ## Product Introduction
 
@@ -116,7 +115,7 @@ These entries are documented as future scope and are not presented as empty, com
 - fflate and Mediabunny for backup and local export workflows
 - Vitest, Testing Library, and Playwright for regression coverage
 
-## Portfolio Documents
+## Project Documents
 
 - [Case Study](docs/case-study.md)
 - [Product Story](docs/product-story.md)
@@ -140,7 +139,7 @@ pnpm install
 pnpm dev
 ```
 
-Open `http://localhost:5173/`. Common checks:
+After the local server starts, use the development URL printed by Vite. Common checks:
 
 ```bash
 pnpm run lint

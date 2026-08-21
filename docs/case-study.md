@@ -14,7 +14,7 @@ Let users explore and replay a meaningful period through time, people, place, em
 
 ## 4. My Responsibilities
 
-Product framing, emotional interaction model, 3D information architecture, AI boundary design, template flow, local-first storage strategy, frontend implementation, demo content, and portfolio packaging.
+Product framing, emotional interaction model, 3D information architecture, AI boundary design, template flow, local-first storage strategy, frontend implementation, demo content, and project documentation.
 
 ## 5. Product Flow
 
@@ -38,7 +38,7 @@ Human review: confirm, edit, reject, or regenerate before anything is persisted 
 
 ## 8. Demo Result
 
-The [Live Demo](https://memory-universe-two.vercel.app/universe?source=demo) opens the complete high-school memory template with built-in images and local music. A reviewer can understand the core experience in about three minutes.
+The [Live Demo](https://memory-universe-two.vercel.app/universe?source=demo) opens the complete high-school memory template with built-in images and local music. A user can understand the core experience in about three minutes.
 
 ## 9. Future Plan
 
