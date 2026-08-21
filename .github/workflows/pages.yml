@@ -30,6 +30,8 @@ jobs:
       - run: pnpm run build
         env:
           VITE_BASE_PATH: /${{ github.event.repository.name }}/
+      - name: Keep SPA routes working on GitHub Pages
+        run: cp dist/index.html dist/404.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
