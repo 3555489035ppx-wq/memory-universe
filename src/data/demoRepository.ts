@@ -16,13 +16,26 @@ export interface DemoDataset {
 }
 
 export async function loadDemoDataset(fetcher: typeof fetch = fetch): Promise<DemoDataset> {
-  const response = await fetcher('/demo/demo-memories.json');
+  const basePath = import.meta.env.BASE_URL.replace(/\/$/u, '');
+  const response = await fetcher(`${basePath}/demo/demo-memories.json`);
   if (!response.ok) throw new Error('DEMO_DATA_UNAVAILABLE');
   const dataset = (await response.json()) as DemoDataset;
-  if (dataset.schemaVersion !== 1 || dataset.memories.length < 60) {
+  if (dataset.schemaVersion !== 1 || dataset.memories.length < 96) {
     throw new Error('DEMO_DATA_INVALID');
   }
-  return dataset;
+  const withBasePath = (assetPath: string): string =>
+    assetPath.startsWith('/') ? `${basePath}${assetPath}` : assetPath;
+  return {
+    ...dataset,
+    memories: dataset.memories.map((memory) => ({
+      ...memory,
+      assetKeys: {
+        micro: withBasePath(memory.assetKeys.micro),
+        thumbnail: withBasePath(memory.assetKeys.thumbnail),
+        preview: withBasePath(memory.assetKeys.preview),
+      },
+    })),
+  };
 }
 
 export async function ensureDemoSeeded(

@@ -9,7 +9,10 @@ export function ToastRegion(): ReactNode {
 
   useEffect(() => {
     const timers = toasts.map((toast) =>
-      window.setTimeout(() => removeToast(toast.id), toast.tone === 'danger' ? 7000 : 4500),
+      window.setTimeout(
+        () => removeToast(toast.id),
+        toast.durationMs ?? (toast.tone === 'danger' ? 7000 : 4500),
+      ),
     );
     return () => timers.forEach((timer) => window.clearTimeout(timer));
   }, [removeToast, toasts]);

@@ -10,6 +10,10 @@ export const IMPORT_CONCURRENCY = {
 } as const;
 
 export const IMAGE_VARIANTS = {
+  // A locally stored, orientation-corrected master lets the video exporter use
+  // real 4K source detail. It is still bounded so a browser import cannot turn
+  // into unbounded original-file retention.
+  original: { longestEdge: 4096, quality: 0.92 },
   preview: { longestEdge: 1600, quality: 0.84 },
   thumbnail: { longestEdge: 512, quality: 0.8 },
   micro: { longestEdge: 64, quality: 0.72 },

@@ -7,6 +7,7 @@ import {
   formatMemoryDate,
   placeName,
 } from '../universe/formatMemory';
+import { useAssetImageUrl } from '../archive/useAssetImageUrl';
 
 export function MemoryDiveOverlay(): ReactNode {
   const dataset = useSceneStore((state) => state.dataset);
@@ -17,6 +18,7 @@ export function MemoryDiveOverlay(): ReactNode {
   const requestMemory = useSceneStore((state) => state.requestMemory);
   const requestUniverse = useSceneStore((state) => state.requestUniverse);
   const memory = dataset?.memories.find((candidate) => candidate.id === activeMemoryId);
+  const imageUrl = useAssetImageUrl(memory?.assetKeys.thumbnail ?? '');
   const echoes = useMemo(() => {
     if (!activeMemoryId || !dataset) return [];
     return rankEchoCandidates(activeMemoryId, relationships, echoPath, 5)
@@ -60,6 +62,10 @@ export function MemoryDiveOverlay(): ReactNode {
       <button type="button" className="memory-return" onClick={requestUniverse}>
         <span aria-hidden="true">←</span> 返回记忆宇宙
       </button>
+      <figure className="memory-dive__image">
+        {imageUrl ? <img src={imageUrl} alt={memory.title} decoding="async" /> : <span role="status">正在读取照片…</span>}
+        <figcaption>{formatMemoryDate(memory, true)} · {placeName(memory, dataset)}</figcaption>
+      </figure>
       <section className="memory-copy">
         <p className="memory-kicker">
           {formatMemoryDate(memory, true)} · {placeName(memory, dataset)}

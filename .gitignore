@@ -11,3 +11,15 @@ coverage/
 .env
 .env.*
 !.env.example
+
+# Local QA captures and Codex/browser working artifacts. These are not product
+# source, demo assets, or portfolio evidence intended for the public repository.
+.codex-artifacts/
+.codex-*.png
+.playwright-cli/
+.tmp/
+artifacts/
+qa-audit-*/
+qa-*.png
+build-output.txt
+lint-output.txt

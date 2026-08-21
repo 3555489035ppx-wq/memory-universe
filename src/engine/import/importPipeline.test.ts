@@ -74,6 +74,24 @@ async function derived(options?: DeriveImagesOptions): Promise<DerivedImageSet> 
   };
 }
 
+async function derivedWith4kMaster(options?: DeriveImagesOptions): Promise<DerivedImageSet> {
+  const base = await derived(options);
+  await options?.onVariant?.('original', 4, 4);
+  return {
+    ...base,
+    images: [
+      {
+        variant: 'original',
+        blob: new Blob(['4k-master'], { type: 'image/webp' }),
+        mime: 'image/webp',
+        width: 4096,
+        height: 2731,
+      },
+      ...base.images,
+    ],
+  };
+}
+
 function dependencies(
   overrides: Partial<ImportPipelineDependencies> = {},
 ): Partial<ImportPipelineDependencies> {
@@ -169,6 +187,25 @@ describe('runImportBatch', () => {
         status: 'failed',
         error: expect.objectContaining({ code: 'IMAGE_DECODE_FAILED' }),
       }),
+    );
+  });
+
+  it('connects a retained 4K local master to the memory asset keys for video export', async () => {
+    const save = vi.fn<ImportPipelineDependencies['saveMemoryBundle']>(() => Promise.resolve());
+    const result = await runImportBatch([request('master')], {
+      dependencies: dependencies({
+        deriveImages: vi.fn<ImportPipelineDependencies['deriveImages']>((canvas, options) => {
+          void canvas;
+          return derivedWith4kMaster(options);
+        }),
+        saveMemoryBundle: save,
+      }),
+    });
+    expect(result.successCount).toBe(1);
+    const [memory, assets] = save.mock.calls[0] ?? [];
+    expect(memory?.assetKeys.original).toBe('personal:personal-memory-uuid:original');
+    expect(assets?.find((asset) => asset.variant === 'original')).toEqual(
+      expect.objectContaining({ width: 4096, height: 2731 }),
     );
   });
 

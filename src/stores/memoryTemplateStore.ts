@@ -50,6 +50,22 @@ export const useMemoryTemplateStore = create<MemoryTemplateState>((set, get) => 
   session: null,
   prepare: ({ templateId, source, memoryIds, heroPhotoId, overrides }) => {
     const config = getMemoryTemplate(templateId);
+    if (!config.available) {
+      set({
+        session: {
+          templateId,
+          source,
+          memoryIds: [],
+          heroPhotoId: null,
+          status: 'error',
+          progress: 0,
+          startedAt: null,
+          error: '该主题正在开发中，未来将支持更多AI记忆场景。',
+          ...(overrides ? { overrides } : {}),
+        },
+      });
+      return;
+    }
     const selected = [...new Set(memoryIds)].slice(0, config.maxPhotos);
     if (selected.length < config.minPhotos) {
       set({
@@ -101,7 +117,16 @@ export const useMemoryTemplateStore = create<MemoryTemplateState>((set, get) => 
   seek: (progress) => {
     const session = get().session;
     if (!session) return;
-    set({ session: { ...session, progress: clampProgress(progress), status: session.status === 'completed' ? 'paused' : session.status } });
+    const nextProgress = clampProgress(progress);
+    set({
+      session: {
+        ...session,
+        progress: nextProgress,
+        status: session.status === 'completed'
+          ? nextProgress >= 1 ? 'completed' : 'paused'
+          : session.status,
+      },
+    });
   },
   complete: () => {
     const session = get().session;

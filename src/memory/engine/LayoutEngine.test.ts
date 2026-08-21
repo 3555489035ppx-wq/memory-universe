@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import type { Memory } from '../../domain/memory';
 import { getMemoryTemplate } from '../config';
 import { layoutEngine } from './LayoutEngine';
+import { dimensions } from '../layouts/shared';
 
 function memory(id: string, index: number): Memory {
   return {
@@ -47,11 +48,57 @@ describe('template layout engine', () => {
     }
   });
 
-  it('keeps the high-school orbit hero in front of the orbit', () => {
+  it('reserves the chosen hero for the opening instead of pinning it across every layout', () => {
     const config = getMemoryTemplate('high-school');
     const heroId = memories[8]?.id ?? null;
     const orbit = layoutEngine.prepare(config, memories, heroId).orbit[heroId ?? ''];
     expect(orbit).toBeDefined();
-    expect(orbit?.position).toEqual([0, 0.15, 1.6]);
+    expect(orbit?.position).not.toEqual([0, 0.15, 1.6]);
+    const spotlight = layoutEngine.prepare(config, memories, heroId).spotlight[heroId ?? ''];
+    expect(spotlight?.position[2]).toBeGreaterThan(2);
+    expect(spotlight?.scale).toBeGreaterThan(1.55);
+    expect(spotlight?.scale).toBeLessThan(1.75);
+  });
+
+  it('preserves wide, square and portrait ratios at comparable visual area', () => {
+    const base = memories[0];
+    if (!base) throw new Error('Expected a fixture memory.');
+    const candidates = [
+      { ...base, width: 900, height: 1600 },
+      { ...base, width: 800, height: 1000 },
+      { ...base, width: 1000, height: 1000 },
+      { ...base, width: 1500, height: 1000 },
+      { ...base, width: 1600, height: 900 },
+      { ...base, width: 3000, height: 1000 },
+    ];
+
+    for (const candidate of candidates) {
+      const [width, height] = dimensions(candidate);
+      expect(width * height).toBeCloseTo(1, 6);
+      expect(width / height).toBeCloseTo(candidate.width / candidate.height, 6);
+    }
+  });
+
+  it('keeps the complete photo group large enough to read without one oversized hero', () => {
+    const config = getMemoryTemplate('high-school');
+    const prepared = layoutEngine.prepare(config, memories, memories[8]?.id ?? null);
+    const storyLayouts = ['wave', 'deck', 'orbit', 'galaxy', 'scattered', 'ribbon', 'cascade', 'gravity', 'mosaic'] as const;
+
+    for (const layout of storyLayouts) {
+      const transforms = Object.values(prepared[layout]);
+      const averageScale = transforms.reduce((total, candidate) => total + candidate.scale, 0) / transforms.length;
+      expect(averageScale, layout).toBeGreaterThan(0.84);
+    }
+  });
+
+  it('creates distinct volumetric geometric silhouettes for the new shape scenes', () => {
+    const config = getMemoryTemplate('high-school');
+    const prepared = layoutEngine.prepare(config, memories, memories[8]?.id ?? null);
+    for (const layout of ['sphere', 'star', 'torus', 'prism'] as const) {
+      const transforms = Object.values(prepared[layout]);
+      expect(transforms).toHaveLength(memories.length);
+      expect(new Set(transforms.map((candidate) => candidate.position[2].toFixed(3))).size, layout).toBeGreaterThan(3);
+      expect(new Set(transforms.map((candidate) => candidate.rotation[1].toFixed(3))).size, layout).toBeGreaterThan(4);
+    }
   });
 });

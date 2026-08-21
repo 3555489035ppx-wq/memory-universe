@@ -16,6 +16,45 @@ export interface LayoutInput {
 
 export type LayoutPositions = Record<string, Vec3>;
 
+/**
+ * Keep a generated spatial layout aligned to the camera's visual axis.
+ *
+ * Layouts are intentionally allowed to have their own shape and depth. The
+ * horizontal visual centroid, however, should not move the whole memory
+ * constellation away from the center of the scene when a small personal
+ * dataset happens to occupy only one side of the generated path.
+ */
+export function centerLayoutHorizontally(positions: LayoutPositions): LayoutPositions {
+  const entries = Object.entries(positions);
+  if (entries.length === 0) return positions;
+
+  const offset = entries.reduce((sum, [, position]) => sum + position[0], 0) / entries.length;
+  if (!Number.isFinite(offset) || Math.abs(offset) < Number.EPSILON) return positions;
+
+  return Object.fromEntries(
+    entries.map(([id, position]) => [
+      id,
+      finiteVec3([position[0] - offset, position[1], position[2]]),
+    ]),
+  );
+}
+
+/** Keep the visible memory field balanced on the vertical scene axis too. */
+export function centerLayoutVertically(positions: LayoutPositions): LayoutPositions {
+  const entries = Object.entries(positions);
+  if (entries.length === 0) return positions;
+
+  const offset = entries.reduce((sum, [, position]) => sum + position[1], 0) / entries.length;
+  if (!Number.isFinite(offset) || Math.abs(offset) < Number.EPSILON) return positions;
+
+  return Object.fromEntries(
+    entries.map(([id, position]) => [
+      id,
+      finiteVec3([position[0], position[1] - offset, position[2]]),
+    ]),
+  );
+}
+
 export function stableHash(value: string, seed = 0): number {
   let hash = 2_166_136_261 ^ seed;
   for (let index = 0; index < value.length; index += 1) {

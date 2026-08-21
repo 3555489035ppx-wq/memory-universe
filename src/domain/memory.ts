@@ -53,3 +53,18 @@ export function normalizeTags(tags: readonly string[]): string[] {
     (left, right) => left.localeCompare(right, 'zh-CN'),
   );
 }
+
+/** Reserved local metadata used only by the personal cinematic template. */
+export const PERSONAL_OPENING_HERO_TAG = '模板开场照片';
+
+export function isPersonalOpeningHero(memory: Memory): boolean {
+  return memory.source === 'personal' && memory.tags.includes(PERSONAL_OPENING_HERO_TAG);
+}
+
+export function withPersonalOpeningHeroTag(memory: Memory, selected: boolean): Memory {
+  const editableTags = memory.tags.filter((tag) => tag !== PERSONAL_OPENING_HERO_TAG);
+  return {
+    ...memory,
+    tags: normalizeTags(selected ? [...editableTags, PERSONAL_OPENING_HERO_TAG] : editableTags),
+  };
+}

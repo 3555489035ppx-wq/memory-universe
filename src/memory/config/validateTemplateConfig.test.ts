@@ -11,6 +11,8 @@ describe('memory template registry', () => {
       expect(template.phases[0]?.start).toBe(0);
       expect(template.phases.at(-1)?.end).toBe(1);
       expect(template.phases.map((phase) => phase.layout)).not.toHaveLength(0);
+      expect(template.minPhotos).toBe(24);
+      expect(template.maxPhotos).toBe(96);
     }
   });
 

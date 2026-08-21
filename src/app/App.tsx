@@ -47,11 +47,20 @@ class AppErrorBoundary extends Component<{ children: ReactNode }, ErrorBoundaryS
 }
 
 export function App(): ReactNode {
+  const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || undefined;
+  const router = basename ? (
+    <BrowserRouter basename={basename}>
+      <AppShell />
+    </BrowserRouter>
+  ) : (
+    <BrowserRouter>
+      <AppShell />
+    </BrowserRouter>
+  );
+
   return (
     <AppErrorBoundary>
-      <BrowserRouter>
-        <AppShell />
-      </BrowserRouter>
+      {router}
     </AppErrorBoundary>
   );
 }

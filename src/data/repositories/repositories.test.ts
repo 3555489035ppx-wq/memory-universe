@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import type { Constellation } from '../../domain/constellation';
+import { PERSONAL_OPENING_HERO_TAG } from '../../domain/memory';
 import type { Person } from '../../domain/person';
 import type { Place } from '../../domain/place';
 import { createMemoryFixture } from '../../test/fixtures/memoryFixture';
@@ -8,7 +9,7 @@ import { deleteMementoDatabase, getDatabase } from '../db';
 import type { AssetRecord } from '../schema';
 import { saveConstellation } from './constellationRepository';
 import { getCachedLayout, saveCachedLayout } from './layoutRepository';
-import { deleteMemory, getAsset, getMemory, saveMemoryBundle } from './memoryRepository';
+import { deleteMemory, getAsset, getMemory, saveMemoryBundle, updateMemory } from './memoryRepository';
 import { deletePerson, savePerson } from './peopleRepository';
 import { deletePlace, savePlace } from './placesRepository';
 
@@ -122,5 +123,25 @@ describe('IndexedDB repositories', () => {
 
     expect((await getMemory(memory.id))?.personIds).toEqual([]);
     expect((await getMemory(memory.id))?.placeId).toBeNull();
+  });
+
+  it('keeps exactly one opening hero marker among personal memories', async () => {
+    const first = createMemoryFixture({
+      id: 'personal-first',
+      source: 'personal',
+      tags: [PERSONAL_OPENING_HERO_TAG],
+    });
+    const second = createMemoryFixture({ id: 'personal-second', source: 'personal' });
+    await saveMemoryBundle(first, []);
+    await saveMemoryBundle(second, []);
+
+    await updateMemory({
+      ...second,
+      tags: [PERSONAL_OPENING_HERO_TAG],
+      updatedAt: '2026-08-12T12:00:00.000Z',
+    });
+
+    expect((await getMemory(first.id))?.tags).not.toContain(PERSONAL_OPENING_HERO_TAG);
+    expect((await getMemory(second.id))?.tags).toContain(PERSONAL_OPENING_HERO_TAG);
   });
 });

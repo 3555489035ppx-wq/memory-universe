@@ -2,15 +2,18 @@ import {
   CameraControls as DreiCameraControls,
   type CameraControls as CameraControlsInstance,
 } from '@react-three/drei';
-import { useThree } from '@react-three/fiber';
-import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { PerspectiveCamera, Vector3 } from 'three';
 
 import { useSceneStore } from '../stores/sceneStore';
 import { useMemoryTemplateStore } from '../stores/memoryTemplateStore';
 import { useSettingsStore } from '../stores/settingsStore';
-import { getMemoryTemplate } from '../memory/config';
+import { useMusicStore } from '../stores/musicStore';
+import { getMemoryTemplate, resolveTemplateConfig } from '../memory/config';
 import { cameraPoseForProgress } from '../memory/engine/CameraDirector';
+import { ContinuousTimelineProgress } from '../memory/engine/ContinuousTimelineProgress';
+import { buildSongTimelineConfig } from '../memory/engine/SongTimeline';
 import { useSceneLayout } from './useSceneLayout';
 import {
   CameraPoseStack,
@@ -58,9 +61,25 @@ export function CameraRig(): ReactNode {
   const motionSetting = useSettingsStore((state) => state.settings.motion);
   const templateId = useMemoryTemplateStore((state) => state.session?.templateId ?? null);
   const templateHeroPhotoId = useMemoryTemplateStore((state) => state.session?.heroPhotoId ?? null);
-  const templateProgressBucket = useMemoryTemplateStore((state) =>
-    state.session ? Math.round(state.session.progress * 20) : -1,
+  const templateProgress = useMemoryTemplateStore((state) => state.session?.progress ?? 0);
+  const templateStatus = useMemoryTemplateStore((state) => state.session?.status ?? 'idle');
+  const templateOverrides = useMemoryTemplateStore((state) => state.session?.overrides);
+  const musicTrack = useMusicStore((state) => state.track);
+  const musicDuration = useMusicStore((state) => state.duration);
+  const baseTemplateConfig = useMemo(
+    () => (templateId ? resolveTemplateConfig(getMemoryTemplate(templateId), templateOverrides) : null),
+    [templateId, templateOverrides],
   );
+  const musicCueStart = musicTrack?.id ? templateOverrides?.songCueMap?.[musicTrack.id] ?? 0 : 0;
+  const templateDuration = musicDuration > musicCueStart
+    ? musicDuration - musicCueStart
+    : baseTemplateConfig?.durationSeconds ?? 0;
+  const templateConfig = useMemo(
+    () => (baseTemplateConfig ? buildSongTimelineConfig(baseTemplateConfig, templateDuration) : null),
+    [baseTemplateConfig, templateDuration],
+  );
+  const templateProgressDriver = useRef(new ContinuousTimelineProgress(0, 1));
+  const templateCameraRef = useRef<PerspectiveCamera | null>(null);
   const machine = useRef(new CameraStateMachine());
   const poses = useRef(new CameraPoseStack());
   const previousMode = useRef(mode);
@@ -72,6 +91,48 @@ export function CameraRig(): ReactNode {
   }, []);
 
   useEffect(() => {
+    const syncedProgress = useMemoryTemplateStore.getState().session?.progress ?? 0;
+    templateProgressDriver.current = new ContinuousTimelineProgress(
+      syncedProgress,
+      1 / Math.max(1, templateConfig?.durationSeconds ?? 1),
+      performance.now() / 1000,
+    );
+  }, [templateConfig?.durationSeconds, templateId]);
+
+  useEffect(() => {
+    templateProgressDriver.current.sync(templateProgress, templateStatus === 'playing', performance.now() / 1000);
+  }, [templateProgress, templateStatus]);
+
+  useEffect(() => {
+    templateCameraRef.current = camera instanceof PerspectiveCamera ? camera : null;
+  }, [camera]);
+
+  useFrame((_, delta) => {
+    const controls = controlsRef.current;
+    if (!controls || !templateConfig || !templateId || (mode !== 'universe' && mode !== 'constellation')) return;
+    const progress = templateProgressDriver.current.advance(performance.now() / 1000, delta);
+    const pose = cameraPoseForProgress(templateConfig, progress, templateHeroPhotoId);
+    const templateCamera = templateCameraRef.current;
+    if (templateCamera && Math.abs(templateCamera.fov - pose.fov) > 0.01) {
+      // Keep the live preview's projection identical to the deterministic
+      // export camera. Previously only position/target changed, so portrait
+      // previews were zoomed differently from the 4K render.
+      templateCamera.fov = pose.fov;
+      templateCamera.updateProjectionMatrix();
+    }
+    controls.enabled = false;
+    void controls.setLookAt(
+      pose.position[0],
+      pose.position[1],
+      pose.position[2],
+      pose.target[0],
+      pose.target[1],
+      pose.target[2],
+      false,
+    );
+  });
+
+  useEffect(() => {
     const controls = controlsRef.current;
     if (!controls || !(camera instanceof PerspectiveCamera)) return;
     const stateMachine = machine.current;
@@ -80,8 +141,8 @@ export function CameraRig(): ReactNode {
     const priorActive = previousActive.current;
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const reduced = motionSetting === 'reduced' || prefersReduced;
-    controls.smoothTime = reduced ? 0.2 : 0.82;
-    controls.draggingSmoothTime = reduced ? 0.08 : 0.18;
+    controls.smoothTime = reduced ? 0.16 : 0.32;
+    controls.draggingSmoothTime = reduced ? 0.04 : 0.045;
     let cancelled = false;
 
     const run = async (): Promise<void> => {
@@ -126,17 +187,15 @@ export function CameraRig(): ReactNode {
         let nextFocused = focusedMemoryId;
         let fallback: CameraState = 'navigating';
 
-        if (templateId && templateProgressBucket >= 0) {
-          const config = getMemoryTemplate(templateId);
-          const templatePose = cameraPoseForProgress(
-            config,
-            templateProgressBucket / 20,
-            templateHeroPhotoId,
-          );
-          position = new Vector3(...templatePose.position);
-          target = new Vector3(...templatePose.target);
-          fallback = 'navigating';
-        } else if (priorMode === 'memory') {
+        if (templateId) {
+          previousMode.current = mode;
+          previousActive.current = activeMemoryId;
+          setCameraState('navigating');
+          controls.enabled = false;
+          return;
+        }
+
+        if (priorMode === 'memory') {
           const restored = poseStack.pop();
           if (restored) {
             position = new Vector3(...restored.position);
@@ -208,9 +267,7 @@ export function CameraRig(): ReactNode {
     motionSetting,
     scenePositions,
     setCameraState,
-    templateHeroPhotoId,
     templateId,
-    templateProgressBucket,
     view,
   ]);
 
@@ -222,8 +279,8 @@ export function CameraRig(): ReactNode {
       maxDistance={28}
       minPolarAngle={Math.PI * 0.18}
       maxPolarAngle={Math.PI * 0.82}
-      dollySpeed={0.45}
-      truckSpeed={0.6}
+      dollySpeed={0.5}
+      truckSpeed={0.7}
       enabled={mode === 'universe' || mode === 'constellation'}
     />
   );

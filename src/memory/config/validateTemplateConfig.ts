@@ -18,6 +18,15 @@ export function validateTemplateConfig(config: MemoryTemplateConfig): void {
     if (phase.start !== previousEnd || phase.end <= phase.start) {
       throw new Error(`Template phases overlap or have gaps: ${config.id}`);
     }
+    if (phase.visibleCount !== undefined && (!Number.isInteger(phase.visibleCount) || phase.visibleCount < 1)) {
+      throw new Error(`Template phase has an invalid visible count: ${config.id}/${phase.id}`);
+    }
+    if (phase.stagger !== undefined && (phase.stagger < 0 || phase.stagger >= 1)) {
+      throw new Error(`Template phase has an invalid stagger: ${config.id}/${phase.id}`);
+    }
+    if (phase.settleAt !== undefined && (phase.settleAt <= 0 || phase.settleAt > 1)) {
+      throw new Error(`Template phase has an invalid settle point: ${config.id}/${phase.id}`);
+    }
     previousEnd = phase.end;
   }
 }

@@ -49,6 +49,7 @@ export function MemoryNode({
   const group = useRef<Group>(null);
   const material = useRef<MeshBasicMaterial>(null);
   const currentPosition = useRef(new Vector3(...target));
+  const destination = useRef(new Vector3(...target));
   const [lod, setLod] = useState<MemoryLod>(emphasis === 'active' ? 'focus' : 'far');
   const quality = useSettingsStore((state) => state.effectiveQuality);
   const motion = useSettingsStore((state) => state.settings.motion);
@@ -82,11 +83,17 @@ export function MemoryNode({
 
   useFrame(({ camera }, delta) => {
     if (!group.current) return;
-    const destination = new Vector3(...target);
+    destination.current.set(
+      target[0],
+      target[1],
+      target[2],
+    );
     const duration = motion === 'reduced' ? 0.2 : 0.78;
-    currentPosition.current.lerp(destination, 1 - Math.exp(-delta / duration));
+    currentPosition.current.lerp(destination.current, 1 - Math.exp(-delta / duration));
     group.current.position.copy(currentPosition.current);
-    const targetScale = collapsed ? 0.22 : scaleForEmphasis(emphasis);
+    const targetScale = collapsed
+      ? 0.22
+      : scaleForEmphasis(emphasis);
     const scaleDuration = motion === 'reduced' ? 0.16 : 0.42;
     const scale = MathUtils.damp(group.current.scale.x, targetScale, 1 / scaleDuration, delta);
     group.current.scale.setScalar(scale);
@@ -99,7 +106,9 @@ export function MemoryNode({
     if (material.current) {
       material.current.opacity = MathUtils.damp(
         material.current.opacity,
-        collapsed ? 0.72 : opacityForEmphasis(emphasis),
+        collapsed
+          ? 0.72
+          : opacityForEmphasis(emphasis),
         motion === 'reduced' ? 8 : 3.4,
         delta,
       );
@@ -136,17 +145,6 @@ export function MemoryNode({
           transparent
           side={DoubleSide}
           depthWrite={emphasis === 'active'}
-          toneMapped={false}
-        />
-      </mesh>
-      <mesh position={[0, 0, -0.006]} rotation={[0, Math.PI, 0]}>
-        <planeGeometry args={[width, height]} />
-        <meshBasicMaterial
-          map={displayTexture}
-          color={displayTexture ? '#f4eee3' : color}
-          opacity={collapsed ? 0.72 : opacityForEmphasis(emphasis)}
-          transparent
-          side={DoubleSide}
           toneMapped={false}
         />
       </mesh>

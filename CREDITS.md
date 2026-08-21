@@ -19,12 +19,13 @@
 | exifreader                             | EXIF/GPS 元数据读取               | [exifreader LICENSE](https://github.com/mattiasw/ExifReader/blob/master/LICENSE)          |
 | pica / fast-average-color              | 浏览器端缩放与主色提取            | 各自仓库的 MIT 声明                                                                       |
 | Zustand                                | 运行时状态                        | [Zustand LICENSE](https://github.com/pmndrs/zustand/blob/main/LICENSE)                    |
+| class-variance-authority                 | GlassButton 尺寸与强度 variants    | [class-variance-authority LICENSE](https://github.com/joe-bell/cva/blob/main/packages/class-variance-authority/LICENSE) |
 
 完整依赖清单和锁定版本请以 `package.json` 为准；项目没有复制这些依赖的源代码。
 
 ## Demo 照片
 
-Demo 使用 60 张本地化的 CC0 图片。图片通过 Openverse 索引人工筛选后下载、裁剪为 `micro` / `thumbnail` / `preview` 三档，并随静态构建发布；运行时不请求原始远程地址。
+Demo 使用 96 张本地化的 CC0 图片。图片通过 Openverse 与 GitHub CC0 摄影素材人工筛选后下载、裁剪为 `micro` / `thumbnail` / `preview` 三档，并随静态构建发布；运行时不请求原始远程地址。
 
 - 机器可读的逐图来源、作者、提供方、原始页面、许可证和下载日期：`public/demo/demo-asset-credits.json`
 - 本地 Demo 数据：`public/demo/demo-memories.json`
@@ -37,6 +38,14 @@ Demo 使用 60 张本地化的 CC0 图片。图片通过 Openverse 索引人工�
 2. 复制或改写源码、Shader、算法或示例时记录上游文件、固定 commit、对应 MEMENTO 文件和修改说明。
 3. 代码许可证不自动覆盖照片、字体、图标、模型、HDR、音频等资产；每类资产单独核验。
 4. 任何素材替换都必须同步更新 `demo-asset-credits.json`，不得只更新展示图或文档。
+
+## 2026-08-09 演示照片扩充
+
+- 演示宇宙由 60 张扩充为 96 张本地化照片；新增的 36 张只用于演示数据，不会混入用户的个人记忆。
+- 新增照片来自 [gianni-rosato/gb82-image-set](https://github.com/gianni-rosato/gb82-image-set) 的 `png` 摄影子集，其中 16 张是项目内对 CC0 源图做的镜像、色彩和构图变体。
+- GB82 仓库声明全部图像采用 [CC0 1.0](https://github.com/gianni-rosato/gb82-image-set/blob/main/LICENSE)。项目排除了其中的屏幕内容和渲染图，只使用摄影内容。
+- 每张照片的本地路径、GitHub 原始地址与许可证记录均保存在 `public/demo/demo-asset-credits.json`。
+- 高中回忆 Demo 的默认音乐 `public/demo/demo-soundtrack.wav` 是项目内按固定种子生成的无版权氛围音轨，只用于本地演示、播放和导出回路，不依赖第三方账号或远程音频。
 
 ## Memory Template System
 

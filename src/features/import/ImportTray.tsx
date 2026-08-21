@@ -151,8 +151,14 @@ export function ImportTray(): ReactNode {
     setRows((current) => {
       const existing = new Set(current.map((row) => fileFingerprint(row.request.file)));
       const uniqueFiles = files.filter((file) => !existing.has(fileFingerprint(file)));
+      const completedRemoved = current.filter((row) => row.status !== 'done');
+      const nextBase =
+        current.length + uniqueFiles.length > MAX_IMPORT_FILES &&
+        completedRemoved.length + uniqueFiles.length <= MAX_IMPORT_FILES
+          ? completedRemoved
+          : current;
       try {
-        validateBatchSize(current.length + uniqueFiles.length);
+        validateBatchSize(nextBase.length + uniqueFiles.length);
       } catch (error) {
         setSelectionError(
           error instanceof ImportValidationError
@@ -171,7 +177,7 @@ export function ImportTray(): ReactNode {
           ...(error ? { error } : {}),
         };
       });
-      return [...current, ...incoming];
+      return [...nextBase, ...incoming];
     });
   }, []);
 
@@ -263,6 +269,14 @@ export function ImportTray(): ReactNode {
     abortControllerRef.current?.abort();
     announce('正在取消未完成的照片处理。');
   };
+
+  const clearCompleted = useCallback(() => {
+    setRows((current) => current.filter((row) => row.status !== 'done'));
+    setSummary(null);
+    setSelectionError(null);
+    setPersistence('idle');
+    announce('已清除本批次完成项，可以继续导入照片。');
+  }, [announce]);
 
   const requestPersistence = async () => {
     setPersistence('requesting');
@@ -449,6 +463,16 @@ export function ImportTray(): ReactNode {
             {running ? (
               <button className="secondary-action" onClick={cancelImport} type="button">
                 取消未完成项
+              </button>
+            ) : null}
+            {successful > 0 && !running ? (
+              <button
+                className="secondary-action"
+                data-testid="clear-completed-imports"
+                onClick={clearCompleted}
+                type="button"
+              >
+                清除已完成
               </button>
             ) : null}
             {successful > 0 && !running ? (

@@ -5,6 +5,8 @@ export function applyEasing(value: number, easing: TimelinePhase['easing'] = 'ea
   if (easing === 'linear') return t;
   if (easing === 'ease-in') return t * t;
   if (easing === 'ease-out') return 1 - (1 - t) ** 2;
+  if (easing === 'cinematic') return t * t * t * (t * (t * 6 - 15) + 10);
+  if (easing === 'expo-out') return t >= 1 ? 1 : 1 - 2 ** (-10 * t);
   return t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2;
 }
 

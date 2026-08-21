@@ -5,7 +5,7 @@ import { IMAGE_VARIANTS } from './importLimits';
 import { disposeCanvas } from './normalizeOrientation';
 
 export interface DerivedImage {
-  variant: Exclude<AssetVariant, 'original'>;
+  variant: AssetVariant;
   blob: Blob;
   mime: string;
   width: number;
@@ -22,7 +22,7 @@ export interface DeriveImagesOptions {
   signal?: AbortSignal;
   preserveTransparency?: boolean;
   onVariant?: (
-    variant: DerivedImage['variant'],
+    variant: AssetVariant,
     completed: number,
     total: number,
   ) => void | Promise<void>;
@@ -84,7 +84,7 @@ export async function deriveImages(
   options: DeriveImagesOptions = {},
 ): Promise<DerivedImageSet> {
   const variants = Object.entries(IMAGE_VARIANTS) as Array<
-    [DerivedImage['variant'], (typeof IMAGE_VARIANTS)[keyof typeof IMAGE_VARIANTS]]
+    [AssetVariant, (typeof IMAGE_VARIANTS)[keyof typeof IMAGE_VARIANTS]]
   >;
   const images: DerivedImage[] = [];
   const createdCanvases: HTMLCanvasElement[] = [];

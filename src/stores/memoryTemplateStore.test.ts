@@ -7,8 +7,9 @@ describe('memory template store', () => {
 
   it('prepares a real session and runs preview, pause, seek, replay and exit', () => {
     const store = useMemoryTemplateStore.getState();
-    store.prepare({ templateId: 'high-school', source: 'demo', memoryIds: ['a', 'b', 'c'] });
-    expect(useMemoryTemplateStore.getState().session).toMatchObject({ status: 'preview', memoryIds: ['a', 'b', 'c'], heroPhotoId: 'b' });
+    const memoryIds = Array.from({ length: 24 }, (_, index) => `memory-${String(index)}`);
+    store.prepare({ templateId: 'high-school', source: 'demo', memoryIds });
+    expect(useMemoryTemplateStore.getState().session).toMatchObject({ status: 'preview', memoryIds, heroPhotoId: 'memory-12' });
 
     store.start();
     expect(useMemoryTemplateStore.getState().session?.status).toBe('playing');
@@ -17,6 +18,9 @@ describe('memory template store', () => {
     expect(useMemoryTemplateStore.getState().session).toMatchObject({ status: 'paused', progress: 0.28 });
     store.seek(0.75);
     expect(useMemoryTemplateStore.getState().session?.progress).toBe(0.75);
+    store.complete();
+    store.seek(1);
+    expect(useMemoryTemplateStore.getState().session).toMatchObject({ status: 'completed', progress: 1 });
     store.replay();
     expect(useMemoryTemplateStore.getState().session).toMatchObject({ status: 'playing', progress: 0 });
     store.exit();

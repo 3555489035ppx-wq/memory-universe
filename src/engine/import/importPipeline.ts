@@ -27,6 +27,7 @@ export type ImportProgressStage =
   | 'metadata'
   | 'decoding'
   | 'orientation'
+  | 'master'
   | 'preview'
   | 'thumbnail'
   | 'micro'
@@ -116,6 +117,7 @@ const STAGE_DETAILS: Readonly<
   metadata: { progress: 0.08, message: '读取照片信息', jobStage: 'parsing' },
   decoding: { progress: 0.2, message: '解码照片', jobStage: 'parsing' },
   orientation: { progress: 0.32, message: '校正照片方向', jobStage: 'resizing' },
+  master: { progress: 0.42, message: '生成 4K 本地母片', jobStage: 'resizing' },
   preview: { progress: 0.5, message: '生成预览图', jobStage: 'resizing' },
   thumbnail: { progress: 0.65, message: '生成缩略图', jobStage: 'resizing' },
   micro: { progress: 0.78, message: '生成空间节点图', jobStage: 'resizing' },
@@ -229,6 +231,7 @@ function createMemory(
   memoryId: string,
 ): Memory {
   const imageByVariant = new Map(derived.images.map((image) => [image.variant, image]));
+  const original = imageByVariant.get('original');
   const preview = imageByVariant.get('preview');
   if (!preview) throw new Error('PREVIEW_VARIANT_MISSING');
   return {
@@ -248,6 +251,7 @@ function createMemory(
       micro: `personal:${memoryId}:micro`,
       thumbnail: `personal:${memoryId}:thumbnail`,
       preview: `personal:${memoryId}:preview`,
+      ...(original ? { original: `personal:${memoryId}:original` } : {}),
     },
     width: preview.width,
     height: preview.height,
@@ -336,7 +340,7 @@ async function processRequest(
     derived = await dependencies.deriveImages(normalizedCanvas, {
       ...(options.signal ? { signal: options.signal } : {}),
       preserveTransparency: kind === 'png',
-      onVariant: (variant) => report(variant),
+      onVariant: (variant) => report(variant === 'original' ? 'master' : variant),
     });
     await report('color');
     const dominantColor = dependencies.extractDominantColor(derived.microCanvas);

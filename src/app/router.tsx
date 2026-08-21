@@ -33,6 +33,9 @@ const UniverseHUD = lazy(() =>
 const InfoPage = lazy(() =>
   import('../features/info/InfoPage').then(({ InfoPage: component }) => ({ default: component })),
 );
+const GlassLab = lazy(() =>
+  import('../features/dev/GlassLab').then(({ GlassLab: component }) => ({ default: component })),
+);
 
 function EntryOverlay(): ReactNode {
   const [personalCount, setPersonalCount] = useState(0);
@@ -63,9 +66,11 @@ function EntryOverlay(): ReactNode {
               Memuniverse
             </h1>
             <p className="entry-launch__cn">记忆宇宙</p>
-            <Link className="entry-launch__enter" to={entryDestination}>
-              点击进入
-            </Link>
+            <div className="entry-launch__actions">
+              <Link className="entry-launch__enter" to={entryDestination}>
+                点击进入
+              </Link>
+            </div>
           </div>
           <span className="entry-launch__rule" aria-hidden="true" />
         </div>
@@ -106,6 +111,7 @@ export function RouteOverlays(): ReactNode {
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/about" element={<InfoPage />} />
         <Route path="/privacy" element={<InfoPage />} />
+        {import.meta.env.DEV && <Route path="/dev/glass" element={<GlassLab />} />}
         <Route path="/home" element={<Navigate replace to="/" />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

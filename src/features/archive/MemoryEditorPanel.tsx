@@ -3,8 +3,14 @@ import { useEffect, useRef, useState, type ReactNode, type SyntheticEvent } from
 import { deletePerson, savePerson } from '../../data/repositories/peopleRepository';
 import { deletePlace, savePlace } from '../../data/repositories/placesRepository';
 import { updateMemory } from '../../data/repositories/memoryRepository';
-import type { Memory, Mood } from '../../domain/memory';
-import { normalizeTags } from '../../domain/memory';
+import {
+  isPersonalOpeningHero,
+  normalizeTags,
+  PERSONAL_OPENING_HERO_TAG,
+  withPersonalOpeningHeroTag,
+  type Memory,
+  type Mood,
+} from '../../domain/memory';
 import type { Person } from '../../domain/person';
 import type { Place } from '../../domain/place';
 
@@ -36,12 +42,14 @@ export function MemoryEditorPanel({
   onPeopleChanged,
   onPlacesChanged,
 }: MemoryEditorPanelProps): ReactNode {
+  const editableMemoryTags = memory.tags.filter((tag) => tag !== PERSONAL_OPENING_HERO_TAG);
   const [title, setTitle] = useState(memory.title);
   const [capturedAt, setCapturedAt] = useState(memory.capturedAt?.slice(0, 16) ?? '');
   const [placeId, setPlaceId] = useState(memory.placeId ?? '');
   const [personIds, setPersonIds] = useState(memory.personIds);
   const [mood, setMood] = useState<Mood>(memory.mood);
-  const [tags, setTags] = useState(memory.tags.join('，'));
+  const [tags, setTags] = useState(editableMemoryTags.join('，'));
+  const [openingHero, setOpeningHero] = useState(isPersonalOpeningHero(memory));
   const [description, setDescription] = useState(memory.description);
   const [newPersonName, setNewPersonName] = useState('');
   const [newPlaceName, setNewPlaceName] = useState('');
@@ -56,7 +64,8 @@ export function MemoryEditorPanel({
     placeId !== (memory.placeId ?? '') ||
     personIds.join('|') !== memory.personIds.join('|') ||
     mood !== memory.mood ||
-    tags !== memory.tags.join('，') ||
+    tags !== editableMemoryTags.join('，') ||
+    openingHero !== isPersonalOpeningHero(memory) ||
     description !== memory.description;
 
   useEffect(() => {
@@ -86,7 +95,7 @@ export function MemoryEditorPanel({
       setStatus('拍摄时间格式不正确。');
       return;
     }
-    const updated: Memory = {
+    const updated = withPersonalOpeningHeroTag({
       ...memory,
       title: title.trim(),
       capturedAt: capturedAt ? `${capturedAt}:00` : null,
@@ -98,7 +107,7 @@ export function MemoryEditorPanel({
       tags: normalizeTags(tags.split(/[，,]/u)),
       description: description.trim(),
       updatedAt: new Date().toISOString(),
-    };
+    }, openingHero);
     setSaving(true);
     setStatus('正在保存…');
     void updateMemory(updated)
@@ -285,6 +294,17 @@ export function MemoryEditorPanel({
           <label>
             <span>标签（用逗号分隔）</span>
             <input value={tags} onChange={(event) => setTags(event.target.value)} />
+          </label>
+          <label className="editor-opening-hero">
+            <input
+              type="checkbox"
+              checked={openingHero}
+              onChange={(event) => setOpeningHero(event.target.checked)}
+            />
+            <span>
+              <strong>设为模板开场照片</strong>
+              <small>只用于“我的宇宙”，不会进入演示模板或公开资源。</small>
+            </span>
           </label>
           <label>
             <span>描述</span>

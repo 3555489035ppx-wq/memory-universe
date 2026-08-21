@@ -1,0 +1,346 @@
+/*
+ * Liquid Glass foundation
+ *
+ * The surface intentionally stays translucent. It is a control material for
+ * the existing photo/star field, not an opaque card laid over it.
+ */
+:root {
+  --glass-bg: oklch(86% 0.006 250 / 0.06);
+  --glass-bg-strong: oklch(88% 0.006 250 / 0.1);
+  --glass-bg-subtle: oklch(82% 0.006 250 / 0.035);
+  --glass-border: oklch(96% 0.006 250 / 0.16);
+  --glass-border-strong: oklch(100% 0.006 250 / 0.24);
+  --glass-highlight: oklch(100% 0 0 / 0.14);
+  --glass-highlight-hover: oklch(100% 0 0 / 0.22);
+  --glass-shadow-color: oklch(0% 0 0 / 0.32);
+  /* Shared aliases used by the existing product surfaces. Keeping these
+   * tokens here makes the production UI and the standalone GlassButton use
+   * the same material instead of falling back to opaque legacy fills. */
+  --glass-surface: var(--glass-bg);
+  --glass-surface-strong: var(--glass-bg-strong);
+  --glass-surface-subtle: var(--glass-bg-subtle);
+  --glass-edge: var(--glass-border);
+  --glass-edge-strong: var(--glass-border-strong);
+  --glass-refraction: linear-gradient(180deg, oklch(100% 0 0 / 0.075), oklch(100% 0 0 / 0.018) 58%, transparent);
+  --glass-shadow: 0 1.1rem 3rem oklch(0% 0 0 / 0.32);
+  --glass-blur: 18px;
+  --glass-saturation: 145%;
+  --glass-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --glass-duration: 220ms;
+}
+
+.glass-button-wrap {
+  position: relative;
+  display: inline-flex;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  isolation: isolate;
+}
+
+.glass-button {
+  --glass-surface: var(--glass-bg);
+  --glass-edge: var(--glass-border);
+  --glass-reflection: 0.62;
+  --mouse-x: 30%;
+  --mouse-y: 0%;
+  all: unset;
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  border: 1px solid var(--glass-edge);
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, oklch(100% 0 0 / 0.075), transparent 58%),
+    var(--glass-surface);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    inset 0 -1px 0 oklch(0% 0 0 / 0.25);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  color: var(--color-ink);
+  cursor: pointer;
+  font-family: var(--font-body);
+  line-height: 1;
+  transition:
+    transform var(--glass-duration) var(--glass-ease),
+    border-color var(--glass-duration) var(--glass-ease),
+    background-color var(--glass-duration) var(--glass-ease),
+    box-shadow var(--glass-duration) var(--glass-ease);
+}
+
+.glass-button::before,
+.glass-button::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  content: '';
+  pointer-events: none;
+}
+
+.glass-button::before {
+  background:
+    radial-gradient(
+      circle at var(--mouse-x) var(--mouse-y),
+      oklch(100% 0 0 / 0.1),
+      transparent 42%
+    ),
+    linear-gradient(180deg, oklch(100% 0 0 / 0.055), transparent 62%);
+  opacity: 0.72;
+  transition: opacity var(--glass-duration) var(--glass-ease);
+}
+
+.glass-button::after {
+  background: linear-gradient(
+    108deg,
+    transparent 25%,
+    oklch(100% 0 0 / 0.2) 48%,
+    transparent 64%
+  );
+  opacity: 0;
+  transform: translateX(-125%);
+}
+
+.glass-button-text {
+  position: relative;
+  z-index: 1;
+  display: block;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.glass-button-shadow {
+  position: absolute;
+  inset-inline: 12%;
+  inset-block-end: -0.35rem;
+  z-index: 0;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: var(--glass-shadow-color);
+  filter: blur(0.72rem);
+  opacity: 0.7;
+  transform: translateY(0.18rem) scaleX(0.86);
+  transition:
+    opacity var(--glass-duration) var(--glass-ease),
+    transform var(--glass-duration) var(--glass-ease);
+}
+
+.glass-button--size-default {
+  font-size: var(--text-base);
+  font-weight: 650;
+}
+
+.glass-button--size-sm {
+  min-height: 2.75rem;
+  font-size: var(--text-sm);
+  font-weight: 650;
+}
+
+.glass-button--size-lg {
+  min-height: 3.25rem;
+  font-size: var(--text-lg);
+  font-weight: 650;
+}
+
+.glass-button--size-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+}
+
+.glass-button-text--default {
+  padding: 0.875rem 1.5rem;
+  line-height: 1;
+}
+
+.glass-button-text--sm {
+  padding: 0.625rem 1rem;
+  line-height: 1;
+}
+
+.glass-button-text--lg {
+  padding: 1rem 2rem;
+  line-height: 1;
+}
+
+.glass-button-text--icon {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  line-height: 1;
+}
+
+.glass-button--strong {
+  --glass-surface: var(--glass-bg-strong);
+  --glass-edge: var(--glass-border-strong);
+  --glass-blur: 20px;
+}
+
+.glass-button--medium {
+  --glass-surface: var(--glass-bg);
+  --glass-edge: var(--glass-border);
+  --glass-blur: 18px;
+}
+
+.glass-button--subtle {
+  --glass-surface: var(--glass-bg-subtle);
+  --glass-edge: oklch(96% 0.006 250 / 0.12);
+  --glass-blur: 16px;
+}
+
+.glass-button:hover:not(:disabled),
+.glass-button:focus-visible:not(:disabled) {
+  border-color: var(--glass-border-strong);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight-hover),
+    inset 0 -1px 0 oklch(0% 0 0 / 0.3),
+    0 0.6rem 1.8rem oklch(0% 0 0 / 0.2);
+  transform: translateY(-2px) scale(1.015);
+}
+
+.glass-button:hover:not(:disabled)::before,
+.glass-button:focus-visible:not(:disabled)::before {
+  --glass-reflection: 0.9;
+  opacity: 1;
+}
+
+.glass-button:hover:not(:disabled)::after,
+.glass-button:focus-visible:not(:disabled)::after {
+  opacity: 0.72;
+  animation: glass-button-sweep 520ms var(--glass-ease) both;
+}
+
+.glass-button:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+.glass-button:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.glass-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.glass-button:disabled + .glass-button-shadow {
+  opacity: 0.28;
+}
+
+@keyframes glass-button-sweep {
+  from {
+    transform: translateX(-125%);
+  }
+
+  to {
+    transform: translateX(125%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-button,
+  .glass-button-shadow {
+    transition: border-color var(--glass-duration) ease, background-color var(--glass-duration) ease;
+  }
+
+  .glass-button:hover:not(:disabled),
+  .glass-button:focus-visible:not(:disabled) {
+    transform: none;
+  }
+
+  .glass-button:hover:not(:disabled)::after,
+  .glass-button:focus-visible:not(:disabled)::after {
+    animation: none;
+  }
+}
+
+@supports not ((backdrop-filter: blur(1px))) {
+  .glass-button {
+    background: oklch(14% 0.01 250 / 0.84);
+  }
+}
+
+.glass-lab {
+  position: relative;
+  display: grid;
+  min-height: 100dvh;
+  place-items: center;
+  padding: clamp(2rem, 8vw, 6rem) var(--page-gutter);
+  pointer-events: none;
+}
+
+.glass-lab__panel {
+  display: grid;
+  width: min(100%, 58rem);
+  gap: 2rem;
+  padding: clamp(1.5rem, 4vw, 3.25rem);
+  border: 1px solid oklch(100% 0 0 / 0.1);
+  border-radius: 1.5rem;
+  background: oklch(4% 0.01 240 / 0.18);
+  box-shadow: 0 2rem 6rem oklch(0% 0 0 / 0.28);
+  backdrop-filter: blur(6px) saturate(120%);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
+  pointer-events: auto;
+}
+
+.glass-lab__header {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.glass-lab__header p {
+  margin: 0;
+  color: var(--color-ink-2);
+}
+
+.glass-lab__header h1 {
+  max-width: 34rem;
+  font-size: clamp(2rem, 5vw, 4rem);
+}
+
+.glass-lab__grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.glass-lab__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.glass-lab__label {
+  min-width: 5.5rem;
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.glass-lab__back {
+  justify-self: start;
+  color: var(--color-ink-2);
+  font-size: var(--text-sm);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+@media (max-width: 44rem) {
+  .glass-lab__panel {
+    padding: 1.25rem;
+  }
+
+  .glass-lab__label {
+    width: 100%;
+  }
+}

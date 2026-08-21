@@ -13,7 +13,7 @@ test('Flow B edits, exports, clears, restores, and persists personal data', asyn
   const runtimeErrors: string[] = [];
   const failedResponses: string[] = [];
   page.on('request', (request) => {
-    if (/^https?:/.test(request.url()) && !request.url().startsWith('http://127.0.0.1:4173')) {
+    if (/^https?:/.test(request.url()) && !/^http:\/\/127\.0\.0\.1:\d+\//.test(request.url())) {
       externalRequests.push(request.url());
     }
   });

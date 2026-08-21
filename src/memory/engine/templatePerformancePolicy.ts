@@ -1,9 +1,9 @@
 import type { EffectiveQuality } from '../../stores/settingsStore';
 
 export const TEMPLATE_VISIBLE_LIMITS: Record<EffectiveQuality, number> = {
-  low: 16,
-  medium: 24,
-  high: 30,
+  low: 36,
+  medium: 60,
+  high: 96,
 };
 
 export function visiblePhotoLimit(quality: EffectiveQuality, requested: number): number {

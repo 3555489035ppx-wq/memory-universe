@@ -710,359 +710,6 @@
       "schemaVersion": 1
     },
     {
-      "id": "demo-memory-017",
-      "source": "demo",
-      "title": "落日落在屋顶",
-      "description": "屋顶不高，落日却把每扇窗都照成了金色。",
-      "capturedAt": "2023-09-09T09:20:00",
-      "capturedAtMs": 1694222400000,
-      "dateSource": "manual",
-      "personIds": [
-        "demo-person-01"
-      ],
-      "placeId": "demo-place-01",
-      "mood": "chaotic",
-      "tags": [
-        "朋友",
-        "夏天",
-        "2023"
-      ],
-      "dominantColor": {
-        "rgb": [
-          120,
-          110,
-          122
-        ],
-        "hsl": [
-          290.0,
-          5.2,
-          45.5
-        ],
-        "luminance": 0.1655,
-        "algorithmVersion": 1
-      },
-      "assetKeys": {
-        "micro": "/demo/photos/micro/memory-017.jpg",
-        "thumbnail": "/demo/photos/thumbnail/memory-017.jpg",
-        "preview": "/demo/photos/preview/memory-017.jpg"
-      },
-      "width": 960,
-      "height": 640,
-      "orientationApplied": true,
-      "createdAt": "2026-08-04T00:00:00.000Z",
-      "updatedAt": "2026-08-04T00:00:00.000Z",
-      "schemaVersion": 1
-    },
-    {
-      "id": "demo-memory-018",
-      "source": "demo",
-      "title": "雨伞下的两个人",
-      "description": "伞太小，肩膀湿了一半，回想起来却只记得笑声。",
-      "capturedAt": "2023-09-09T18:20:00",
-      "capturedAtMs": 1694254800000,
-      "dateSource": "manual",
-      "personIds": [
-        "demo-person-01"
-      ],
-      "placeId": "demo-place-01",
-      "mood": "lonely",
-      "tags": [
-        "朋友",
-        "夏天",
-        "2023"
-      ],
-      "dominantColor": {
-        "rgb": [
-          254,
-          254,
-          253
-        ],
-        "hsl": [
-          60.0,
-          33.3,
-          99.4
-        ],
-        "luminance": 0.9905,
-        "algorithmVersion": 1
-      },
-      "assetKeys": {
-        "micro": "/demo/photos/micro/memory-018.jpg",
-        "thumbnail": "/demo/photos/thumbnail/memory-018.jpg",
-        "preview": "/demo/photos/preview/memory-018.jpg"
-      },
-      "width": 600,
-      "height": 398,
-      "orientationApplied": true,
-      "createdAt": "2026-08-04T00:00:00.000Z",
-      "updatedAt": "2026-08-04T00:00:00.000Z",
-      "schemaVersion": 1
-    },
-    {
-      "id": "demo-memory-019",
-      "source": "demo",
-      "title": "车窗外的稻田",
-      "description": "列车开得很快，稻田在玻璃后面连成一条绿色的河。",
-      "capturedAt": "2023-10-10T09:20:00",
-      "capturedAtMs": 1696900800000,
-      "dateSource": "manual",
-      "personIds": [
-        "demo-person-02"
-      ],
-      "placeId": "demo-place-02",
-      "mood": "happy",
-      "tags": [
-        "日常",
-        "清晨",
-        "2023"
-      ],
-      "dominantColor": {
-        "rgb": [
-          196,
-          196,
-          209
-        ],
-        "hsl": [
-          240.0,
-          12.4,
-          79.4
-        ],
-        "luminance": 0.5582,
-        "algorithmVersion": 1
-      },
-      "assetKeys": {
-        "micro": "/demo/photos/micro/memory-019.jpg",
-        "thumbnail": "/demo/photos/thumbnail/memory-019.jpg",
-        "preview": "/demo/photos/preview/memory-019.jpg"
-      },
-      "width": 1600,
-      "height": 900,
-      "orientationApplied": true,
-      "createdAt": "2026-08-04T00:00:00.000Z",
-      "updatedAt": "2026-08-04T00:00:00.000Z",
-      "schemaVersion": 1
-    },
-    {
-      "id": "demo-memory-020",
-      "source": "demo",
-      "title": "凌晨四点的便利店",
-      "description": "店员在补货，我们坐在窗边等天慢慢变亮。",
-      "capturedAt": "2023-10-10T18:20:00",
-      "capturedAtMs": 1696933200000,
-      "dateSource": "manual",
-      "personIds": [
-        "demo-person-02"
-      ],
-      "placeId": "demo-place-02",
-      "mood": "calm",
-      "tags": [
-        "日常",
-        "清晨",
-        "2023"
-      ],
-      "dominantColor": {
-        "rgb": [
-          18,
-          19,
-          21
-        ],
-        "hsl": [
-          220.0,
-          7.7,
-          7.6
-        ],
-        "luminance": 0.0065,
-        "algorithmVersion": 1
-      },
-      "assetKeys": {
-        "micro": "/demo/photos/micro/memory-020.jpg",
-        "thumbnail": "/demo/photos/thumbnail/memory-020.jpg",
-        "preview": "/demo/photos/preview/memory-020.jpg"
-      },
-      "width": 960,
-      "height": 540,
-      "orientationApplied": true,
-      "createdAt": "2026-08-04T00:00:00.000Z",
-      "updatedAt": "2026-08-04T00:00:00.000Z",
-      "schemaVersion": 1
-    },
-    {
-      "id": "demo-memory-021",
-      "source": "demo",
-      "title": "冬天第一场雪",
-      "description": "雪落得很轻，脚步声反而比平时更清楚。",
-      "capturedAt": "2023-11-11T09:20:00",
-      "capturedAtMs": 1699665600000,
-      "dateSource": "manual",
-      "personIds": [
-        "demo-person-03",
-        "demo-person-06"
-      ],
-      "placeId": "demo-place-03",
-      "mood": "nostalgic",
-      "tags": [
-        "家人",
-        "旧家",
-        "2023"
-      ],
-      "dominantColor": {
-        "rgb": [
-          88,
-          83,
-          83
-        ],
-        "hsl": [
-          0.0,
-          2.9,
-          33.5
-        ],
-        "luminance": 0.0889,
-        "algorithmVersion": 1
-      },
-      "assetKeys": {
-        "micro": "/demo/photos/micro/memory-021.jpg",
-        "thumbnail": "/demo/photos/thumbnail/memory-021.jpg",
-        "preview": "/demo/photos/preview/memory-021.jpg"
-      },
-      "width": 1024,
-      "height": 768,
-      "orientationApplied": true,
-      "createdAt": "2026-08-04T00:00:00.000Z",
-      "updatedAt": "2026-08-04T00:00:00.000Z",
-      "schemaVersion": 1
-    },
-    {
-      "id": "demo-memory-022",
-      "source": "demo",
-      "title": "在码头等风",
-      "description": "船还没有来，风把每个人的衣角吹向同一个方向。",
-      "capturedAt": "2023-11-11T18:20:00",
-      "capturedAtMs": 1699698000000,
-      "dateSource": "manual",
-      "personIds": [
-        "demo-person-03"
-      ],
-      "placeId": "demo-place-03",
-      "mood": "excited",
-      "tags": [
-        "家人",
-        "旧家",
-        "2023"
-      ],
-      "dominantColor": {
-        "rgb": [
-          129,
-          153,
-          170
-        ],
-        "hsl": [
-          204.9,
-          19.4,
-          58.6
-        ],
-        "luminance": 0.3035,
-        "algorithmVersion": 1
-      },
-      "assetKeys": {
-        "micro": "/demo/photos/micro/memory-022.jpg",
-        "thumbnail": "/demo/photos/thumbnail/memory-022.jpg",
-        "preview": "/demo/photos/preview/memory-022.jpg"
-      },
-      "width": 1023,
-      "height": 680,
-      "orientationApplied": true,
-      "createdAt": "2026-08-04T00:00:00.000Z",
-      "updatedAt": "2026-08-04T00:00:00.000Z",
-      "schemaVersion": 1
-    },
-    {
-      "id": "demo-memory-023",
-      "source": "demo",
-      "title": "搬家那天",
-      "description": "纸箱堆在门口，旧钥匙放在了最后一个抽屉。",
-      "capturedAt": "2023-12-12T09:20:00",
-      "capturedAtMs": 1702344000000,
-      "dateSource": "manual",
-      "personIds": [
-        "demo-person-04"
-      ],
-      "placeId": "demo-place-04",
-      "mood": "chaotic",
-      "tags": [
-        "朋友",
-        "告别",
-        "2023"
-      ],
-      "dominantColor": {
-        "rgb": [
-          178,
-          178,
-          178
-        ],
-        "hsl": [
-          0.0,
-          0.0,
-          69.8
-        ],
-        "luminance": 0.4452,
-        "algorithmVersion": 1
-      },
-      "assetKeys": {
-        "micro": "/demo/photos/micro/memory-023.jpg",
-        "thumbnail": "/demo/photos/thumbnail/memory-023.jpg",
-        "preview": "/demo/photos/preview/memory-023.jpg"
-      },
-      "width": 1024,
-      "height": 683,
-      "orientationApplied": true,
-      "createdAt": "2026-08-04T00:00:00.000Z",
-      "updatedAt": "2026-08-04T00:00:00.000Z",
-      "schemaVersion": 1
-    },
-    {
-      "id": "demo-memory-024",
-      "source": "demo",
-      "title": "走散又重逢",
-      "description": "人群散开以后，我们在同一块广告牌下重新看见彼此。",
-      "capturedAt": "2023-12-12T18:20:00",
-      "capturedAtMs": 1702376400000,
-      "dateSource": "manual",
-      "personIds": [
-        "demo-person-04"
-      ],
-      "placeId": "demo-place-04",
-      "mood": "lonely",
-      "tags": [
-        "朋友",
-        "告别",
-        "2023"
-      ],
-      "dominantColor": {
-        "rgb": [
-          223,
-          228,
-          232
-        ],
-        "hsl": [
-          206.7,
-          16.4,
-          89.2
-        ],
-        "luminance": 0.77,
-        "algorithmVersion": 1
-      },
-      "assetKeys": {
-        "micro": "/demo/photos/micro/memory-024.jpg",
-        "thumbnail": "/demo/photos/thumbnail/memory-024.jpg",
-        "preview": "/demo/photos/preview/memory-024.jpg"
-      },
-      "width": 960,
-      "height": 640,
-      "orientationApplied": true,
-      "createdAt": "2026-08-04T00:00:00.000Z",
-      "updatedAt": "2026-08-04T00:00:00.000Z",
-      "schemaVersion": 1
-    },
-    {
       "id": "demo-memory-025",
       "source": "demo",
       "title": "没有寄出的明信片",
@@ -1411,6 +1058,359 @@
       },
       "width": 960,
       "height": 720,
+      "orientationApplied": true,
+      "createdAt": "2026-08-04T00:00:00.000Z",
+      "updatedAt": "2026-08-04T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-017",
+      "source": "demo",
+      "title": "落日落在屋顶",
+      "description": "屋顶不高，落日却把每扇窗都照成了金色。",
+      "capturedAt": "2023-09-09T09:20:00",
+      "capturedAtMs": 1694222400000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-01"
+      ],
+      "placeId": "demo-place-01",
+      "mood": "chaotic",
+      "tags": [
+        "朋友",
+        "夏天",
+        "2023"
+      ],
+      "dominantColor": {
+        "rgb": [
+          120,
+          110,
+          122
+        ],
+        "hsl": [
+          290.0,
+          5.2,
+          45.5
+        ],
+        "luminance": 0.1655,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-017.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-017.jpg",
+        "preview": "/demo/photos/preview/memory-017.jpg"
+      },
+      "width": 960,
+      "height": 640,
+      "orientationApplied": true,
+      "createdAt": "2026-08-04T00:00:00.000Z",
+      "updatedAt": "2026-08-04T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-018",
+      "source": "demo",
+      "title": "雨伞下的两个人",
+      "description": "伞太小，肩膀湿了一半，回想起来却只记得笑声。",
+      "capturedAt": "2023-09-09T18:20:00",
+      "capturedAtMs": 1694254800000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-01"
+      ],
+      "placeId": "demo-place-01",
+      "mood": "lonely",
+      "tags": [
+        "朋友",
+        "夏天",
+        "2023"
+      ],
+      "dominantColor": {
+        "rgb": [
+          254,
+          254,
+          253
+        ],
+        "hsl": [
+          60.0,
+          33.3,
+          99.4
+        ],
+        "luminance": 0.9905,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-018.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-018.jpg",
+        "preview": "/demo/photos/preview/memory-018.jpg"
+      },
+      "width": 600,
+      "height": 398,
+      "orientationApplied": true,
+      "createdAt": "2026-08-04T00:00:00.000Z",
+      "updatedAt": "2026-08-04T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-019",
+      "source": "demo",
+      "title": "车窗外的稻田",
+      "description": "列车开得很快，稻田在玻璃后面连成一条绿色的河。",
+      "capturedAt": "2023-10-10T09:20:00",
+      "capturedAtMs": 1696900800000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-02"
+      ],
+      "placeId": "demo-place-02",
+      "mood": "happy",
+      "tags": [
+        "日常",
+        "清晨",
+        "2023"
+      ],
+      "dominantColor": {
+        "rgb": [
+          196,
+          196,
+          209
+        ],
+        "hsl": [
+          240.0,
+          12.4,
+          79.4
+        ],
+        "luminance": 0.5582,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-019.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-019.jpg",
+        "preview": "/demo/photos/preview/memory-019.jpg"
+      },
+      "width": 1600,
+      "height": 900,
+      "orientationApplied": true,
+      "createdAt": "2026-08-04T00:00:00.000Z",
+      "updatedAt": "2026-08-04T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-020",
+      "source": "demo",
+      "title": "凌晨四点的便利店",
+      "description": "店员在补货，我们坐在窗边等天慢慢变亮。",
+      "capturedAt": "2023-10-10T18:20:00",
+      "capturedAtMs": 1696933200000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-02"
+      ],
+      "placeId": "demo-place-02",
+      "mood": "calm",
+      "tags": [
+        "日常",
+        "清晨",
+        "2023"
+      ],
+      "dominantColor": {
+        "rgb": [
+          18,
+          19,
+          21
+        ],
+        "hsl": [
+          220.0,
+          7.7,
+          7.6
+        ],
+        "luminance": 0.0065,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-020.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-020.jpg",
+        "preview": "/demo/photos/preview/memory-020.jpg"
+      },
+      "width": 960,
+      "height": 540,
+      "orientationApplied": true,
+      "createdAt": "2026-08-04T00:00:00.000Z",
+      "updatedAt": "2026-08-04T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-021",
+      "source": "demo",
+      "title": "冬天第一场雪",
+      "description": "雪落得很轻，脚步声反而比平时更清楚。",
+      "capturedAt": "2023-11-11T09:20:00",
+      "capturedAtMs": 1699665600000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-03",
+        "demo-person-06"
+      ],
+      "placeId": "demo-place-03",
+      "mood": "nostalgic",
+      "tags": [
+        "家人",
+        "旧家",
+        "2023"
+      ],
+      "dominantColor": {
+        "rgb": [
+          88,
+          83,
+          83
+        ],
+        "hsl": [
+          0.0,
+          2.9,
+          33.5
+        ],
+        "luminance": 0.0889,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-021.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-021.jpg",
+        "preview": "/demo/photos/preview/memory-021.jpg"
+      },
+      "width": 1024,
+      "height": 768,
+      "orientationApplied": true,
+      "createdAt": "2026-08-04T00:00:00.000Z",
+      "updatedAt": "2026-08-04T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-022",
+      "source": "demo",
+      "title": "在码头等风",
+      "description": "船还没有来，风把每个人的衣角吹向同一个方向。",
+      "capturedAt": "2023-11-11T18:20:00",
+      "capturedAtMs": 1699698000000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-03"
+      ],
+      "placeId": "demo-place-03",
+      "mood": "excited",
+      "tags": [
+        "家人",
+        "旧家",
+        "2023"
+      ],
+      "dominantColor": {
+        "rgb": [
+          129,
+          153,
+          170
+        ],
+        "hsl": [
+          204.9,
+          19.4,
+          58.6
+        ],
+        "luminance": 0.3035,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-022.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-022.jpg",
+        "preview": "/demo/photos/preview/memory-022.jpg"
+      },
+      "width": 1023,
+      "height": 680,
+      "orientationApplied": true,
+      "createdAt": "2026-08-04T00:00:00.000Z",
+      "updatedAt": "2026-08-04T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-023",
+      "source": "demo",
+      "title": "搬家那天",
+      "description": "纸箱堆在门口，旧钥匙放在了最后一个抽屉。",
+      "capturedAt": "2023-12-12T09:20:00",
+      "capturedAtMs": 1702344000000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-04"
+      ],
+      "placeId": "demo-place-04",
+      "mood": "chaotic",
+      "tags": [
+        "朋友",
+        "告别",
+        "2023"
+      ],
+      "dominantColor": {
+        "rgb": [
+          178,
+          178,
+          178
+        ],
+        "hsl": [
+          0.0,
+          0.0,
+          69.8
+        ],
+        "luminance": 0.4452,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-023.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-023.jpg",
+        "preview": "/demo/photos/preview/memory-023.jpg"
+      },
+      "width": 1024,
+      "height": 683,
+      "orientationApplied": true,
+      "createdAt": "2026-08-04T00:00:00.000Z",
+      "updatedAt": "2026-08-04T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-024",
+      "source": "demo",
+      "title": "走散又重逢",
+      "description": "人群散开以后，我们在同一块广告牌下重新看见彼此。",
+      "capturedAt": "2023-12-12T18:20:00",
+      "capturedAtMs": 1702376400000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-04"
+      ],
+      "placeId": "demo-place-04",
+      "mood": "lonely",
+      "tags": [
+        "朋友",
+        "告别",
+        "2023"
+      ],
+      "dominantColor": {
+        "rgb": [
+          223,
+          228,
+          232
+        ],
+        "hsl": [
+          206.7,
+          16.4,
+          89.2
+        ],
+        "luminance": 0.77,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-024.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-024.jpg",
+        "preview": "/demo/photos/preview/memory-024.jpg"
+      },
+      "width": 960,
+      "height": 640,
       "orientationApplied": true,
       "createdAt": "2026-08-04T00:00:00.000Z",
       "updatedAt": "2026-08-04T00:00:00.000Z",
@@ -2651,6 +2651,1662 @@
       "orientationApplied": true,
       "createdAt": "2026-08-04T00:00:00.000Z",
       "updatedAt": "2026-08-04T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-061",
+      "source": "demo",
+      "title": "夜里还亮着的灯",
+      "description": "灯丝把房间照得很小，窗外已经没有人经过。",
+      "capturedAt": "2025-07-12T16:20:00",
+      "capturedAtMs": 1752308400000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-01"
+      ],
+      "placeId": "demo-place-01",
+      "mood": "calm",
+      "tags": [
+        "夜晚",
+        "灯光",
+        "2025",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          77,
+          79,
+          66
+        ],
+        "hsl": [
+          69.2,
+          9.0,
+          28.4
+        ],
+        "luminance": 0.0756,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-061.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-061.jpg",
+        "preview": "/demo/photos/preview/memory-061.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-062",
+      "source": "demo",
+      "title": "城市之间的缝隙",
+      "description": "站在楼群之间抬头，天空只剩下一条狭长的蓝。",
+      "capturedAt": "2025-07-23T16:20:00",
+      "capturedAtMs": 1753258800000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-02"
+      ],
+      "placeId": "demo-place-02",
+      "mood": "nostalgic",
+      "tags": [
+        "城市",
+        "建筑",
+        "2025",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          12,
+          14,
+          19
+        ],
+        "hsl": [
+          222.9,
+          22.6,
+          6.1
+        ],
+        "luminance": 0.0044,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-062.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-062.jpg",
+        "preview": "/demo/photos/preview/memory-062.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-063",
+      "source": "demo",
+      "title": "趴在窗边的狗",
+      "description": "它听见钥匙声才抬头，尾巴先一步认出了回家的人。",
+      "capturedAt": "2025-08-03T16:20:00",
+      "capturedAtMs": 1754209200000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-03"
+      ],
+      "placeId": "demo-place-03",
+      "mood": "happy",
+      "tags": [
+        "陪伴",
+        "日常",
+        "2025",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          100,
+          114,
+          71
+        ],
+        "hsl": [
+          79.5,
+          23.2,
+          36.3
+        ],
+        "luminance": 0.152,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-063.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-063.jpg",
+        "preview": "/demo/photos/preview/memory-063.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-064",
+      "source": "demo",
+      "title": "花期正盛",
+      "description": "风穿过花丛时，颜色像一场没有声音的庆祝。",
+      "capturedAt": "2025-08-14T16:20:00",
+      "capturedAtMs": 1755159600000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-04"
+      ],
+      "placeId": "demo-place-04",
+      "mood": "lonely",
+      "tags": [
+        "春天",
+        "花",
+        "2025",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          36,
+          55,
+          24
+        ],
+        "hsl": [
+          96.8,
+          39.2,
+          15.5
+        ],
+        "luminance": 0.0317,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-064.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-064.jpg",
+        "preview": "/demo/photos/preview/memory-064.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-065",
+      "source": "demo",
+      "title": "她看向镜头",
+      "description": "快门落下之前，她忽然忘记了原本准备好的表情。",
+      "capturedAt": "2025-08-25T16:20:00",
+      "capturedAtMs": 1756110000000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-05"
+      ],
+      "placeId": "demo-place-05",
+      "mood": "excited",
+      "tags": [
+        "人物",
+        "朋友",
+        "2025",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          255,
+          255,
+          255
+        ],
+        "hsl": [
+          0.0,
+          0.0,
+          100.0
+        ],
+        "luminance": 1.0,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-065.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-065.jpg",
+        "preview": "/demo/photos/preview/memory-065.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-066",
+      "source": "demo",
+      "title": "草地上的风",
+      "description": "午后的草叶向同一个方向倾斜，云影慢慢移过山坡。",
+      "capturedAt": "2025-09-05T16:20:00",
+      "capturedAtMs": 1757060400000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-06"
+      ],
+      "placeId": "demo-place-06",
+      "mood": "calm",
+      "tags": [
+        "自然",
+        "午后",
+        "2025",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          60,
+          98,
+          37
+        ],
+        "hsl": [
+          97.4,
+          45.2,
+          26.5
+        ],
+        "luminance": 0.0983,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-066.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-066.jpg",
+        "preview": "/demo/photos/preview/memory-066.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-067",
+      "source": "demo",
+      "title": "没有弹完的吉他",
+      "description": "最后一个和弦停在空气里，谁都没有急着说下一句话。",
+      "capturedAt": "2025-09-16T16:20:00",
+      "capturedAtMs": 1758010800000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-07"
+      ],
+      "placeId": "demo-place-07",
+      "mood": "nostalgic",
+      "tags": [
+        "音乐",
+        "室内",
+        "2025",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          32,
+          32,
+          32
+        ],
+        "hsl": [
+          0.0,
+          0.0,
+          12.5
+        ],
+        "luminance": 0.0144,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-067.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-067.jpg",
+        "preview": "/demo/photos/preview/memory-067.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-068",
+      "source": "demo",
+      "title": "雾里回家",
+      "description": "路灯在雾里只照亮很短的一段，熟悉的路变得像第一次走。",
+      "capturedAt": "2025-09-27T16:20:00",
+      "capturedAtMs": 1758961200000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-08"
+      ],
+      "placeId": "demo-place-08",
+      "mood": "happy",
+      "tags": [
+        "雾",
+        "回家",
+        "2025",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          131,
+          143,
+          150
+        ],
+        "hsl": [
+          202.1,
+          8.3,
+          55.1
+        ],
+        "luminance": 0.2667,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-068.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-068.jpg",
+        "preview": "/demo/photos/preview/memory-068.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-069",
+      "source": "demo",
+      "title": "灯亮着的房子",
+      "description": "远远看见那扇窗还亮着，脚步就不自觉地快了一点。",
+      "capturedAt": "2025-10-08T16:20:00",
+      "capturedAtMs": 1759911600000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-01"
+      ],
+      "placeId": "demo-place-01",
+      "mood": "lonely",
+      "tags": [
+        "家",
+        "夜晚",
+        "2025",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          207,
+          133,
+          80
+        ],
+        "hsl": [
+          25.0,
+          57.0,
+          56.3
+        ],
+        "luminance": 0.3062,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-069.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-069.jpg",
+        "preview": "/demo/photos/preview/memory-069.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-070",
+      "source": "demo",
+      "title": "建筑与天空",
+      "description": "玻璃把天空分成整齐的格子，行人从倒影里经过。",
+      "capturedAt": "2025-10-19T16:20:00",
+      "capturedAtMs": 1760862000000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-02"
+      ],
+      "placeId": "demo-place-02",
+      "mood": "excited",
+      "tags": [
+        "建筑",
+        "旅行",
+        "2025",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          79,
+          83,
+          85
+        ],
+        "hsl": [
+          200.0,
+          3.7,
+          32.2
+        ],
+        "luminance": 0.085,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-070.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-070.jpg",
+        "preview": "/demo/photos/preview/memory-070.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-071",
+      "source": "demo",
+      "title": "夜里的窗",
+      "description": "城市安静下来以后，只剩几扇窗还保留着各自的故事。",
+      "capturedAt": "2025-10-30T16:20:00",
+      "capturedAtMs": 1761812400000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-03"
+      ],
+      "placeId": "demo-place-03",
+      "mood": "calm",
+      "tags": [
+        "城市",
+        "夜晚",
+        "2025",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          42,
+          42,
+          42
+        ],
+        "hsl": [
+          0.0,
+          0.0,
+          16.5
+        ],
+        "luminance": 0.0232,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-071.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-071.jpg",
+        "preview": "/demo/photos/preview/memory-071.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-072",
+      "source": "demo",
+      "title": "陌生城市的街角",
+      "description": "在人群里停下的一秒，恰好记住了这座城市的速度。",
+      "capturedAt": "2025-11-10T16:20:00",
+      "capturedAtMs": 1762762800000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-04"
+      ],
+      "placeId": "demo-place-04",
+      "mood": "nostalgic",
+      "tags": [
+        "旅行",
+        "街道",
+        "2025",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          60,
+          61,
+          66
+        ],
+        "hsl": [
+          230.0,
+          4.8,
+          24.7
+        ],
+        "luminance": 0.0469,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-072.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-072.jpg",
+        "preview": "/demo/photos/preview/memory-072.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-073",
+      "source": "demo",
+      "title": "穿过树林的小路",
+      "description": "树影盖住路面，转过弯以后才听见远处的水声。",
+      "capturedAt": "2025-11-21T16:20:00",
+      "capturedAtMs": 1763713200000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-05"
+      ],
+      "placeId": "demo-place-05",
+      "mood": "happy",
+      "tags": [
+        "树林",
+        "散步",
+        "2025",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          56,
+          45,
+          37
+        ],
+        "hsl": [
+          25.3,
+          20.4,
+          18.2
+        ],
+        "luminance": 0.0285,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-073.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-073.jpg",
+        "preview": "/demo/photos/preview/memory-073.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-074",
+      "source": "demo",
+      "title": "傍晚的高楼",
+      "description": "夕阳离开玻璃幕墙时，整座楼短暂地变成了金色。",
+      "capturedAt": "2025-12-02T16:20:00",
+      "capturedAtMs": 1764663600000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-06"
+      ],
+      "placeId": "demo-place-06",
+      "mood": "lonely",
+      "tags": [
+        "傍晚",
+        "城市",
+        "2025",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          26,
+          17,
+          18
+        ],
+        "hsl": [
+          353.3,
+          20.9,
+          8.4
+        ],
+        "luminance": 0.0066,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-074.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-074.jpg",
+        "preview": "/demo/photos/preview/memory-074.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-075",
+      "source": "demo",
+      "title": "雨落下来时",
+      "description": "第一滴雨落在镜头上，之后的街景都带着柔软的光晕。",
+      "capturedAt": "2025-12-13T16:20:00",
+      "capturedAtMs": 1765614000000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-07"
+      ],
+      "placeId": "demo-place-07",
+      "mood": "excited",
+      "tags": [
+        "雨",
+        "街道",
+        "2025",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          41,
+          40,
+          38
+        ],
+        "hsl": [
+          40.0,
+          3.8,
+          15.5
+        ],
+        "luminance": 0.0213,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-075.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-075.jpg",
+        "preview": "/demo/photos/preview/memory-075.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-076",
+      "source": "demo",
+      "title": "镜面里的另一边",
+      "description": "倒影把熟悉的房间翻转过来，像一段被重新排列的记忆。",
+      "capturedAt": "2025-12-24T16:20:00",
+      "capturedAtMs": 1766564400000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-08"
+      ],
+      "placeId": "demo-place-08",
+      "mood": "calm",
+      "tags": [
+        "倒影",
+        "室内",
+        "2025",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          108,
+          116,
+          128
+        ],
+        "hsl": [
+          216.0,
+          8.5,
+          46.3
+        ],
+        "luminance": 0.1724,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-076.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-076.jpg",
+        "preview": "/demo/photos/preview/memory-076.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-077",
+      "source": "demo",
+      "title": "沙滩上的细纹",
+      "description": "潮水退去后留下很浅的纹路，下一次浪来之前清晰可见。",
+      "capturedAt": "2026-01-04T16:20:00",
+      "capturedAtMs": 1767514800000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-01"
+      ],
+      "placeId": "demo-place-01",
+      "mood": "nostalgic",
+      "tags": [
+        "海边",
+        "沙滩",
+        "2026",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          153,
+          135,
+          114
+        ],
+        "hsl": [
+          32.3,
+          16.0,
+          52.4
+        ],
+        "luminance": 0.2532,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-077.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-077.jpg",
+        "preview": "/demo/photos/preview/memory-077.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-078",
+      "source": "demo",
+      "title": "秋天的漆树",
+      "description": "叶子先变红，空气才慢慢有了秋天的温度。",
+      "capturedAt": "2026-01-15T16:20:00",
+      "capturedAtMs": 1768465200000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-02"
+      ],
+      "placeId": "demo-place-02",
+      "mood": "happy",
+      "tags": [
+        "秋天",
+        "植物",
+        "2026",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          73,
+          50,
+          32
+        ],
+        "hsl": [
+          26.3,
+          39.0,
+          20.6
+        ],
+        "luminance": 0.038,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-078.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-078.jpg",
+        "preview": "/demo/photos/preview/memory-078.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-079",
+      "source": "demo",
+      "title": "最后一束落日",
+      "description": "我们故意没有离开，让天色从橙色一直暗到看不见海岸。",
+      "capturedAt": "2026-01-26T16:20:00",
+      "capturedAtMs": 1769415600000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-03"
+      ],
+      "placeId": "demo-place-03",
+      "mood": "lonely",
+      "tags": [
+        "落日",
+        "海边",
+        "2026",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          101,
+          77,
+          89
+        ],
+        "hsl": [
+          330.0,
+          13.5,
+          34.9
+        ],
+        "luminance": 0.088,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-079.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-079.jpg",
+        "preview": "/demo/photos/preview/memory-079.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-080",
+      "source": "demo",
+      "title": "浪花回来",
+      "description": "每一道浪都像离开过很远，最后又在脚边重新出现。",
+      "capturedAt": "2026-02-06T16:20:00",
+      "capturedAtMs": 1770366000000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-04"
+      ],
+      "placeId": "demo-place-04",
+      "mood": "excited",
+      "tags": [
+        "海浪",
+        "旅行",
+        "2026",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          55,
+          56,
+          60
+        ],
+        "hsl": [
+          228.0,
+          4.3,
+          22.5
+        ],
+        "luminance": 0.0397,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-080.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-080.jpg",
+        "preview": "/demo/photos/preview/memory-080.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-081",
+      "source": "demo",
+      "title": "还没说出口的话",
+      "description": "那一刻大家都在笑，只有这张照片知道我们为什么停下来。",
+      "capturedAt": "2026-02-17T16:20:00",
+      "capturedAtMs": 1771316400000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-05"
+      ],
+      "placeId": "demo-place-05",
+      "mood": "calm",
+      "tags": [
+        "朋友",
+        "青春",
+        "2026",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          255,
+          255,
+          255
+        ],
+        "hsl": [
+          0.0,
+          0.0,
+          100.0
+        ],
+        "luminance": 1.0,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-081.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-081.jpg",
+        "preview": "/demo/photos/preview/memory-081.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-082",
+      "source": "demo",
+      "title": "放学后的房间",
+      "description": "熟悉的桌面被夕阳切成两半，时间在这里慢了一点。",
+      "capturedAt": "2026-02-28T16:20:00",
+      "capturedAtMs": 1772266800000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-06"
+      ],
+      "placeId": "demo-place-06",
+      "mood": "nostalgic",
+      "tags": [
+        "校园",
+        "放学",
+        "2026",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          101,
+          129,
+          170
+        ],
+        "hsl": [
+          215.7,
+          28.9,
+          53.1
+        ],
+        "luminance": 0.2137,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-082.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-082.jpg",
+        "preview": "/demo/photos/preview/memory-082.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-083",
+      "source": "demo",
+      "title": "一起走过的路",
+      "description": "没有人记得是谁先转弯，但我们最后都到了同一个地方。",
+      "capturedAt": "2026-03-11T16:20:00",
+      "capturedAtMs": 1773217200000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-07"
+      ],
+      "placeId": "demo-place-07",
+      "mood": "happy",
+      "tags": [
+        "朋友",
+        "同行",
+        "2026",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          90,
+          71,
+          80
+        ],
+        "hsl": [
+          331.6,
+          11.8,
+          31.6
+        ],
+        "luminance": 0.0726,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-083.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-083.jpg",
+        "preview": "/demo/photos/preview/memory-083.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-084",
+      "source": "demo",
+      "title": "那天的背景音",
+      "description": "画面之外还有风声、笑声和一句没有被录下来的话。",
+      "capturedAt": "2026-03-22T16:20:00",
+      "capturedAtMs": 1774167600000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-08"
+      ],
+      "placeId": "demo-place-08",
+      "mood": "lonely",
+      "tags": [
+        "日常",
+        "声音",
+        "2026",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          101,
+          88,
+          94
+        ],
+        "hsl": [
+          332.3,
+          6.9,
+          37.1
+        ],
+        "luminance": 0.1055,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-084.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-084.jpg",
+        "preview": "/demo/photos/preview/memory-084.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-085",
+      "source": "demo",
+      "title": "记忆的颗粒",
+      "description": "有些画面并不清晰，却比任何高清图像都更接近当时。",
+      "capturedAt": "2026-04-02T16:20:00",
+      "capturedAtMs": 1775118000000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-01"
+      ],
+      "placeId": "demo-place-01",
+      "mood": "excited",
+      "tags": [
+        "记忆",
+        "青春",
+        "2026",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          18,
+          22,
+          28
+        ],
+        "hsl": [
+          216.0,
+          21.7,
+          9.0
+        ],
+        "luminance": 0.0079,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-085.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-085.jpg",
+        "preview": "/demo/photos/preview/memory-085.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-086",
+      "source": "demo",
+      "title": "晚自习之后",
+      "description": "最后一盏灯熄灭前，我们还在讨论明天要不要一起走。",
+      "capturedAt": "2026-04-13T16:20:00",
+      "capturedAtMs": 1776068400000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-02"
+      ],
+      "placeId": "demo-place-02",
+      "mood": "calm",
+      "tags": [
+        "校园",
+        "夜晚",
+        "2026",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          77,
+          79,
+          66
+        ],
+        "hsl": [
+          69.2,
+          9.0,
+          28.4
+        ],
+        "luminance": 0.0756,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-086.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-086.jpg",
+        "preview": "/demo/photos/preview/memory-086.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-087",
+      "source": "demo",
+      "title": "校门外的城市",
+      "description": "人群向不同方向散开，校服却让我们短暂地保持在一起。",
+      "capturedAt": "2026-04-24T16:20:00",
+      "capturedAtMs": 1777018800000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-03"
+      ],
+      "placeId": "demo-place-03",
+      "mood": "nostalgic",
+      "tags": [
+        "城市",
+        "校门",
+        "2026",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          8,
+          9,
+          14
+        ],
+        "hsl": [
+          230.0,
+          27.3,
+          4.3
+        ],
+        "luminance": 0.0028,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-087.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-087.jpg",
+        "preview": "/demo/photos/preview/memory-087.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-088",
+      "source": "demo",
+      "title": "操场边的花",
+      "description": "风吹过来的时候，没有人提醒，却同时抬头看了一眼。",
+      "capturedAt": "2026-05-05T16:20:00",
+      "capturedAtMs": 1777969200000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-04"
+      ],
+      "placeId": "demo-place-04",
+      "mood": "happy",
+      "tags": [
+        "校园",
+        "春天",
+        "2026",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          36,
+          55,
+          24
+        ],
+        "hsl": [
+          96.8,
+          39.2,
+          15.5
+        ],
+        "luminance": 0.0317,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-088.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-088.jpg",
+        "preview": "/demo/photos/preview/memory-088.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-089",
+      "source": "demo",
+      "title": "合影前一秒",
+      "description": "有人整理衣角，有人故意躲到最后一排，快门刚好落下。",
+      "capturedAt": "2026-05-16T16:20:00",
+      "capturedAtMs": 1778919600000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-05"
+      ],
+      "placeId": "demo-place-05",
+      "mood": "lonely",
+      "tags": [
+        "同学",
+        "合影",
+        "2026",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          255,
+          255,
+          255
+        ],
+        "hsl": [
+          0.0,
+          0.0,
+          100.0
+        ],
+        "luminance": 1.0,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-089.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-089.jpg",
+        "preview": "/demo/photos/preview/memory-089.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-090",
+      "source": "demo",
+      "title": "午后的空地",
+      "description": "那块没有名字的空地，装下了很多不需要解释的下午。",
+      "capturedAt": "2026-05-27T16:20:00",
+      "capturedAtMs": 1779870000000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-06"
+      ],
+      "placeId": "demo-place-06",
+      "mood": "excited",
+      "tags": [
+        "校园",
+        "午后",
+        "2026",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          67,
+          101,
+          46
+        ],
+        "hsl": [
+          97.1,
+          37.4,
+          28.8
+        ],
+        "luminance": 0.107,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-090.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-090.jpg",
+        "preview": "/demo/photos/preview/memory-090.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-091",
+      "source": "demo",
+      "title": "毕业晚会之后",
+      "description": "歌停了很久，大家还是没有立刻离开。",
+      "capturedAt": "2026-06-07T16:20:00",
+      "capturedAtMs": 1780820400000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-07"
+      ],
+      "placeId": "demo-place-07",
+      "mood": "calm",
+      "tags": [
+        "毕业",
+        "音乐",
+        "2026",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          33,
+          33,
+          33
+        ],
+        "hsl": [
+          0.0,
+          0.0,
+          12.9
+        ],
+        "luminance": 0.0152,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-091.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-091.jpg",
+        "preview": "/demo/photos/preview/memory-091.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-092",
+      "source": "demo",
+      "title": "雨后的走廊",
+      "description": "玻璃上的水汽慢慢散开，黑板上的字却还留着。",
+      "capturedAt": "2026-06-18T16:20:00",
+      "capturedAtMs": 1781770800000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-08"
+      ],
+      "placeId": "demo-place-08",
+      "mood": "nostalgic",
+      "tags": [
+        "校园",
+        "雨天",
+        "2026",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          132,
+          144,
+          150
+        ],
+        "hsl": [
+          200.0,
+          7.9,
+          55.3
+        ],
+        "luminance": 0.2705,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-092.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-092.jpg",
+        "preview": "/demo/photos/preview/memory-092.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-093",
+      "source": "demo",
+      "title": "回到熟悉的地方",
+      "description": "走廊尽头的灯亮起来，所有人都知道这一段要结束了。",
+      "capturedAt": "2026-06-29T16:20:00",
+      "capturedAtMs": 1782721200000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-01"
+      ],
+      "placeId": "demo-place-01",
+      "mood": "happy",
+      "tags": [
+        "校园",
+        "回忆",
+        "2026",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          207,
+          133,
+          80
+        ],
+        "hsl": [
+          25.0,
+          57.0,
+          56.3
+        ],
+        "luminance": 0.3062,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-093.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-093.jpg",
+        "preview": "/demo/photos/preview/memory-093.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-094",
+      "source": "demo",
+      "title": "最后一次晚归",
+      "description": "夜色把校门拉得很远，我们边走边把今天重新讲了一遍。",
+      "capturedAt": "2026-07-10T16:20:00",
+      "capturedAtMs": 1783671600000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-02"
+      ],
+      "placeId": "demo-place-02",
+      "mood": "lonely",
+      "tags": [
+        "青春",
+        "夜晚",
+        "2026",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          0,
+          0,
+          0
+        ],
+        "hsl": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "luminance": 0.0,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-094.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-094.jpg",
+        "preview": "/demo/photos/preview/memory-094.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-095",
+      "source": "demo",
+      "title": "从这里出发",
+      "description": "同一条路走过很多次，毕业那天却像第一次见到它。",
+      "capturedAt": "2026-07-21T16:20:00",
+      "capturedAtMs": 1784622000000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-03"
+      ],
+      "placeId": "demo-place-03",
+      "mood": "excited",
+      "tags": [
+        "校园",
+        "出发",
+        "2026",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          56,
+          45,
+          37
+        ],
+        "hsl": [
+          25.3,
+          20.4,
+          18.2
+        ],
+        "luminance": 0.0285,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-095.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-095.jpg",
+        "preview": "/demo/photos/preview/memory-095.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
+      "schemaVersion": 1
+    },
+    {
+      "id": "demo-memory-096",
+      "source": "demo",
+      "title": "把夏天留住",
+      "description": "太阳落下去以后，照片替我们把这一天再留了一会儿。",
+      "capturedAt": "2026-08-01T16:20:00",
+      "capturedAtMs": 1785572400000,
+      "dateSource": "manual",
+      "personIds": [
+        "demo-person-04"
+      ],
+      "placeId": "demo-place-04",
+      "mood": "calm",
+      "tags": [
+        "夏天",
+        "毕业",
+        "2026",
+        "GB82",
+        "高中回忆"
+      ],
+      "dominantColor": {
+        "rgb": [
+          112,
+          83,
+          97
+        ],
+        "hsl": [
+          331.0,
+          14.9,
+          38.2
+        ],
+        "luminance": 0.1049,
+        "algorithmVersion": 1
+      },
+      "assetKeys": {
+        "micro": "/demo/photos/micro/memory-096.jpg",
+        "thumbnail": "/demo/photos/thumbnail/memory-096.jpg",
+        "preview": "/demo/photos/preview/memory-096.jpg"
+      },
+      "width": 576,
+      "height": 576,
+      "orientationApplied": true,
+      "createdAt": "2026-08-09T00:00:00.000Z",
+      "updatedAt": "2026-08-09T00:00:00.000Z",
       "schemaVersion": 1
     }
   ],

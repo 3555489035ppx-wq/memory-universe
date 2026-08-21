@@ -7,7 +7,12 @@ import { deleteMemory, listMemories } from '../../data/repositories/memoryReposi
 import { listPeople } from '../../data/repositories/peopleRepository';
 import { listPlaces } from '../../data/repositories/placesRepository';
 import type { Constellation } from '../../domain/constellation';
-import type { Memory, MemorySource } from '../../domain/memory';
+import {
+  isPersonalOpeningHero,
+  withPersonalOpeningHeroTag,
+  type Memory,
+  type MemorySource,
+} from '../../domain/memory';
 import type { Person } from '../../domain/person';
 import type { Place } from '../../domain/place';
 import { localTextureManager } from '../../scene/textures/LocalTextureManager';
@@ -375,7 +380,12 @@ export function ArchivePage(): ReactNode {
           onSaved={(memory) => {
             updateData((current) => ({
               ...current,
-              memories: current.memories.map((item) => (item.id === memory.id ? memory : item)),
+              memories: current.memories.map((item) => {
+                if (item.id === memory.id) return memory;
+                return isPersonalOpeningHero(memory) && isPersonalOpeningHero(item)
+                  ? withPersonalOpeningHeroTag(item, false)
+                  : item;
+              }),
             }));
             setEditing(memory);
             markDataChanged();

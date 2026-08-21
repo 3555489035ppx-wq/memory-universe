@@ -7,7 +7,6 @@ import { useUiStore } from '../../stores/uiStore';
 import { ConstellationComposer } from '../constellation/ConstellationComposer';
 import { UniverseKeyboardNavigator } from './UniverseKeyboardNavigator';
 import { formatMemoryDate, placeName } from './formatMemory';
-import { TemplateLauncher } from '../../memory/ui/TemplateLauncher';
 import { TemplatePreview } from '../../memory/ui/TemplatePreview';
 
 const VIEW_LABELS: ReadonlyArray<{ id: UniverseView; label: string }> = [
@@ -164,7 +163,6 @@ export function UniverseHUD(): ReactNode {
         </section>
       )}
 
-      <TemplateLauncher />
       <TemplatePreview />
 
       {inspected && dataset && (

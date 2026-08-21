@@ -103,7 +103,13 @@ async function readPersonalDatabase(page: Page) {
     });
     const transaction = database.transaction(['memories', 'assets'], 'readonly');
     const memories = await new Promise<
-      Array<{ title: string; width: number; height: number; capturedAt: string | null }>
+      Array<{
+        title: string;
+        width: number;
+        height: number;
+        capturedAt: string | null;
+        assetKeys: { original?: string };
+      }>
     >((resolve, reject) => {
       const request = transaction.objectStore('memories').index('by-source').getAll('personal');
       request.onerror = () => reject(request.error ?? new Error('Memory read failed'));
@@ -127,7 +133,7 @@ test('imports real browser images, isolates failures, and persists after reload'
   const failedResponses: string[] = [];
   page.on('request', (request) => {
     const url = request.url();
-    if (/^https?:/.test(url) && !url.startsWith('http://127.0.0.1:4173')) {
+    if (/^https?:/.test(url) && !/^http:\/\/127\.0\.0\.1:\d+\//.test(url)) {
       externalRequests.push(url);
     }
   });
@@ -142,6 +148,10 @@ test('imports real browser images, isolates failures, and persists after reload'
   await page.goto('/');
   await page.getByRole('link', { name: '点击进入' }).click();
   await page.goto('/archive?source=personal&import=1');
+  const closeButton = page.locator('.import-header .text-button');
+  await expect(closeButton).toBeFocused();
+  await expect(closeButton).toHaveCSS('outline-style', 'none');
+  await expect(page.locator('.import-footer')).toHaveCSS('position', 'static');
   await expect(page.getByRole('dialog', { name: '把照片带入记忆宇宙' })).toBeVisible();
 
   const landscape = await canvasImage(page, 1200, 800, 'image/png');
@@ -177,7 +187,8 @@ test('imports real browser images, isolates failures, and persists after reload'
 
   const databaseBeforeReload = await readPersonalDatabase(page);
   expect(databaseBeforeReload.memories).toHaveLength(4);
-  expect(databaseBeforeReload.assetCount).toBe(12);
+  expect(databaseBeforeReload.assetCount).toBe(16);
+  expect(databaseBeforeReload.memories.every((memory) => Boolean(memory.assetKeys.original))).toBe(true);
   const rotated = databaseBeforeReload.memories.find((memory) => memory.title === '旋转竖图');
   expect(rotated?.capturedAt).toBe('2024-08-03T14:25:10');
   expect(rotated?.height).toBeGreaterThan(rotated?.width ?? Number.POSITIVE_INFINITY);
@@ -188,8 +199,51 @@ test('imports real browser images, isolates failures, and persists after reload'
   await expect(page).toHaveURL(/\/universe\?source=personal$/);
   const databaseAfterReload = await readPersonalDatabase(page);
   expect(databaseAfterReload.memories).toHaveLength(4);
-  expect(databaseAfterReload.assetCount).toBe(12);
+  expect(databaseAfterReload.assetCount).toBe(16);
+  expect(databaseAfterReload.memories.every((memory) => Boolean(memory.assetKeys.original))).toBe(true);
   expect(externalRequests).toEqual([]);
   expect(failedResponses).toEqual([]);
   expect(runtimeErrors).toEqual([]);
+});
+
+test('clears completed rows so a new import batch can be selected', async ({ page }) => {
+  await page.goto('/archive?source=personal&import=1');
+  const image = await canvasImage(page, 120, 120, 'image/png');
+
+  await page.locator('#local-photo-input').setInputFiles([
+    { name: 'clear-completed.png', mimeType: 'image/png', buffer: image },
+  ]);
+  await page.locator('.import-footer .primary-action').click();
+  await expect(page.getByTestId('clear-completed-imports')).toBeVisible({ timeout: 60_000 });
+
+  await page.getByTestId('clear-completed-imports').click();
+  await expect(page.locator('.import-row')).toHaveCount(0);
+  await page.locator('#local-photo-input').setInputFiles([
+    { name: 'next-batch.png', mimeType: 'image/png', buffer: image },
+  ]);
+  await expect(page.locator('.import-footer .primary-action')).toBeEnabled();
+  await expect(page.locator('[role="alert"]')).toHaveCount(0);
+});
+
+test('automatically releases completed rows when the next batch is selected', async ({ page }) => {
+  await page.goto('/archive?source=personal&import=1');
+  const image = await canvasImage(page, 120, 120, 'image/png');
+
+  await page.locator('#local-photo-input').setInputFiles(
+    Array.from({ length: 100 }, (_, index) => ({
+      name: `completed-${String(index + 1).padStart(3, '0')}.png`,
+      mimeType: 'image/png',
+      buffer: image,
+    })),
+  );
+  await page.locator('.import-footer .primary-action').click();
+  await expect(page.getByTestId('clear-completed-imports')).toBeVisible({ timeout: 60_000 });
+
+  await page.locator('#local-photo-input').setInputFiles([
+    { name: 'next-batch-without-manual-clear.png', mimeType: 'image/png', buffer: image },
+  ]);
+
+  await expect(page.locator('.import-row')).toHaveCount(1);
+  await expect(page.getByRole('button', { name: '开始处理 1 张' })).toBeEnabled();
+  await expect(page.locator('[role="alert"]')).toHaveCount(0);
 });

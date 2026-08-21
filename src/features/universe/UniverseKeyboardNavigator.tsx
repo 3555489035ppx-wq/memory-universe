@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type KeyboardEvent, type ReactNode } from 'react';
+import { useMemo, useState, type KeyboardEvent, type ReactNode } from 'react';
 
 import { useSceneStore } from '../../stores/sceneStore';
 import { useSelectionStore } from '../../stores/selectionStore';
@@ -12,10 +12,6 @@ export function UniverseKeyboardNavigator(): ReactNode {
   const selectedIds = useSelectionStore((state) => state.selectedIds);
   const toggleSelection = useSelectionStore((state) => state.toggle);
   const [index, setIndex] = useState(0);
-  const [pinned, setPinned] = useState<boolean>(() => {
-    if (typeof window === 'undefined') return false;
-    return window.localStorage.getItem('memuniverse:memory-nav-pinned') === '1';
-  });
   const memories = useMemo(
     () =>
       (dataset?.memories ?? []).toSorted(
@@ -26,10 +22,6 @@ export function UniverseKeyboardNavigator(): ReactNode {
     [dataset?.memories],
   );
   const current = memories[index];
-
-  useEffect(() => {
-    window.localStorage.setItem('memuniverse:memory-nav-pinned', pinned ? '1' : '0');
-  }, [pinned]);
 
   const move = (offset: number): void => {
     if (memories.length === 0) return;
@@ -54,17 +46,7 @@ export function UniverseKeyboardNavigator(): ReactNode {
 
   if (!current) return null;
   return (
-    <div className="keyboard-navigator-dock" data-pinned={pinned ? 'true' : 'false'}>
-      <button
-        className="keyboard-navigator__reveal"
-        type="button"
-        aria-pressed={pinned}
-        aria-label={pinned ? '取消钉住记忆导航' : '钉住记忆导航'}
-        title={pinned ? '取消钉住' : '钉住导航'}
-        onClick={() => setPinned((value) => !value)}
-      >
-        {pinned ? '撤' : '钉'}
-      </button>
+    <div className="keyboard-navigator-dock">
       <div
         className="keyboard-navigator"
         role="group"

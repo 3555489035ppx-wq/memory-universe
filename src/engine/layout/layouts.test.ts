@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import type { Person } from '../../domain/person';
 import type { Place } from '../../domain/place';
 import { createMemoryFixture } from '../../test/fixtures/memoryFixture';
+import { computeUniverseLayouts } from './computeUniverseLayouts';
 import { createEmotionLayout } from './emotionLayout';
 import { createPeopleLayout } from './peopleLayout';
 import { createPlaceLayout } from './placeLayout';
@@ -62,5 +63,38 @@ describe('universe layouts', () => {
     expect(createPeopleLayout({ ...base, viewportSeed: 1 })).not.toEqual(
       createPeopleLayout({ ...base, viewportSeed: 2 }),
     );
+  });
+
+  it('centers each computed view on the scene axis', () => {
+    const layouts = computeUniverseLayouts({ memories, relationships: [], people, places, viewportSeed: 42 });
+
+    for (const layout of Object.values(layouts)) {
+      const xValues = Object.values(layout).map(([x]) => x);
+      const centroid = xValues.reduce((sum, x) => sum + x, 0) / xValues.length;
+      expect(centroid).toBeCloseTo(0, 10);
+
+      const yValues = Object.values(layout).map(([, y]) => y);
+      const verticalCentroid = yValues.reduce((sum, y) => sum + y, 0) / yValues.length;
+      expect(verticalCentroid).toBeCloseTo(0, 10);
+    }
+  });
+
+  it('spreads a same-day personal import instead of stacking it at the center', () => {
+    const sameDayMemories = Array.from({ length: 80 }, (_, index) => createMemoryFixture({
+      id: `personal-${String(index).padStart(2, '0')}`,
+      source: 'personal',
+      capturedAt: '2026-08-10T12:00:00.000Z',
+      capturedAtMs: Date.parse('2026-08-10T12:00:00.000Z') + index * 500,
+      width: index % 4 === 0 ? 2400 : 1200,
+      height: index % 4 === 0 ? 800 : 1600,
+    }));
+    const input = { memories: sameDayMemories, relationships: [], people: [], places: [], viewportSeed: 42 };
+    const layout = createTimeLayout(input);
+    const xValues = Object.values(layout).map(([x]) => x);
+    const yValues = Object.values(layout).map(([, y]) => y);
+
+    expect(Math.max(...xValues) - Math.min(...xValues)).toBeGreaterThan(8);
+    expect(Math.max(...yValues) - Math.min(...yValues)).toBeGreaterThan(5);
+    expect(createTimeLayout(input)).toEqual(createTimeLayout({ ...input, memories: sameDayMemories.toReversed() }));
   });
 });

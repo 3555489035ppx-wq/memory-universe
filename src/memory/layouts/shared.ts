@@ -22,6 +22,21 @@ export function sortedMemories(memories: readonly Memory[]): Memory[] {
 }
 
 export function dimensions(memory: Memory): readonly [number, number] {
-  const aspect = Math.min(1.8, Math.max(0.58, memory.width / Math.max(1, memory.height)));
-  return aspect >= 1 ? [aspect, 1] : [1, 1 / aspect];
+  // Preserve the imported photo ratio across phone portraits, standard
+  // landscape images and panoramas. Only pathological metadata is bounded so
+  // one corrupt size cannot destabilise a whole layout.
+  const aspect = Math.min(4, Math.max(0.25, memory.width / Math.max(1, memory.height)));
+  const width = Math.sqrt(aspect);
+  return [width, 1 / width];
+}
+
+/**
+ * Normalises visual area without flattening the source aspect ratio. A wide
+ * panorama and a portrait therefore carry similar visual weight while still
+ * reading as the photo the user imported.
+ */
+export function aspectScale(memory: Memory): number {
+  const aspect = Math.min(4, Math.max(0.25, memory.width / Math.max(1, memory.height)));
+  const extremity = Math.abs(Math.log(aspect));
+  return Math.max(0.72, 1 - extremity * 0.15);
 }

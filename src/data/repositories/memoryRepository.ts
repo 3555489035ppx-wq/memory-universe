@@ -1,5 +1,10 @@
 import type { Constellation } from '../../domain/constellation';
-import type { Memory, MemorySource } from '../../domain/memory';
+import {
+  isPersonalOpeningHero,
+  withPersonalOpeningHeroTag,
+  type Memory,
+  type MemorySource,
+} from '../../domain/memory';
 import type { Place } from '../../domain/place';
 import type { IDBPDatabase } from 'idb';
 
@@ -89,6 +94,18 @@ export async function updateMemory(
 ): Promise<void> {
   const db = await resolveDatabase(database);
   const transaction = db.transaction(['memories', 'layoutCache'], 'readwrite');
+  if (isPersonalOpeningHero(memory)) {
+    let memoryCursor = await transaction.objectStore('memories').index('by-source').openCursor('personal');
+    while (memoryCursor) {
+      if (memoryCursor.value.id !== memory.id && isPersonalOpeningHero(memoryCursor.value)) {
+        await memoryCursor.update({
+          ...withPersonalOpeningHeroTag(memoryCursor.value, false),
+          updatedAt: memory.updatedAt,
+        });
+      }
+      memoryCursor = await memoryCursor.continue();
+    }
+  }
   await transaction.objectStore('memories').put(memory);
   let cursor = await transaction.objectStore('layoutCache').index('by-source').openCursor(memory.source);
   while (cursor) {

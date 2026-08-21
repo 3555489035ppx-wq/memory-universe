@@ -305,7 +305,10 @@ export function UniverseScene(): ReactNode {
       {mode !== 'entry' && mode !== 'covered' ? (
         <>
           <SpatialDust />
-          <RelationshipLines />
+          {/* Template playback is a self-contained film composition. The
+           * exploratory relationship graph must not draw wireframe lines
+           * over the photos or the farewell particle sequence. */}
+          {!templateActive && <RelationshipLines />}
           {!templateActive && <MemoryLODRenderer />}
           {templateActive && <MemoryTemplateLayer />}
           <PerformanceGovernor />

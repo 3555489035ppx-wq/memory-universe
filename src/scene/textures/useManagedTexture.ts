@@ -10,6 +10,7 @@ export function useManagedTexture(
   assetKey: string,
   variant: TextureVariant | null,
   priority: number,
+  enabled = true,
 ): Texture | null {
   const requestKey = variant ? `${variant}::${assetKey}` : '';
   const [loaded, setLoaded] = useState<{ key: string; texture: Texture | null }>({
@@ -18,7 +19,7 @@ export function useManagedTexture(
   });
 
   useEffect(() => {
-    if (!variant || !assetKey) return;
+    if (!enabled || !variant || !assetKey) return;
     let active = true;
     void localTextureManager
       .acquire(assetKey, variant, priority)
@@ -32,7 +33,7 @@ export function useManagedTexture(
       active = false;
       localTextureManager.release(assetKey, variant);
     };
-  }, [assetKey, priority, requestKey, variant]);
+  }, [assetKey, enabled, priority, requestKey, variant]);
 
-  return loaded.key === requestKey ? loaded.texture : null;
+  return enabled && loaded.key === requestKey ? loaded.texture : null;
 }
