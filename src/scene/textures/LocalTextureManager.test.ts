@@ -21,7 +21,7 @@ describe('loadLocalTexture', () => {
     const createImageBitmapMock = vi.fn().mockResolvedValue(bitmap);
     const revokeObjectURL = vi.fn();
     vi.stubGlobal('createImageBitmap', createImageBitmapMock);
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(new Blob(['photo']))));
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, status: 200, blob: async () => new Blob(['photo']) } as Response));
     vi.stubGlobal('URL', {
       createObjectURL: vi.fn().mockReturnValue('blob:test-photo'),
       revokeObjectURL,
@@ -33,9 +33,9 @@ describe('loadLocalTexture', () => {
       new AbortController().signal,
     );
 
-    expect(createImageBitmapMock).toHaveBeenCalledWith(expect.any(Blob), {
-      imageOrientation: 'flipY',
-    });
+    const [bitmapInput, bitmapOptions] = createImageBitmapMock.mock.calls[0] ?? [];
+    expect(bitmapInput).toHaveProperty('size', 5);
+    expect(bitmapOptions).toEqual({ imageOrientation: 'flipY' });
     expect(loadedTexture.texture.image).toBe(bitmap);
 
     loadedTexture.texture.dispose();
