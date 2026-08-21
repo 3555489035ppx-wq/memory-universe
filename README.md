@@ -4,11 +4,11 @@
 
 Memory Universe is not a normal photo album or a video player. It turns photos, music, stories, and relationships into a memory experience that can be entered again: explored through time, people, place, and emotion, then replayed as a spatial story.
 
-[Live Demo](https://memory-universe-two.vercel.app/) · [GitHub](https://github.com/3555489035ppx-wq/memory-universe)
+[Demo](https://memory-universe-two.vercel.app/) · [GitHub](https://github.com/3555489035ppx-wq/memory-universe)
 
-![Memory Universe — high-school memory demo](docs/assets/demo-contact-sheet.jpg)
+![Memory Universe homepage](docs/assets/memuniverse-home.png)
 
-## Live Demo
+## Demo
 
 - 公开网址：<https://memory-universe-two.vercel.app/>
 
@@ -87,7 +87,7 @@ The public route loads the **那年夏天** template with 96 built-in demo photo
 
 Recommended 3-minute flow:
 
-1. Open the [Live Demo](https://memory-universe-two.vercel.app/).
+1. Open the [Demo](https://memory-universe-two.vercel.app/).
 2. Click **体验高中回忆 Demo** and choose **高中回忆 / 那年夏天**.
 3. Let the timeline enter the 3D memory space.
 4. Switch between time, people, place, and emotion.
