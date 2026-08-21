@@ -21,7 +21,7 @@ describe('loadLocalTexture', () => {
     const createImageBitmapMock = vi.fn().mockResolvedValue(bitmap);
     const revokeObjectURL = vi.fn();
     vi.stubGlobal('createImageBitmap', createImageBitmapMock);
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, status: 200, blob: async () => new Blob(['photo']) } as Response));
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, status: 200, blob: () => Promise.resolve(new Blob(['photo'])) } as Response));
     vi.stubGlobal('URL', {
       createObjectURL: vi.fn().mockReturnValue('blob:test-photo'),
       revokeObjectURL,

@@ -19,7 +19,7 @@ describe('materializeTrackAudio', () => {
 
   it('downloads a remote playback source into a File for offline mastering', async () => {
     const audioBody = new Blob([new Uint8Array([4, 5, 6])], { type: 'audio/flac' });
-    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve({ ok: true, status: 200, blob: async () => audioBody } as Response)));
+    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve({ ok: true, status: 200, blob: () => Promise.resolve(audioBody) } as Response)));
     const file = await materializeTrackAudio({ id: 'remote', name: '远程歌曲', fileName: 'remote.flac', src: 'http://127.0.0.1:3000/api/audio?url=stream', source: 'remote' });
 
     expect(file.name).toBe('remote.flac');
@@ -33,7 +33,7 @@ describe('materializeTrackAudio', () => {
 
   it('reports a useful error for an empty remote stream', async () => {
     const emptyAudioBody = new Blob([], { type: 'audio/mpeg' });
-    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve({ ok: true, status: 200, blob: async () => emptyAudioBody } as Response)));
+    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve({ ok: true, status: 200, blob: () => Promise.resolve(emptyAudioBody) } as Response)));
     await expect(materializeTrackAudio({ id: 'remote', name: '远程歌曲', fileName: 'remote.mp3', src: 'https://example.test/song.mp3', source: 'remote' })).rejects.toThrow('空音频');
   });
 });
