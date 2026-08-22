@@ -29,7 +29,6 @@ export function Cover({
       label={label}
       className="music-library__cover"
       fallbackClassName={`music-library__cover music-library__cover--${source ?? 'system'}`}
-      fallbackText={source === 'upload' ? 'UP' : 'MU'}
     />
   );
 }

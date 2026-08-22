@@ -20,5 +20,12 @@ describe('MusicLibraryPopover cover', () => {
 
     expect(container.querySelector('img')).not.toBeInTheDocument();
     expect(container.querySelector('[title="Help me"]')).toBeInTheDocument();
+    expect(container.querySelector('.music-artwork--starfield')).toBeInTheDocument();
+  });
+
+  it('uses the starfield for uploaded tracks without a cover file', () => {
+    const { container } = render(<Cover src={undefined} label="我的上传" source="upload" />);
+
+    expect(container.querySelector('.music-library__cover--upload.music-artwork--starfield')).toBeInTheDocument();
   });
 });

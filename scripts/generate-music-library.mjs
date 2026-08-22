@@ -14,48 +14,40 @@ const knownMetadata = new Map([
     id: 'highschool_01',
     title: '特别的人', artist: '方大同', category: '高中回忆', duration: 259,
   }],
-  ['memento-ambience.wav', {
-    id: 'highschool_02',
-    title: '那年夏天 · MEMENTO 氛围音', artist: 'Memuniverse Studio', category: '高中回忆', duration: 180,
-  }],
-  ['kai-yuan-ren-zhi-ge.mp3', {
-    id: 'highschool_03',
-    title: '开源人之歌 · 伴奏', artist: '林旅强 / 庄表伟', category: '高中回忆', duration: 217,
-  }],
   ['fu-shi-shan-xia-chen-yixun.mp3', {
-    id: 'highschool_04',
+    id: 'highschool_02',
     title: '富士山下', artist: '陈奕迅', category: '高中回忆',
   }],
   ['mai-en-li-fang-datong.mp3', {
-    id: 'highschool_05',
+    id: 'highschool_03',
     title: '麦恩莉', artist: '方大同', category: '高中回忆',
   }],
   ['wo-huai-nian-de-sun-yanzi.mp3', {
-    id: 'highschool_06',
+    id: 'highschool_04',
     title: '我怀念的', artist: '孙燕姿', category: '高中回忆',
   }],
   ['wo-men-de-ge-wang-lihong.mp3', {
-    id: 'highschool_07',
+    id: 'highschool_05',
     title: '我们的歌', artist: '王力宏', category: '高中回忆',
   }],
   ['wo-men-liang-guo-ding.mp3', {
-    id: 'highschool_08',
+    id: 'highschool_06',
     title: '我们俩', artist: '郭顶', category: '高中回忆',
   }],
   ['wo-zhi-dao-by2.mp3', {
-    id: 'highschool_09',
+    id: 'highschool_07',
     title: '我知道', artist: 'BY2', category: '高中回忆',
   }],
   ['yu-ai-yang-chenglin.mp3', {
-    id: 'highschool_10',
+    id: 'highschool_08',
     title: '雨爱', artist: '杨丞琳', category: '高中回忆',
   }],
   ['yu-xia-yi-zheng-wan-zhou-jielun.mp3', {
-    id: 'highschool_11',
+    id: 'highschool_09',
     title: '雨下一整晚', artist: '周杰伦', category: '高中回忆',
   }],
   ['yuan-yu-chou-lin-junjie.mp3', {
-    id: 'highschool_12',
+    id: 'highschool_10',
     title: '愿与愁', artist: '林俊杰', category: '高中回忆',
   }],
 ]);
@@ -91,6 +83,8 @@ const records = files.map((filePath, index) => {
     url: `/${relativePath.replace(/^public\//, '')}`,
   };
 });
+
+records.sort((left, right) => left.id.localeCompare(right.id, undefined, { numeric: true }));
 
 await writeFile(outputFile, `${JSON.stringify(records, null, 2)}\n`, 'utf8');
 await writeFile(sourceOutputFile, `${JSON.stringify(records, null, 2)}\n`, 'utf8');

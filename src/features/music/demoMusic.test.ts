@@ -4,9 +4,11 @@ import { DEMO_MUSIC_TRACKS, HIGH_SCHOOL_DEMO_TRACK } from './demoMusic';
 
 describe('bundled Demo music', () => {
   it('uses the user-owned track as the high-school background and keeps safe alternatives', () => {
-    expect(DEMO_MUSIC_TRACKS).toHaveLength(12);
+    expect(DEMO_MUSIC_TRACKS).toHaveLength(10);
     expect(HIGH_SCHOOL_DEMO_TRACK.name).toBe('特别的人');
     expect(HIGH_SCHOOL_DEMO_TRACK.src).toContain('/music/high-school/te-bie-de-ren-fang-datong.mp3');
     expect(DEMO_MUSIC_TRACKS.every((track) => track.source === 'system')).toBe(true);
+    expect(DEMO_MUSIC_TRACKS.some((track) => track.name.includes('开源人之歌'))).toBe(false);
+    expect(DEMO_MUSIC_TRACKS.some((track) => track.name.includes('那年夏天'))).toBe(false);
   });
 });
