@@ -66,4 +66,4 @@ rg -n --hidden --glob '!.git/**' --glob '!node_modules/**' --glob '!dist/**' --g
 - [ ] 不支持 WebGL 的浏览器进入兼容浏览模式。
 - [ ] 首次播放、暂停、结束、再看一遍均只需符合浏览器自动播放规则的一次用户操作。
 - [ ] 个人导入数据不会出现在 Demo 路由。
-- [ ] README 的 Live Demo 地址可访问。
+- [ ] README 的 Demo 地址可访问。
