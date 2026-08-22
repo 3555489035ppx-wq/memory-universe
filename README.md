@@ -6,9 +6,9 @@ Memory Universe is not a normal photo album or a video player. It turns photos, 
 
 [Live Demo](https://memory-universe-two.vercel.app/) · [GitHub](https://github.com/3555489035ppx-wq/memory-universe)
 
-![Memory Universe — high-school memory demo](docs/assets/demo-contact-sheet.jpg)
+![Memory Universe homepage](docs/assets/memuniverse-home.png)
 
-## Live Demo
+## Demo
 
 - 公开网址：<https://memory-universe-two.vercel.app/>
 
