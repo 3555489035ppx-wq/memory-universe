@@ -5,8 +5,7 @@
   "type": "module",
   "description": "MEMENTO：一个在浏览器本地组织、探索与备份个人记忆关系的空间产品。",
   "scripts": {
-    "dev": "node scripts/dev-with-music.mjs",
-    "music:connector": "node scripts/memento-music-connector.mjs",
+    "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint .",
@@ -15,13 +14,13 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "demo:generate": "node scripts/generate-demo-data.mjs",
+    "music:library": "node scripts/generate-music-library.mjs",
     "check": "pnpm run lint && pnpm run typecheck && pnpm run test && pnpm run build"
   },
   "dependencies": {
     "@phosphor-icons/react": "2.1.10",
     "@react-three/drei": "10.7.7",
     "@react-three/fiber": "9.7.0",
-    "NeteaseCloudMusicApi": "4.32.0",
     "camera-controls": "3.1.2",
     "class-variance-authority": "0.7.1",
     "exifreader": "4.41.3",

@@ -79,8 +79,8 @@ export function VideoExportDialog(): ReactNode {
     return selected;
   }, [dataset, session]);
   const preset = getVideoExportPreset(presetId);
-  const localAudio = track?.source === 'local' ? track.localFile ?? null : null;
-  const hasAudioSource = Boolean(localAudio || (track?.source !== 'local' && (track?.src || track?.remoteId)));
+  const localAudio = track?.source === 'upload' ? track.localFile ?? null : null;
+  const hasAudioSource = Boolean(localAudio || track?.src);
   const missingPhotoCount = Math.max(0, (session?.memoryIds.length ?? 0) - memories.length);
   const canStart = Boolean(session && config && hasAudioSource && memories.length > 0 && missingPhotoCount === 0);
   const progressPercent = Math.round((run.progress?.progress ?? 0) * 100);
@@ -103,7 +103,7 @@ export function VideoExportDialog(): ReactNode {
   }, [run.status]);
 
   const startExport = useCallback((): void => {
-    if (!session || !config || !track || (!localAudio && track.source === 'local') || memories.length === 0 || missingPhotoCount > 0) return;
+    if (!session || !config || !track || (!localAudio && track.source === 'upload') || memories.length === 0 || missingPhotoCount > 0) return;
     const selectedTrack = track;
     const controller = new AbortController();
     abortRef.current = controller;
@@ -194,18 +194,13 @@ export function VideoExportDialog(): ReactNode {
             <dl className="video-export__facts">
               <div><dt>时间线</dt><dd>{config ? formatDuration(config.durationSeconds) : '等待本地音频元数据'}</dd></div>
               <div><dt>照片</dt><dd>{memories.length}/{session.memoryIds.length} 张</dd></div>
-              <div><dt>声音</dt><dd>{localAudio ? AUDIO_PRESETS[audioPresetId].label : track?.source === 'remote' ? `导出时下载 · ${AUDIO_PRESETS[audioPresetId].label}` : '需要音频'}</dd></div>
+              <div><dt>声音</dt><dd>{hasAudioSource ? AUDIO_PRESETS[audioPresetId].label : '需要音频'}</dd></div>
               <div><dt>输出</dt><dd>{preset.width} × {preset.height} · {preset.fps} fps</dd></div>
             </dl>
 
             {!localAudio && !hasAudioSource && (
               <p className="video-export__warning" role="status">
-                请在音乐面板选择你有权使用的本地音频。远程流可播放，但不能被录制或伪装为可导出音频。
-              </p>
-            )}
-            {track?.source === 'remote' && hasAudioSource && (
-              <p className="video-export__warning" role="status">
-                当前歌曲来自远程音乐源；点击导出后会通过本机连接器下载到内存，再用当前母带预设处理并写入 4K MP4，不上传照片或音乐。
+                请在音乐面板选择系统音乐库中的歌曲，或上传你有权使用的 MP3 / WAV。
               </p>
             )}
             {songDuration <= 0 && hasAudioSource && (

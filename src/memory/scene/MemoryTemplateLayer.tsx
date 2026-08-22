@@ -175,7 +175,7 @@ export function MemoryTemplateLayer(): ReactNode {
   useEffect(() => {
     if (!templateId || status === 'idle' || memories.length === 0) return;
     // Do not decode dozens of textures on the same interaction that starts
-    // audio. A paced background warm-up keeps the first music beat and opening
+    // audio. A paced background warm-up keeps the opening timeline and camera motion
     // camera motion responsive; visible photos still acquire their own micro
     // texture immediately through MemoryPhoto.
     const warmups = memories.slice(0, Math.min(16, memories.length));

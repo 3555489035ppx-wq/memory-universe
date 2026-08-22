@@ -6,11 +6,11 @@
 
 Memory Universe（记忆宇宙）已经从单纯的视觉 Demo 发展为一个可运行的 Local First（本地优先）情感记忆体验产品：
 
-- Demo 路径不需要账号、不需要导入素材，默认加载 96 张本地演示照片和本地音轨。
+- Demo 路径不需要账号、不需要导入素材，默认加载 96 张本地演示照片和内置本地音乐；音乐层可直接切换 Demo 曲目。
 - 个人路径可以在当前浏览器导入照片，处理 EXIF、方向、缩略图、预览图并保存到 IndexedDB。
 - Universe 提供时间、人物、地点、情绪四种观察入口；Memory Dive、Constellation、Archive、Settings 组成真实的数据闭环。
 - Memory Template 使用 React Three Fiber / Three.js 运行确定性空间布局、单一时间轴和照片动效；高中回忆模板是当前完整可体验主题。
-- 音乐层支持本地音频；可选的本机 MEMENTO Music Connector 负责外部音乐平台连接，浏览器不保存原始 Cookie。
+- 音乐层支持随网站部署的系统音乐库和浏览器上传，浏览器不读取账号、Cookie 或第三方平台会话。
 - 视频导出已经有 4K / 1080P / 横版和快速检查等导出契约，远程音频不会被伪装成本地可导出音频。
 
 公开发布时需要明确：当前版本的“AI”是产品定位和预留的内容组织环节；公开 Demo 使用预设记忆数据、确定性布局和可复现的模板引擎，尚未接入在线大模型 API。这样更真实，也更适合作品集展示。
@@ -26,7 +26,7 @@ Memory Universe（记忆宇宙）已经从单纯的视觉 Demo 发展为一个�
 | 图片处理 | File API、EXIFReader、pica、fast-average-color | 导入时生成 micro / thumbnail / preview |
 | 备份 | fflate + SHA-256 校验 | ZIP 导出与恢复有单元测试 |
 | 视频导出 | Mediabunny 与本地音频物化流程 | 需要本地可读音频才能将声音写入导出文件 |
-| 音乐连接 | 本地 MEMENTO Music Connector | 不是静态部署必需项；Demo 使用本地音轨 |
+| 音乐输入 | `public/music/` 系统音乐库 + 浏览器上传 | 静态部署即可使用；Demo 默认使用高中回忆音轨 |
 | 测试 | Vitest、Testing Library、Playwright | CI 已覆盖 lint、类型、单测和构建 |
 
 ## 3. 产品能力分级
@@ -58,9 +58,9 @@ Memory Universe（记忆宇宙）已经从单纯的视觉 Demo 发展为一个�
 
 ## 4. 资源与安全审计
 
-- `public/demo/` 内置 96 张演示图片、三档图片尺寸、数据 JSON 和本地 WAV 音轨。
+- `public/demo/` 内置 96 张演示图片、三档图片尺寸、数据 JSON；`public/music/` 内置用户声明自有的 MP3 / WAV 音轨。
 - Demo 图片来源、作者、原始页面和 CC0 信息记录在 `public/demo/demo-asset-credits.json`。
-- Demo 音轨是项目内生成的无版权氛围音轨，不依赖第三方账号和远程播放地址。
+- Demo 音乐不依赖第三方账号和远程播放地址；音频文件随站点静态发布，来源边界记录在 `CREDITS.md`。
 - 个人照片、GPS / EXIF、备份和音乐会话不应进入公开仓库。
 - `.env`、Token、Cookie、API Key 已被忽略；公开配置只放在 `.env.example`。
 - QA 截图、Playwright 临时文件、构建日志和 Codex 工作产物不属于产品源文件，统一忽略。
@@ -70,7 +70,7 @@ Memory Universe（记忆宇宙）已经从单纯的视觉 Demo 发展为一个�
 | 风险 | 影响 | 处理 |
 | --- | --- | --- |
 | 在线 AI 尚未接入 | README 容易夸大能力 | 明确标注“AI flow 已定义，当前 Demo 使用确定性引擎” |
-| 外部音乐依赖本机连接器 | 静态部署无法替代本机登录 | Demo 默认使用本地音轨；音乐连接器作为可选开发能力 |
+| 用户上传音频格式或版权不明确 | 播放和分享边界不清晰 | 只接受 MP3/WAV 播放输入；上传文件留在当前浏览器，系统音乐随站点部署 |
 | 浏览器 WebGL / IndexedDB 能力差异 | 某些浏览器可能空白或丢本地数据 | WebGL 兼容回退、Archive 管理入口、备份提醒 |
 | 4K 视频计算量大 | 低性能设备导出慢 | 提供快速检查、1080P 和分辨率选择，导出前明确本地资源边界 |
 | 私人素材误提交 | 公开仓库隐私风险 | 发布前运行 secrets 检查，只纳入 CC0 Demo 资源 |

@@ -122,8 +122,8 @@ Luan 在 Phase 0 必须重新核对，下表是 Sol 在 2026-08-08 的只读审�
 | Canvas | `PersistentSceneShell` 在 route overlay 外，唯一持续 Canvas |
 | Photos | `MemoryNode` + `MemoryLODRenderer` + `LocalTextureManager` |
 | Music | `MusicExperience.tsx` 内唯一 `<audio>`，支持本地 Object URL、play/pause/seek/volume |
-| Audio analysis | 已有 Web Audio `AnalyserNode`，输出 energy/bass/mid/treble/beat |
-| Optional music connector | `musicService.ts` 可连接本机服务；模板 V1 不依赖它，也不删除它 |
+| Audio meter | 已有 Web Audio `AnalyserNode`，仅用于播放控制台的峰值与动态控制读数 |
+| Music source | `public/music/` 系统音乐库或浏览器上传；不连接第三方账号或本机服务 |
 | Tests | Vitest + Playwright |
 | Baseline check | `pnpm run check` 通过；20 个测试文件、63 个测试通过；build 成功 |
 | Git | 当前不是 Git repository |
@@ -139,7 +139,7 @@ Phase 0 只读检查并生成一份报告，至少写明：
 - 当前未提交/未知文件清单；
 - `AppShell`、router、Persistent Canvas、UniverseScene、CameraRig 的实际所有权；
 - `MemoryNode`、TextureManager、LOD 的现状；
-- `MusicExperience`、musicStore、Web Audio analyser、可选本地音乐服务的现状；
+- `MusicExperience`、musicStore、Web Audio 音频表的现状；
 - tokens 与全局 CSS 入口；
 - 现有可复用组件与避免修改的高风险文件；
 - Desktop 手工截图：Entry、Universe、播放器展开、Memory Dive、Archive；
@@ -256,7 +256,7 @@ class-variance-authority
 - `camera-controls`：唯一相机执行器；
 - Zustand：新增独立 template store；
 - 现有 LocalTextureManager、LOD、settings、toast、selection、musicStore；
-- Web Audio Analyser：现有微动态数据源。
+- Web Audio Analyser：仅作为播放器音频表的读数源，不向场景提供音乐特征。
 
 ## E3. V1 不新增
 
@@ -582,8 +582,8 @@ Phase 3 只迁移 skin：
 |---|---|---|
 | `edge-action` | 使用 medium glass surface | 位置、链接、文案 |
 | Universe `view-switcher` | GlassTabs 视觉 | 四视图逻辑、顺序 |
-| Music console | GlassPlayer skin | audio 元素、播放逻辑、local service |
-| Music library trigger | GlassButton/Chip 视觉 | provider 行为 |
+| Music console | GlassPlayer skin | audio 元素、播放逻辑、系统音乐库与上传边界 |
+| Music library trigger | GlassButton/Chip 视觉 | 系统音乐库与浏览器上传行为 |
 | Template controls | 新建 Glass family | 占据画面中央的大卡片 |
 
 Archive、Settings、Import、Memory Dive 不在 P0 Phase 3 全量迁移。只修复因 token 变化产生的视觉回归。
@@ -1018,21 +1018,11 @@ Preview 提供“选择本地音乐”。不显示或下载默认歌曲。未选
 
 ---
 
-# W. Audio Reactive System
+# W. Music Playback Boundary
 
-V1 复用 `musicStore` 已有 `energy/bass/mid/treble/beat`，不安装 Meyda。
+音乐只提供模板播放所需的时间轴，以及播放器中的峰值与动态控制读数。模板阶段、照片转场、Camera、粒子速度和颜色全部由确定性的模板配置与场景状态控制，不读取音乐情绪、氛围、节奏或频谱特征。
 
-P0 稳定前所有 reactive 值为 0。Phase 16 才启用：
-
-| 输入 | 输出 | 最大幅度 |
-|---|---|---:|
-| bass | 普通照片 scale multiplier | ±1.5% |
-| energy | reflection/glow | +0.08 opacity |
-| treble | 现有 particle brightness | +10% |
-| energy | analytic orbit velocity | +8% |
-| beat | Hero pulse | +1.2%，衰减 180ms |
-
-使用 smoothing：attack 80ms、release 260ms。Audio reactive 不能改变 phase、触发布局、选择 Hero 或移动 Camera。Reduced Motion 下 scale/pulse 为 0，最多保留 +3% brightness。
+系统音乐和浏览器上传都使用同一条 `HTMLAudioElement` 播放链路；音频表只服务于播放器控制台，不向 Universe 场景暴露音乐特征值。
 
 ---
 
@@ -1448,7 +1438,7 @@ Phase 18 运行全部 Playwright。前面 Phase 可跑最相关 E2E + release sm
 2. 读取 package/scripts、Vite/TS/ESLint/Playwright 配置。
 3. 画出 AppShell、route overlay、PersistentSceneShell、UniverseScene、CameraRig 所有权。
 4. 检查 MemoryNode、LOD、LocalTextureManager、PerformanceGovernor。
-5. 检查 musicStore、MusicExperience、musicService、唯一 `<audio>` 与 analyser。
+5. 检查 musicStore、MusicExperience、系统音乐库、唯一 `<audio>` 与音频表。
 6. 检查 `tokens.css`、globals import 链和现有 glass token。
 7. 运行 `pnpm run check`；运行 `pnpm run test:e2e`；记录命令、耗时、失败文本。
 8. 启动页面，截图 Entry、Universe、播放器、Memory Dive、Archive。
@@ -1587,7 +1577,7 @@ Phase 18 运行全部 Playwright。前面 Phase 可跑最相关 E2E + release sm
 
 **视觉参数：** medium glass；照片/Universe 对比度高于控件；播放器高度不得增加超过 8px。
 
-**错误处理：** 远程本机服务不可用时仍保留原中文错误与本地音频入口。
+**错误处理：** 系统音频加载失败时仍保留清晰错误与浏览器上传入口。
 
 **测试命令：** musicStore/component tests、Universe E2E smoke、`pnpm run check`。
 
@@ -1817,7 +1807,7 @@ Phase 18 运行全部 Playwright。前面 Phase 可跑最相关 E2E + release sm
 
 **允许修改：** MusicExperience内部adapter绑定、memory audio adapter、musicStore最小事件。
 
-**禁止修改：** 创建第二audio element、删除local service、安装Tone、改变现有播放器UX。
+**禁止修改：** 创建第二audio element、引入第三方账号连接、安装Tone、改变现有播放器UX。
 
 **新增文件：** `src/memory/engine/PlaybackClock.ts`、`MediaElementPlaybackClock.ts`、`FallbackPlaybackClock.ts` 及 tests。
 
@@ -1843,9 +1833,9 @@ Phase 18 运行全部 Playwright。前面 Phase 可跑最相关 E2E + release sm
 
 **测试命令：** clock tests、musicStore tests、MusicExperience component tests、check。
 
-**手工测试：** local file play/pause/seek；remote optional flow smoke；Object URL切换释放。
+**手工测试：** system/upload file play/pause/seek；Object URL切换释放。
 
-**验收标准：** 只有一个audio；clock命令正确；原播放器和service不回归。
+**验收标准：** 只有一个audio；clock命令正确；系统音乐库与上传流程不回归。
 
 **回滚方法：** 移除clock注册，不改原音频handlers结果。
 
@@ -1898,7 +1888,7 @@ Phase 18 运行全部 Playwright。前面 Phase 可跑最相关 E2E + release sm
 
 **允许修改：** 新Timeline引擎/config validation/template layer/coordinator。
 
-**禁止修改：** High-school全部叙事细节、Audio reactive、其他模板。
+**禁止修改：** High-school全部叙事细节、音乐视觉联动、其他模板。
 
 **新增文件：** `src/memory/engine/TimelineEngine.ts`、`easing.ts`、`validateTimeline.ts` 及 tests。
 
@@ -1938,7 +1928,7 @@ Phase 18 运行全部 Playwright。前面 Phase 可跑最相关 E2E + release sm
 
 **允许修改：** high-school config、Timeline rules、template layer、Camera preset、Preview/Playback copy、tests。
 
-**禁止修改：** 其他四模板实现、Audio reactive、现有 Universe布局、Archive/Import。
+**禁止修改：** 其他四模板实现、音乐视觉联动、现有 Universe布局、Archive/Import。
 
 **新增文件：** `src/memory/templates/highSchoolTimeline.ts`（若 config 无法清晰承载纯数据）、phase fixture/visual tests。
 
@@ -2097,15 +2087,15 @@ Phase 18 运行全部 Playwright。前面 Phase 可跑最相关 E2E + release sm
 
 **下一阶段前置条件：** 视觉审查无阻断，P0核心视觉冻结。
 
-## Phase 16｜Audio Reactive Micro-motion
+## Phase 16｜音频视觉联动（已取消）
 
-**目标：** 使用现有analyser加入极小呼吸，不改变Story Timeline。
+**决策：** 不再使用音频 analyser 驱动照片、粒子、Camera、颜色或转场。音乐只作为播放时间轴与播放器音频表输入。
 
-**允许修改：** AudioReactiveAdapter、MemoryPhoto/UniverseScene微量参数、tests。
+**允许修改：** 播放器状态、音频表和本地音乐库；不得把音乐特征暴露给 Universe 场景。
 
 **禁止修改：** phase、Camera路径、触发布局、安装Meyda、粒子爆炸。
 
-**新增文件：** `src/memory/engine/AudioReactiveAdapter.ts`及tests。
+**新增文件：** 无；不创建 `AudioReactiveAdapter`。
 
 **修改文件：** MemoryTemplateLayer、MemoryPhoto、现有star layer只增加受clamp的template multiplier（如必要）。
 
@@ -2113,21 +2103,20 @@ Phase 18 运行全部 Playwright。前面 Phase 可跑最相关 E2E + release sm
 
 **执行步骤：**
 
-1. 读取musicStore已有energy/bass/treble/beat；不每帧set store。
-2. 实现W节attack/release/clamp。
-3. 将reactive snapshot作为Timeline snapshot后的纯叠加层。
-4. 静音/fallback时全部0；Reduced Motion scale/pulse0。
-5. 用人工固定频谱值做确定性test。
+1. 保留 HTMLAudioElement 作为唯一播放时钟。
+2. 保留音频表的峰值与动态控制读数，仅用于播放器控制台。
+3. 不创建 reactive snapshot，不向 Timeline 或 Universe 传递音乐特征。
+4. 用系统音频、浏览器上传和播放失败状态做确定性测试。
 
-**关键数据结构：** `AudioReactiveSnapshot {scale, glow, particle, velocity}`。
+**关键数据结构：** `MusicAudioMeter`，只保存播放器读数。
 
-**关键交互：** 音乐播放有微呼吸；暂停立即平滑归零并冻结。
+**关键交互：** 音乐播放、暂停、Seek 和上传由播放器自身控制；场景不随音频特征变化。
 
-**视觉参数：** W节最大值；任何scale不超过±1.5%。
+**视觉参数：** 场景视觉参数由模板与场景状态固定决定，不接受音频参数。
 
-**错误处理：** AudioContext不可用返回zero snapshot；不阻断播放。
+**错误处理：** AudioContext不可用时保留基础 HTMLAudioElement 播放，不阻断音乐库或场景。
 
-**测试命令：** reactive tests、music tests、check。
+**测试命令：** music tests、template tests、check。
 
 **手工测试：** 安静/强节奏本地测试音频；关闭音乐；Reduced Motion；性能观察。
 
@@ -2480,7 +2469,7 @@ docs/memory-template/
 - 不重写 `MemoryNode.tsx`；模板用独立MemoryPhoto并共享texture基础；
 - 不重写现有Relationship/四视图layout；
 - 不改变IndexedDB schema，V1 template session不持久化；
-- 不删除musicService本地连接器；模板不依赖它即可；
+- 不重新引入第三方账号连接、本机连接器或二维码授权；
 - 不改Demo照片或添加歌曲资产；
 - 不删除现有E2E以让新测试通过；
 - 不改package name或全站MEMENTO/Memuniverse命名，本阶段只保证新用户文案统一使用Memuniverse。

@@ -69,7 +69,7 @@ export function TemplatePreview(): ReactNode {
 
   // Playing a user-selected track is the explicit gesture that starts a
   // template. This keeps Preview silent while still making the intended flow
-  // direct: choose a template, choose a NetEase/local track, press Play, and
+  // direct: choose a template, choose a system/upload track, press Play, and
   // the same audio clock starts the photo choreography.
   useEffect(() => {
     if (sessionStatus === 'preview' && usingMusicClock) start();

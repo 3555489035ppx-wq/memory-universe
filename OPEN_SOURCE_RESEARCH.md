@@ -545,34 +545,18 @@ memento-backup/
 
 ## 9. 音乐层补充研究与接入决策
 
-> 核验日期：2026-08-05。目标不是复制一整套播放器，而是为 MEMENTO 找到可维护、可解释的本机连接边界。
+> 当前实现：随静态站点发布的 Memory Universe Music Library（记忆宇宙音乐库）。旧的第三方账号连接研究仅作为历史记录，不属于当前运行时。
 
-### 候选项目
-
-| 项目 | 结论 | 关键原因 |
-|---|---|---|
-| [listen1/listen1](https://github.com/listen1/listen1) / [listen1/listen1-api](https://github.com/listen1/listen1-api) | 只参考架构 | MIT；统一搜索、歌单、歌词和播放地址的抽象适合作为 Provider Adapter 参考，但项目整体不是 MEMENTO 的前端依赖。 |
-| [sansenjian/qq-music-api](https://github.com/sansenjian/qq-music-api) | 只做 QQ 适配器参考 | TypeScript/Koa、支持 QQ 登录和歌单；README 明确提示仅供学习研究，接口依赖平台行为，不能把它伪装成稳定官方 SDK。 |
-| [Binaryify/NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi) | 不新增依赖 | 仓库已归档，且版权保护和维护状态都不适合作为新的浏览器运行时依赖。 |
-| [GitHub-ZC/wp_MusicApi](https://github.com/GitHub-ZC/wp_MusicApi) | 不采用 | 虽支持多平台，但 Cookie / 公共服务边界和“仅供学习研究”的限制不适合 MEMENTO 的隐私模型。 |
-| [qier222/YesPlayMusic](https://github.com/qier222/YesPlayMusic) | 只参考交互 | 可参考 NetEase 登录、播放队列等桌面播放器信息架构，不复制其 UI、品牌、接口或资源。 |
-
-### 最终方案
-
-MEMENTO 采用自有的轻量前端 `musicService` 适配层，默认连接已经在用户电脑上运行的 Mineradio 服务：
+音乐层采用最小、可验证的浏览器本地边界：
 
 ```text
 MusicLibraryPopover
-  → MusicLoginDialog / Provider Tabs
-  → musicService（状态、二维码、歌单、歌曲、播放地址）
-  → http://127.0.0.1:3000（Mineradio 本机服务）
+  → public/music/music-library.json
+  → 同源 MP3 / WAV
   → MusicStore queue + MusicExperience audio
 ```
 
-浏览器不保存原始 Cookie，也不直接把音乐平台网页嵌入 MEMENTO。网易云在普通浏览器中使用本机服务提供的二维码；QQ 音乐需要桌面登录桥接或用户主动导入 Cookie。这样既保持了真实登录与真实歌单，又不把跨域登录、平台协议和账号凭据硬塞进静态前端。
-
-### 对产品的影响
-
-- P0 是“登录 → 读取真实歌单 → 选择歌曲 → 按需获取播放地址 → 播放 / 下一首”的闭环；歌词、搜索、推荐和跨平台合并队列暂不进入第一版。
-- Mineradio 未运行时，界面必须显示连接失败并保留本地音频，不显示假歌单、不假装登录成功。
-- 远程音频不打包进仓库；播放权限、地区限制和版权由平台与用户自己的本机连接器负责。
+- 系统音乐来自仓库 `public/music/`，构建时由 `scripts/generate-music-library.mjs` 自动生成索引并随站点部署。
+- 用户可以在当前浏览器上传 MP3 / WAV；上传文件只保存在当前页面会话，不上传到服务器。
+- 音乐只负责播放、队列和导出输入，不做账号登录、扫码授权、Cookie 读取、情绪识别或视觉联动。
+- 播放失败时保留重试与上传入口，不显示假登录、假歌单或假授权状态。

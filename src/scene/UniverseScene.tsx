@@ -6,7 +6,6 @@ import type { Group, Points, PointsMaterial, ShaderMaterial } from 'three';
 import { useSceneStore, type SceneMode } from '../stores/sceneStore';
 import { useMemoryTemplateStore } from '../stores/memoryTemplateStore';
 import { useSettingsStore } from '../stores/settingsStore';
-import { useMusicStore } from '../stores/musicStore';
 import { MemoryLODRenderer } from './MemoryLODRenderer';
 import { PerformanceGovernor } from './PerformanceGovernor';
 import { RelationshipLines } from './RelationshipLines';
@@ -120,7 +119,6 @@ function StarLayer({
   );
   useFrame((state) => {
     if (!material.current) return;
-    const { energy, beat } = useMusicStore.getState();
     const currentUniforms = material.current.uniforms;
     const timeUniform = currentUniforms.uTime;
     const pixelRatioUniform = currentUniforms.uPixelRatio;
@@ -129,8 +127,8 @@ function StarLayer({
     if (!timeUniform || !pixelRatioUniform || !opacityUniform || !pointSizeUniform) return;
     timeUniform.value = state.clock.elapsedTime;
     pixelRatioUniform.value = state.gl.getPixelRatio();
-    opacityUniform.value = opacity + energy * 0.12 + beat * 0.1;
-    pointSizeUniform.value = pointSize * (1 + energy * 0.12 + beat * 0.08);
+    opacityUniform.value = opacity;
+    pointSizeUniform.value = pointSize;
   });
   return (
     <points>
@@ -214,10 +212,9 @@ function RotatingStarfield({ mode }: { mode: SceneMode }): ReactNode {
 
   useFrame((state, delta) => {
     if (!group.current) return;
-    const { energy, beat } = useMusicStore.getState();
     const modeMultiplier = mode === 'entry' ? 4.2 : mode === 'covered' ? 3.2 : 3.5;
-    group.current.rotation.y += delta * (0.02 + energy * 0.028) * modeMultiplier;
-    group.current.rotation.z += delta * (0.004 + beat * 0.008) * modeMultiplier;
+    group.current.rotation.y += delta * 0.02 * modeMultiplier;
+    group.current.rotation.z += delta * 0.004 * modeMultiplier;
     group.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.035) * 0.02;
   });
 
@@ -266,14 +263,13 @@ function SpatialDust(): ReactNode {
     [quality],
   );
   useFrame((state, delta) => {
-    const { energy, beat } = useMusicStore.getState();
     if (points.current) {
-      points.current.rotation.y += delta * (0.0025 + energy * 0.008);
-      points.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.05) * energy * 0.015;
+      points.current.rotation.y += delta * 0.0025;
+      points.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.05) * 0.015;
     }
     if (material.current) {
-      material.current.opacity = 0.18 + energy * 0.18 + beat * 0.12;
-      material.current.size = 0.018 + energy * 0.008 + beat * 0.006;
+      material.current.opacity = 0.18;
+      material.current.size = 0.018;
     }
   });
   return (

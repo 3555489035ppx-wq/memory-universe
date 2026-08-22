@@ -29,7 +29,7 @@ test('mobile export sheet keeps native 4K as the default and never treats a stre
   await expect(dialog.locator('button[data-selected="true"]')).toContainText('手机 4K');
   await expect(dialog.getByText('2160 × 3840 · 30 fps · H.264 / 高品质音频 MP4')).toBeVisible();
   await expect(dialog.getByRole('button', { name: '开始 手机 4K 导出' })).toBeDisabled();
-  await expect(dialog.getByRole('status')).toContainText('本地音频');
+  await expect(dialog.getByRole('status')).toContainText('系统音乐库');
 
   const layerAudit = await page.evaluate(() => {
     const backdrop = document.querySelector<HTMLElement>('.video-export__backdrop');

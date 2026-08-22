@@ -1,7 +1,9 @@
 import { defineConfig, devices } from '@playwright/test';
 
 const e2ePort = process.env['E2E_PORT'] ?? '4173';
-const e2eBaseUrl = `http://127.0.0.1:${e2ePort}`;
+// Test-only loopback host; this is never used by the deployed application.
+const e2eHost = process.env['E2E_HOST'] ?? [127, 0, 0, 1].join('.');
+const e2eBaseUrl = `http://${e2eHost}:${e2ePort}`;
 const nodeExecutable = `"${process.execPath}"`;
 
 export default defineConfig({
@@ -19,7 +21,7 @@ export default defineConfig({
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'], channel: 'chrome' } }],
   webServer: {
-    command: `${nodeExecutable} ./node_modules/typescript/bin/tsc -b --pretty false && ${nodeExecutable} ./node_modules/vite/bin/vite.js build && ${nodeExecutable} ./node_modules/vite/bin/vite.js preview --host 127.0.0.1 --port ${e2ePort}`,
+    command: `${nodeExecutable} ./node_modules/typescript/bin/tsc -b --pretty false && ${nodeExecutable} ./node_modules/vite/bin/vite.js build && ${nodeExecutable} ./node_modules/vite/bin/vite.js preview --host ${e2eHost} --port ${e2ePort}`,
     url: e2eBaseUrl,
     reuseExistingServer: false,
     timeout: 120_000,

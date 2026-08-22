@@ -26,7 +26,6 @@ import {
   WaveformIcon as Waveform,
 } from '@phosphor-icons/react';
 
-import { getMusicStream, invalidateMusicStream } from './musicService';
 import { MusicArtwork } from './MusicArtwork';
 import { HIGH_SCHOOL_DEMO_TRACK } from './demoMusic';
 import { StudioAudioGraph } from './audioEnhancement';
@@ -34,9 +33,8 @@ import { AUDIO_PRESETS, type AudioPresetId } from './audioPresets';
 import {
   playAudioWithContext,
   shouldQueuePlaybackUntilReady,
-  shouldRefreshRemoteStream,
 } from './audioPlayback';
-import { useMusicStore, type MusicStatus, type MusicTrack, type PlaybackMode } from '../../stores/musicStore';
+import { useMusicStore, type MusicStatus, type MusicTrack, type PlaybackMode, type MusicTrackSource } from '../../stores/musicStore';
 import { useMemoryTemplateStore } from '../../stores/memoryTemplateStore';
 import { GlassButton } from '../../components/ui/glass-button';
 import { useUiStore } from '../../stores/uiStore';
@@ -53,27 +51,13 @@ function formatDecibels(value: number | null): string {
   return `${value > 0 ? '+' : ''}${value.toFixed(1)} dB`;
 }
 
-function statusLabel(status: MusicStatus, track: { source?: 'local' | 'remote' } | null): string {
-  if (!track) return '选择一段本地音乐，或从歌单开始';
-  if (status === 'loading') return '正在连接音乐服务';
-  if (status === 'playing') return '正在随节奏呼吸';
-  if (status === 'paused') return '已暂停 · 节奏保留';
+function statusLabel(status: MusicStatus, track: { source?: MusicTrackSource } | null): string {
+  if (!track) return '从系统音乐库选择，或上传一段音乐';
+  if (status === 'loading') return '正在读取音乐';
+    if (status === 'playing') return '正在播放';
+    if (status === 'paused') return '已暂停';
   if (status === 'error') return '无法读取这段音乐';
-  return track.source === 'remote' ? '已连接 · 等待播放' : '已准备 · 等待播放';
-}
-
-function providerLabel(provider?: 'netease' | 'qq'): string {
-  if (provider === 'qq') return 'QQ MUSIC';
-  if (provider === 'netease') return 'NETEASE';
-  return 'LOCAL SOUNDTRACK';
-}
-
-function averageRange(data: Uint8Array, start: number, end: number): number {
-  const safeStart = Math.max(0, Math.min(data.length, Math.floor(start)));
-  const safeEnd = Math.max(safeStart + 1, Math.min(data.length, Math.floor(end)));
-  let total = 0;
-  for (let index = safeStart; index < safeEnd; index += 1) total += data[index] ?? 0;
-  return total / (safeEnd - safeStart) / 255;
+  return track.source === 'upload' ? '已上传 · 等待播放' : '已准备 · 等待播放';
 }
 
 function isAudioFile(file: File): boolean {
@@ -111,21 +95,17 @@ export function MusicExperience(): ReactNode {
   const queuePopoverRef = useRef<HTMLDivElement>(null);
   const lyricsPopoverRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const objectUrlRef = useRef<string | null>(null);
+  const objectUrlsRef = useRef<Set<string>>(new Set());
   const audioContextRef = useRef<AudioContext | null>(null);
-  const analyserRef = useRef<AnalyserNode | null>(null);
   const audioGraphRef = useRef<StudioAudioGraph | null>(null);
   const previousVolumeRef = useRef(0.72);
   const rafRef = useRef<number | null>(null);
   const fadeRafRef = useRef<number | null>(null);
   const fadeCompletionRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const fadeOutScheduledRef = useRef(false);
-  const previousEnergyRef = useRef(0);
-  const lastSpectrumPublishRef = useRef(0);
   const pendingTemplateCueRef = useRef<number | null>(null);
   const pendingAutoPlayRef = useRef(false);
   const playbackIntentRef = useRef(false);
-  const remoteRecoveryRef = useRef({ trackId: '', attempts: 0, recovering: false });
   const {
     track,
     queue,
@@ -145,11 +125,10 @@ export function MusicExperience(): ReactNode {
     lyricOffset,
     consoleOpen,
     setTrack,
-    setTrackSource,
+    addUploadedTrack,
     setStatus,
     setProgress,
     setVolume,
-    setSpectrum,
     setConsoleOpen,
     playQueueTrack,
     enqueueTrack,
@@ -202,7 +181,6 @@ export function MusicExperience(): ReactNode {
         audio.volume = 1;
         audioContextRef.current = context;
         audioGraphRef.current = graph;
-        analyserRef.current = graph.analyser;
         setAudioGraphStatus('loading');
         void graph
           .initializeLimiter(new URL('./studioLimiter.worklet.ts', import.meta.url))
@@ -211,62 +189,11 @@ export function MusicExperience(): ReactNode {
         setAudioGraphStatus('error');
         audioContextRef.current = null;
         audioGraphRef.current = null;
-        analyserRef.current = null;
         return null;
       }
     }
     return audioContextRef.current;
   }, [audioPreset, setAudioGraphStatus, volume]);
-
-  const refreshRemoteTrack = useCallback(
-    async (candidate: MusicTrack, autoPlay: boolean, forceRefresh = false): Promise<void> => {
-      if (candidate.source !== 'remote') return;
-      if (autoPlay) {
-        playbackIntentRef.current = true;
-        pendingAutoPlayRef.current = true;
-      }
-      if (forceRefresh) invalidateMusicStream(candidate);
-      setStatus('loading');
-      try {
-        const stream = await getMusicStream(candidate);
-        if (useMusicStore.getState().track?.id !== candidate.id) return;
-        const nextSrc = stream.proxiedUrl || stream.url;
-        const resolvedAt = Date.now();
-        setTrackSource(candidate.id, nextSrc, resolvedAt);
-        const audio = audioRef.current;
-        if (!audio) return;
-        audio.src = nextSrc;
-        audio.load();
-      } catch (reason: unknown) {
-        if (useMusicStore.getState().track?.id !== candidate.id) return;
-        pendingAutoPlayRef.current = false;
-        playbackIntentRef.current = false;
-        setStatus('error', reason instanceof Error ? reason.message : '播放地址获取失败。');
-      }
-    },
-    [setStatus, setTrackSource],
-  );
-
-  const recoverRemotePlayback = useCallback(
-    (candidate: MusicTrack, autoPlay: boolean): boolean => {
-      if (candidate.source !== 'remote') return false;
-      const recovery = remoteRecoveryRef.current;
-      if (recovery.trackId !== candidate.id) {
-        remoteRecoveryRef.current = { trackId: candidate.id, attempts: 0, recovering: false };
-      }
-      const activeRecovery = remoteRecoveryRef.current;
-      if (activeRecovery.recovering) return true;
-      if (activeRecovery.attempts >= 1) return false;
-      activeRecovery.attempts += 1;
-      activeRecovery.recovering = true;
-      void refreshRemoteTrack(candidate, autoPlay, true).finally(() => {
-        const latest = remoteRecoveryRef.current;
-        if (latest.trackId === candidate.id) latest.recovering = false;
-      });
-      return true;
-    },
-    [refreshRemoteTrack],
-  );
 
   const openFilePicker = useCallback(() => inputRef.current?.click(), []);
 
@@ -366,13 +293,12 @@ export function MusicExperience(): ReactNode {
             pushToast('浏览器需要一次点击才能播放，音源已准备好，请再次点击播放。', 'neutral', 5000);
             return;
           }
-          if (track && recoverRemotePlayback(track, true)) return;
           playbackIntentRef.current = false;
-          setStatus('error', '播放失败，请检查音乐连接、播放地址或更换音质。');
+          setStatus('error', '播放失败，请检查音频文件或更换一首音乐。');
         },
       );
     },
-    [autoMix, cancelAudioFade, ensureAudioGraph, fadeAudio, fadeInDuration, pushToast, recoverRemotePlayback, setStatus, track, volume],
+    [autoMix, cancelAudioFade, ensureAudioGraph, fadeAudio, fadeInDuration, pushToast, setStatus, volume],
   );
 
   const toggleQueue = useCallback((): void => {
@@ -486,21 +412,23 @@ export function MusicExperience(): ReactNode {
       }
       const audio = audioRef.current;
       if (!audio) return;
-      if (objectUrlRef.current) URL.revokeObjectURL(objectUrlRef.current);
       const src = URL.createObjectURL(file);
-      objectUrlRef.current = src;
+      objectUrlsRef.current.add(src);
       audio.src = src;
       audio.load();
-      setTrack({
+      const uploadedTrack: MusicTrack = {
         id: `${file.name}-${String(file.lastModified)}-${String(file.size)}`,
         name: file.name.replace(/\.[^/.]+$/, ''),
         fileName: file.name,
         src,
-        source: 'local',
+        source: 'upload',
         localFile: file,
-      });
+        category: '我的上传',
+      };
+      addUploadedTrack(uploadedTrack);
+      playQueueTrack([uploadedTrack], 0);
     },
-    [setStatus, setTrack],
+    [addUploadedTrack, playQueueTrack, setStatus],
   );
 
   const handleFileChange = useCallback(
@@ -549,8 +477,8 @@ export function MusicExperience(): ReactNode {
       || parameters.get('demo') !== 'high-school'
       || useMusicStore.getState().track
     ) return;
-    // The demo is complete on first open: it has a local, redistributable
-    // soundtrack and never requires a login or a network request. A user who
+    // The demo is complete on first open: it has a bundled system soundtrack
+    // and never requires an account or a network request. A user who
     // already chose music keeps that choice, including when returning from a
     // personal template.
     setTrack(HIGH_SCHOOL_DEMO_TRACK);
@@ -671,23 +599,13 @@ export function MusicExperience(): ReactNode {
 
   useEffect(() => {
     const audio = audioRef.current;
-    if (!audio || !track) return;
-    const loadSource = (): void => {
-      if (shouldRefreshRemoteStream(track)) {
-        void refreshRemoteTrack(track, pendingAutoPlayRef.current);
-        return;
-      }
-      if (audio.src !== track.src) {
-        audio.src = track.src;
-        audio.load();
-      }
-    };
-    loadSource();
-  }, [refreshRemoteTrack, track]);
-
-  useEffect(() => {
-    remoteRecoveryRef.current = { trackId: track?.id ?? '', attempts: 0, recovering: false };
-  }, [track?.id]);
+    const trackSrc = track?.src;
+    if (!audio || !trackSrc) return;
+    if (audio.src !== trackSrc) {
+      audio.src = trackSrc;
+      audio.load();
+    }
+  }, [track?.src]);
 
   const togglePlayback = useCallback(() => {
     const audio = audioRef.current;
@@ -695,14 +613,7 @@ export function MusicExperience(): ReactNode {
       openFilePicker();
       return;
     }
-    if (status === 'error' && track.source === 'remote') {
-      remoteRecoveryRef.current = { trackId: track.id, attempts: 0, recovering: false };
-      const context = ensureAudioGraph();
-      if (context?.state === 'suspended') void context.resume().catch(() => undefined);
-      recoverRemotePlayback(track, true);
-      return;
-    }
-    if (shouldQueuePlaybackUntilReady({ source: track.source, src: track.src, status })) {
+    if (shouldQueuePlaybackUntilReady({ src: track.src, status })) {
       const alreadyPending = pendingAutoPlayRef.current;
       pendingAutoPlayRef.current = true;
       const context = ensureAudioGraph();
@@ -720,7 +631,7 @@ export function MusicExperience(): ReactNode {
       audio.pause();
       setStatus('paused');
     }
-  }, [autoMix, cancelAudioFade, ensureAudioGraph, openFilePicker, pushToast, recoverRemotePlayback, setStatus, startPlayback, status, track]);
+  }, [autoMix, cancelAudioFade, ensureAudioGraph, openFilePicker, pushToast, setStatus, startPlayback, status, track]);
 
   const handleSeek = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -843,11 +754,9 @@ export function MusicExperience(): ReactNode {
       setProgress(0, audio.duration || 0);
     };
     const onError = (): void => {
-      const shouldResume = playbackIntentRef.current || pendingAutoPlayRef.current;
-      if (track && recoverRemotePlayback(track, shouldResume)) return;
       pendingAutoPlayRef.current = false;
       playbackIntentRef.current = false;
-      setStatus('error', '这段音乐无法播放，请换一首或换一个音质。');
+      setStatus('error', '这段音乐无法播放，请检查文件格式或换一首。');
     };
     audio.addEventListener('loadedmetadata', onLoadedMetadata);
     audio.addEventListener('progress', onProgress);
@@ -861,13 +770,12 @@ export function MusicExperience(): ReactNode {
       audio.removeEventListener('ended', onEnded);
       audio.removeEventListener('error', onError);
     };
-  }, [autoMix, cancelAudioFade, fadeAudio, fadeOutDuration, playQueueTrack, playbackMode, queue, queueIndex, recoverRemotePlayback, setProgress, setStatus, setBufferedProgress, startPlayback, track, volume]);
+  }, [autoMix, cancelAudioFade, fadeAudio, fadeOutDuration, playQueueTrack, playbackMode, queue, queueIndex, setProgress, setStatus, setBufferedProgress, startPlayback, track, volume]);
 
   useEffect(() => {
     if (status !== 'playing') {
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
       rafRef.current = null;
-      setSpectrum({ energy: 0, bass: 0, mid: 0, treble: 0, beat: 0 });
       setAudioMeter({
         samplePeakDbfs: -120,
         truePeakDbtp: null,
@@ -875,38 +783,18 @@ export function MusicExperience(): ReactNode {
         limiterReductionDb: 0,
         clipping: false,
       });
-      previousEnergyRef.current = 0;
-      lastSpectrumPublishRef.current = 0;
       return;
     }
-    const analyser = analyserRef.current;
-    if (!analyser) return;
-    const data = new Uint8Array(analyser.frequencyBinCount);
     const tick = (): void => {
-      analyser.getByteFrequencyData(data);
-      const bass = averageRange(data, 0, data.length * 0.18);
-      const mid = averageRange(data, data.length * 0.18, data.length * 0.62);
-      const treble = averageRange(data, data.length * 0.62, data.length);
-      const energy = bass * 0.52 + mid * 0.33 + treble * 0.15;
-      const previous = previousEnergyRef.current;
-      const beat = energy > 0.18 && energy > previous * 1.16 ? Math.min(1, energy * 1.8) : 0;
-      previousEnergyRef.current = previous * 0.82 + energy * 0.18;
-      // Keep the analyser at frame rate, but publish the shared snapshot at a
-      // bounded cadence so React controls do not re-render on every frame.
-      const now = typeof performance === 'undefined' ? Date.now() : performance.now();
-      if (beat > 0 || now - lastSpectrumPublishRef.current >= 80) {
-        lastSpectrumPublishRef.current = now;
-        setSpectrum({ energy, bass, mid, treble, beat });
-        const meter = audioGraphRef.current?.readMeter();
-        if (meter) {
-          setAudioMeter({
-            samplePeakDbfs: meter.samplePeakDbfs,
-            truePeakDbtp: meter.truePeakDbtp,
-            compressorReductionDb: meter.compressorReductionDb,
-            limiterReductionDb: meter.limiterReductionDb,
-            clipping: meter.clipping,
-          });
-        }
+      const meter = audioGraphRef.current?.readMeter();
+      if (meter) {
+        setAudioMeter({
+          samplePeakDbfs: meter.samplePeakDbfs,
+          truePeakDbtp: meter.truePeakDbtp,
+          compressorReductionDb: meter.compressorReductionDb,
+          limiterReductionDb: meter.limiterReductionDb,
+          clipping: meter.clipping,
+        });
       }
       rafRef.current = requestAnimationFrame(tick);
     };
@@ -915,17 +803,17 @@ export function MusicExperience(): ReactNode {
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
       rafRef.current = null;
     };
-  }, [setAudioMeter, setSpectrum, status]);
+  }, [setAudioMeter, status]);
 
   useEffect(
     () => () => {
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
       if (fadeRafRef.current !== null) cancelAnimationFrame(fadeRafRef.current);
-      if (objectUrlRef.current) URL.revokeObjectURL(objectUrlRef.current);
+      objectUrlsRef.current.forEach((url) => URL.revokeObjectURL(url));
+      objectUrlsRef.current.clear();
       if (fadeCompletionRef.current !== null) clearTimeout(fadeCompletionRef.current);
       audioGraphRef.current?.dispose();
       audioGraphRef.current = null;
-      analyserRef.current = null;
       void audioContextRef.current?.close();
     },
     [],
@@ -936,7 +824,7 @@ export function MusicExperience(): ReactNode {
     ? 'music-console music-console--hero'
     : 'music-console music-console--dock';
   const trackTitle = track?.name ?? 'Memuniverse';
-  const trackSubtitle = track?.artist || (track?.source === 'remote' ? providerLabel(track.provider) : track?.fileName);
+  const trackSubtitle = track?.artist || track?.album || (track?.source === 'upload' ? track.fileName : '系统音乐库');
   const selectedAudioPreset = AUDIO_PRESETS[audioPreset];
   const displayedPeak = audioMeter.truePeakDbtp ?? audioMeter.samplePeakDbfs;
   const audioGraphLabel = audioGraphStatus === 'ready'
@@ -952,7 +840,7 @@ export function MusicExperience(): ReactNode {
   return (
     <section
       className={`music-experience ${isHome ? 'music-experience--hero' : 'music-experience--dock'}`}
-      aria-label="音乐与节奏视觉"
+          aria-label="音乐播放状态"
     >
       <audio ref={audioRef} preload="auto" crossOrigin="anonymous" aria-hidden="true" />
       <input
@@ -1000,7 +888,7 @@ export function MusicExperience(): ReactNode {
               <span className="music-console__reference-copy">
                 <strong>{trackTitle}</strong>
                 <small>{trackSubtitle || '等待选择音乐'}</small>
-                <span>{providerLabel(track?.provider)}</span>
+                <span>{track?.source === 'upload' ? 'MY UPLOAD' : 'SYSTEM LIBRARY'}</span>
               </span>
             </div>
 
@@ -1288,9 +1176,6 @@ export function MusicExperience(): ReactNode {
                       >
                         {auditionOriginal ? '正在试听原声' : '按住 A/B 试听原声'}
                       </button>
-                      {track?.source === 'remote' && (
-                        <p className="music-console__processing-note">远程歌曲可实时处理；导出时会通过本机连接器临时下载并用当前母带预设写入 4K MP4。</p>
-                      )}
                     </div>
                     <button className="music-console__volume-mute" type="button" aria-pressed={volume === 0} onClick={toggleMute}>
                       {volume === 0 ? '取消静音' : '静音'}
@@ -1318,7 +1203,7 @@ export function MusicExperience(): ReactNode {
         </div>
         <div className="music-console__topline">
           <div>
-            <p className="eyebrow">{providerLabel(track?.provider)}</p>
+            <p className="eyebrow">{track?.source === 'upload' ? 'MY UPLOAD' : 'SYSTEM LIBRARY'}</p>
             <p className="music-console__status" role="status">
               {statusLabel(status, track)}
             </p>

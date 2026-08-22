@@ -10,7 +10,7 @@
 |---|---|---|---|
 | Three.js CSS3D Periodic Table | 部分采用 | 抽取 `objects → targets → transform` 思路，以及 sphere / helix / grid 的目标位姿计算 | 不把 CSS3DRenderer、DOM 卡片样式、TrackballControls 或原 Demo UI 搬入产品 |
 | Tone.js | **本仓库 V1 不采用** | 研究证明其能力足够；仅保留为未来“整体替换音频运行时”的候选 | 当前已有 HTMLAudioElement 播放、Seek 与 AnalyserNode；不得再增加第二时钟 |
-| Meyda | P1 条件采用 | 少量音频特征的离线预分析或可替换的 Audio Reactive 增强 | P0 不安装；不把特征值包装成“节拍/段落/情绪识别” |
+| Meyda | 不采用 | 当前音乐层只需要播放、队列和音频表读数 | 不做音乐情绪、氛围、节奏识别，也不把音乐特征用于宇宙视觉 |
 | React Three Fiber 9 | 采用 | React 内的主 Three.js Runtime、场景生命周期、帧循环和事件 | 不使用 v10 alpha；不在 `useFrame` 中 `setState` |
 | Drei 10 | 选择性采用 | CameraControls、PerformanceMonitor、少量 Image / Html / Instances 能力 | 不把 Drei 当纹理管理器或完整 LOD 系统；不使用 v11 alpha |
 | CSS3DRenderer | 核心路径拒绝 | 仅作为布局示例的上下文 | 不承担照片主渲染、Shader、粒子、LOD 或后处理 |
@@ -160,11 +160,9 @@ Meyda 输出的是声学特征，不直接输出可靠的：
 
 ### P1 条件采用方案
 
-- P0 不安装 Meyda。P0 的简单音量响应优先用原生 `AnalyserNode` 或 Tone 已提供的 `Analyser / Meter`。
-- P1 若要加入更细的音频反应，封装为可替换的 `AudioFeatureExtractor` adapter，不能散落 Meyda API。
-- 优先在用户导入歌曲后做一次离线窗口分析，保存降采样、归一化后的 feature envelope；播放时只查表，避免每帧重复 FFT。
-- 首批只允许 `rms`、`energy`、`spectralCentroid`、`spectralFlux`，并对异常值做 clamp、平滑和归一化。
-- Audio Reactive 只影响粒子密度、光晕、轻微 scale 或背景呼吸，不能驱动模板结构、照片顺序或核心相机路径。
+- 不安装 Meyda，也不做音乐情绪、氛围、节奏或频谱识别。
+- 原生 `AnalyserNode` 只用于播放器控制台的峰值与动态控制读数。
+- 音乐特征不进入 Timeline、照片、粒子、颜色、Camera 或转场。
 - 引入前必须验证 Chrome、Safari、iOS 和中低端设备；性能或恢复不稳定时保留 adapter 并关闭实现。
 
 ### 结论

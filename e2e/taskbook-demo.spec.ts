@@ -7,7 +7,8 @@ test('taskbook keeps the Demo path complete and other templates explicit', async
   await expect(page).toHaveURL(/\/universe\?source=demo&demo=high-school/);
   await expect(page.getByTestId('template-preview')).toBeVisible({ timeout: 30_000 });
   await expect(page.getByRole('heading', { name: '那年夏天' })).toBeVisible();
-  await expect(page.getByText('96 张照片')).toBeVisible();
+  await expect(page.getByTestId('template-preview').getByText('96 张照片', { exact: true })).toBeVisible();
+  await expect(page.locator('audio').first()).toHaveAttribute('src', /te-bie-de-ren-fang-datong\.mp3/);
 
   await page.goto('/universe?source=demo');
   const launcher = page.getByTestId('template-launcher');
@@ -29,20 +30,27 @@ test('clicking a Demo photo resolves to image, time and story', async ({ page })
   await expect(page.locator('.memory-description')).toBeVisible();
 });
 
-test('local music fallback exposes QR states and confirms the demo track', async ({ page }) => {
+test('music layer exposes system and upload sources without account setup', async ({ page }) => {
   await page.goto('/universe?source=demo&demo=high-school');
   const preview = page.getByTestId('template-preview');
   await expect(preview).toBeVisible({ timeout: 30_000 });
   await preview.getByRole('button', { name: '更换音乐' }).click();
-  await page.getByRole('button', { name: '登录平台' }).click();
+  const panel = page.getByRole('complementary', { name: '音乐层' });
+  await expect(panel.getByRole('tab', { name: /系统音乐库/ })).toBeVisible();
+  await panel.getByRole('tab', { name: /我的上传/ }).click();
+  await expect(panel.getByText('还没有上传音乐', { exact: true })).toBeVisible();
+  await expect(panel.getByText(/无需账号/)).toBeVisible();
+});
 
-  const dialog = page.getByRole('dialog', { name: '连接音乐源' });
-  await expect(dialog).toBeVisible();
-  await dialog.getByRole('tab', { name: /酷狗音乐/ }).click();
-  await expect(dialog.getByText('演示二维码 · 不连接第三方账号')).toBeVisible();
-  await dialog.getByRole('button', { name: '开始演示扫码' }).click();
-  await expect(dialog.getByTestId('demo-track-result')).toBeVisible({ timeout: 5_000 });
-  await expect(dialog.getByTestId('demo-track-result')).toContainText('那年夏天');
-  await dialog.getByRole('button', { name: '使用这首音乐生成记忆宇宙' }).click();
-  await expect(dialog).toHaveCount(0);
+test('Demo music layer lets users choose the bundled high-school track', async ({ page }) => {
+  await page.goto('/universe?source=demo&demo=high-school');
+  await expect(page.getByTestId('template-preview')).toBeVisible({ timeout: 30_000 });
+
+  await page.getByRole('button', { name: '打开音乐层' }).click();
+  const panel = page.getByRole('complementary', { name: '音乐层' });
+  await expect(panel.getByRole('region', { name: '高中回忆' })).toBeVisible();
+  await expect(panel.getByText('特别的人', { exact: true })).toBeVisible();
+
+  await panel.getByRole('button', { name: '播放 特别的人' }).click();
+  await expect(page.locator('audio').first()).toHaveAttribute('src', /te-bie-de-ren-fang-datong\.mp3/);
 });

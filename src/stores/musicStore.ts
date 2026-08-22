@@ -2,22 +2,20 @@ import { create } from 'zustand';
 
 import type { AudioPresetId } from '../features/music/audioPresets';
 
+export type MusicTrackSource = 'system' | 'upload';
+
 export interface MusicTrack {
   id: string;
   name: string;
   fileName: string;
   src: string;
-  source?: 'local' | 'remote';
-  provider?: 'netease' | 'qq';
-  remoteId?: string;
-  mediaMid?: string;
+  source?: MusicTrackSource;
   artist?: string;
   album?: string;
   cover?: string;
   duration?: number;
-  /** Runtime timestamp for expiring remote playback URLs. */
-  streamResolvedAt?: number;
-  /** Runtime-only local source used by deterministic offline export. */
+  category?: string;
+  /** Runtime-only file used by local upload and deterministic export. */
   localFile?: File;
 }
 
@@ -33,9 +31,14 @@ export interface MusicAudioMeter {
   clipping: boolean;
 }
 
+function normalizedTrack(track: MusicTrack): MusicTrack {
+  return { ...track, source: track.source ?? 'system' };
+}
+
 interface MusicState {
   track: MusicTrack | null;
   queue: MusicTrack[];
+  uploads: MusicTrack[];
   queueIndex: number;
   status: MusicStatus;
   error: string | null;
@@ -51,17 +54,13 @@ interface MusicState {
   audioGraphStatus: AudioGraphStatus;
   audioMeter: MusicAudioMeter;
   lyricOffset: number;
-  energy: number;
-  bass: number;
-  mid: number;
-  treble: number;
-  beat: number;
   consoleOpen: boolean;
   setTrack: (track: MusicTrack | null) => void;
-  setTrackSource: (trackId: string, src: string, streamResolvedAt?: number) => void;
   setQueue: (queue: MusicTrack[]) => void;
   playQueueTrack: (queue: MusicTrack[], index: number) => void;
   enqueueTrack: (track: MusicTrack) => void;
+  addUploadedTrack: (track: MusicTrack) => void;
+  removeUploadedTrack: (trackId: string) => void;
   removeQueueTrack: (index: number) => void;
   moveQueueTrackNext: (index: number) => void;
   playNextTrack: () => void;
@@ -78,13 +77,13 @@ interface MusicState {
   setStatus: (status: MusicStatus, error?: string | null) => void;
   setProgress: (currentTime: number, duration: number) => void;
   setVolume: (volume: number) => void;
-  setSpectrum: (spectrum: Pick<MusicState, 'energy' | 'bass' | 'mid' | 'treble' | 'beat'>) => void;
   setConsoleOpen: (open: boolean) => void;
 }
 
 export const useMusicStore = create<MusicState>((set) => ({
   track: null,
   queue: [],
+  uploads: [],
   queueIndex: -1,
   status: 'idle',
   error: null,
@@ -106,45 +105,25 @@ export const useMusicStore = create<MusicState>((set) => ({
     clipping: false,
   },
   lyricOffset: 0,
-  energy: 0,
-  bass: 0,
-  mid: 0,
-  treble: 0,
-  beat: 0,
   consoleOpen: false,
-  setTrack: (track) =>
+  setTrack: (track) => {
+    const nextTrack = track ? normalizedTrack(track) : null;
     set({
-      track: track ? { source: 'local', ...track } : null,
-      status: track ? 'ready' : 'idle',
+      track: nextTrack,
+      status: nextTrack ? 'ready' : 'idle',
       error: null,
       currentTime: 0,
       duration: 0,
-    }),
-  setTrackSource: (trackId, src, streamResolvedAt = Date.now()) =>
-    set((state) => {
-      const nextQueue = state.queue.map((item) => (
-        item.id === trackId ? { ...item, src, streamResolvedAt } : item
-      ));
-      if (!state.track || state.track.id !== trackId) {
-        return { queue: nextQueue };
-      }
-      return {
-        track: { ...state.track, src, streamResolvedAt },
-        queue: nextQueue,
-        status: 'ready',
-        error: null,
-      };
-    }),
-  setQueue: (queue) => set({ queue, queueIndex: queue.length > 0 ? 0 : -1 }),
+    });
+  },
+  setQueue: (queue) => set({ queue: queue.map(normalizedTrack), queueIndex: queue.length > 0 ? 0 : -1 }),
   playQueueTrack: (queue, index) => {
-    const nextTrack = queue[index];
+    const nextQueue = queue.map(normalizedTrack);
+    const nextTrack = nextQueue[index];
     set({
-      queue,
+      queue: nextQueue,
       queueIndex: nextTrack ? index : -1,
-      // Preserve the queue item's ownership.  Local files can be queued too;
-      // forcing every queue item to `remote` made template playback ask the
-      // network for a blob URL that only existed locally.
-      track: nextTrack ? { ...nextTrack, source: nextTrack.source ?? 'remote' } : null,
+      track: nextTrack ?? null,
       status: nextTrack ? 'ready' : 'idle',
       error: null,
       currentTime: 0,
@@ -153,13 +132,22 @@ export const useMusicStore = create<MusicState>((set) => ({
   },
   enqueueTrack: (track) =>
     set((state) => {
-      if (state.queue.some((item) => item.id === track.id)) return state;
-      const nextQueue = [...state.queue, { ...track, source: track.source ?? 'remote' }];
+      const nextTrack = normalizedTrack(track);
+      if (state.queue.some((item) => item.id === nextTrack.id)) return state;
+      const nextQueue = [...state.queue, nextTrack];
       return {
         queue: nextQueue,
         queueIndex: state.queueIndex >= 0 ? state.queueIndex : nextQueue.length - 1,
       };
     }),
+  addUploadedTrack: (track) =>
+    set((state) => {
+      const nextTrack = normalizedTrack({ ...track, source: 'upload' });
+      if (state.uploads.some((item) => item.id === nextTrack.id)) return state;
+      return { uploads: [...state.uploads, nextTrack] };
+    }),
+  removeUploadedTrack: (trackId) =>
+    set((state) => ({ uploads: state.uploads.filter((item) => item.id !== trackId) })),
   removeQueueTrack: (index) =>
     set((state) => {
       if (index < 0 || index >= state.queue.length) return state;
@@ -174,18 +162,17 @@ export const useMusicStore = create<MusicState>((set) => ({
           duration: 0,
         };
       }
-      const nextIndex =
-        state.queueIndex > index
-          ? state.queueIndex - 1
-          : state.queueIndex === index
-            ? Math.min(index, nextQueue.length - 1)
-            : state.queueIndex;
+      const nextIndex = state.queueIndex > index
+        ? state.queueIndex - 1
+        : state.queueIndex === index
+          ? Math.min(index, nextQueue.length - 1)
+          : state.queueIndex;
       if (state.queueIndex !== index) return { queue: nextQueue, queueIndex: nextIndex };
       const nextTrack = nextQueue[nextIndex] ?? null;
       return {
         queue: nextQueue,
         queueIndex: nextIndex,
-        track: nextTrack ? { ...nextTrack, source: nextTrack.source ?? 'remote' } : null,
+        track: nextTrack,
         status: nextTrack ? ('ready' as MusicStatus) : ('idle' as MusicStatus),
         currentTime: 0,
         duration: 0,
@@ -216,7 +203,7 @@ export const useMusicStore = create<MusicState>((set) => ({
       if (!nextTrack) return { status: 'paused', currentTime: 0 };
       return {
         queueIndex: nextIndex,
-        track: { ...nextTrack, source: nextTrack.source ?? 'remote' },
+        track: nextTrack,
         status: 'ready',
         error: null,
         currentTime: 0,
@@ -245,6 +232,5 @@ export const useMusicStore = create<MusicState>((set) => ({
   setStatus: (status, error = null) => set({ status, error }),
   setProgress: (currentTime, duration) => set({ currentTime, duration }),
   setVolume: (volume) => set({ volume: Math.min(1, Math.max(0, volume)) }),
-  setSpectrum: (spectrum) => set(spectrum),
   setConsoleOpen: (consoleOpen) => set({ consoleOpen }),
 }));

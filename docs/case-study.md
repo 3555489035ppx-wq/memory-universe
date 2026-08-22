@@ -22,7 +22,7 @@ Choose theme → Add memories → Choose music → Organize → Generate a 3D un
 
 ## 6. AI Workflow
 
-Input: photos, EXIF, user notes, music preference, and selected theme.
+Input: photos, EXIF, user notes, and selected theme. Music is a separate playback and export input.
 
 Context: time, people, place, emotion, relationships, and template constraints.
 

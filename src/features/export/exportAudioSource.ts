@@ -1,5 +1,4 @@
 import type { MusicTrack } from '../../stores/musicStore';
-import { getMusicStream } from '../music/musicService';
 
 export class ExportAudioSourceError extends Error {
   constructor(message: string, cause?: unknown) {
@@ -28,25 +27,14 @@ function safeFileName(track: MusicTrack): string {
   return /\.[a-z0-9]{2,5}$/iu.test(raw) ? raw : `${raw}.mp3`;
 }
 
-/**
- * Turns a remote playback source into a local in-memory File for the export
- * pipeline. The browser never uploads it: fetch -> decode/master -> mux all
- * stay on this device. Local files are returned untouched.
- */
+/** Materializes a system asset or user upload for the local export pipeline. */
 export async function materializeTrackAudio(track: MusicTrack, signal?: AbortSignal): Promise<File> {
-  if (track.source === 'local' && track.localFile) return track.localFile;
+  if (track.source === 'upload' && track.localFile) return track.localFile;
   if (signal?.aborted) throw new DOMException('Audio preparation cancelled.', 'AbortError');
 
-  let sourceUrl = track.src;
-  if (!sourceUrl && track.source !== 'local') {
-    try {
-      sourceUrl = (await getMusicStream(track)).proxiedUrl;
-    } catch (error) {
-      throw new ExportAudioSourceError('无法取得当前歌曲的可下载音频地址，请先重新播放歌曲后再导出。', error);
-    }
-  }
+  const sourceUrl = track.src;
   if (!sourceUrl) {
-    throw new ExportAudioSourceError('当前歌曲没有可用的本地或远程音频地址。');
+    throw new ExportAudioSourceError('当前歌曲没有可用的音频地址。');
   }
 
   let response: Response;
@@ -58,13 +46,13 @@ export async function materializeTrackAudio(track: MusicTrack, signal?: AbortSig
     });
   } catch (error) {
     if (signal?.aborted || (error instanceof DOMException && error.name === 'AbortError')) throw error;
-    throw new ExportAudioSourceError('歌曲下载失败，请检查本机音乐服务和当前歌曲的播放地址。', error);
+    throw new ExportAudioSourceError('歌曲读取失败，请检查系统音乐文件或重新上传。', error);
   }
   if (!response.ok) {
-    throw new ExportAudioSourceError(`歌曲下载失败（HTTP ${String(response.status)}），请先重新连接音乐源。`);
+    throw new ExportAudioSourceError(`歌曲读取失败（HTTP ${String(response.status)}），请更换一首音乐。`);
   }
 
   const blob = await response.blob();
-  if (blob.size <= 0) throw new ExportAudioSourceError('音乐服务返回了空音频，无法生成视频。');
+  if (blob.size <= 0) throw new ExportAudioSourceError('音频文件为空，无法生成视频。');
   return new File([blob], safeFileName(track), { type: audioMimeType(track.fileName, blob.type) });
 }

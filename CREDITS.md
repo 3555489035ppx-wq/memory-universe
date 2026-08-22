@@ -45,10 +45,16 @@ Demo 使用 96 张本地化的 CC0 图片。图片通过 Openverse 与 GitHub CC
 - 新增照片来自 [gianni-rosato/gb82-image-set](https://github.com/gianni-rosato/gb82-image-set) 的 `png` 摄影子集，其中 16 张是项目内对 CC0 源图做的镜像、色彩和构图变体。
 - GB82 仓库声明全部图像采用 [CC0 1.0](https://github.com/gianni-rosato/gb82-image-set/blob/main/LICENSE)。项目排除了其中的屏幕内容和渲染图，只使用摄影内容。
 - 每张照片的本地路径、GitHub 原始地址与许可证记录均保存在 `public/demo/demo-asset-credits.json`。
-- 高中回忆 Demo 的默认音乐 `public/demo/demo-soundtrack.wav` 是项目内按固定种子生成的无版权氛围音轨，只用于本地演示、播放和导出回路，不依赖第三方账号或远程音频。
+- 高中回忆 Demo 的默认音乐 `public/music/high-school/te-bie-de-ren-fang-datong.mp3` 是用户声明拥有分发权的自有音频，随 Demo 同源发布。
+- `public/music/high-school/memento-ambience.wav` 是项目内按固定种子生成的本地音轨。
+
+## Demo 音乐
+
+- `public/music/high-school/` 内的音频由用户提供并声明为本人演唱、拥有发布权；Demo 只随站点发布这些本地文件，不保存账号、Cookie、歌词或第三方平台会话。
+- 用户可以在“音乐层 → 系统音乐库”中直接选择播放，也可以上传自己的 MP3 / WAV。
 
 ## Memory Template System
 
 模板布局使用 Three.js CSS3D Periodic Table 官方示例中“同一批对象、多组目标位姿、统一插值”的数学思路，并在 `src/memory/layouts` 中以 TypeScript 纯函数重写为 WebGL/R3F 运行时；没有复制 CSS3DRenderer、DOM 卡片、示例素材或示例 UI。研究来源、MIT 许可与不采用范围记录在 `MEMUNIVERSE_TEMPLATE_OPEN_SOURCE_NOTES.md`。
 
-模板本身不携带商业歌曲、封面、歌词或远程音频；播放只连接用户本地音频或现有本机音乐服务，测试使用静音 fallback clock。
+模板本身不携带未授权商业歌曲、封面、歌词或远程音频；公开 Demo 只使用项目内置、由用户提供并声明拥有发布权的本地音频，个人音乐也可以通过系统音乐库或浏览器上传使用。

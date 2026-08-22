@@ -7,6 +7,7 @@ describe('music store', () => {
     const state = useMusicStore.getState();
     state.setTrack(null);
     state.setQueue([]);
+    for (const upload of useMusicStore.getState().uploads) useMusicStore.getState().removeUploadedTrack(upload.id);
     state.setStatus('idle');
     state.setProgress(0, 0);
     state.setVolume(0.72);
@@ -16,7 +17,6 @@ describe('music store', () => {
     state.setAudioEnhancement(true);
     state.resetLyricOffset();
     while (useMusicStore.getState().playbackMode !== 'queue') useMusicStore.getState().cyclePlaybackMode();
-    state.setSpectrum({ energy: 0, bass: 0, mid: 0, treble: 0, beat: 0 });
     state.setConsoleOpen(false);
   });
 
@@ -27,6 +27,7 @@ describe('music store', () => {
       name: 'Alarm01',
       fileName: 'Alarm01.wav',
       src: 'blob:alarm',
+      source: 'upload',
     });
 
     expect(useMusicStore.getState()).toMatchObject({
@@ -44,25 +45,21 @@ describe('music store', () => {
     expect(useMusicStore.getState().volume).toBe(0);
   });
 
-  it('keeps a remote playlist as a playable queue', () => {
+  it('keeps system library tracks as a playable queue', () => {
     const queue = [
       {
-        id: 'netease:one',
-        remoteId: 'one',
+        id: 'system:one',
         name: 'One',
         fileName: 'One',
-        src: '',
-        source: 'remote' as const,
-        provider: 'netease' as const,
+        src: '/music/high-school/one.mp3',
+        source: 'system' as const,
       },
       {
-        id: 'netease:two',
-        remoteId: 'two',
+        id: 'system:two',
         name: 'Two',
         fileName: 'Two',
-        src: '',
-        source: 'remote' as const,
-        provider: 'netease' as const,
+        src: '/music/high-school/two.mp3',
+        source: 'system' as const,
       },
     ];
 
@@ -70,50 +67,43 @@ describe('music store', () => {
 
     expect(useMusicStore.getState()).toMatchObject({
       queueIndex: 1,
-      track: { id: 'netease:two', source: 'remote', provider: 'netease' },
+      track: { id: 'system:two', source: 'system' },
       status: 'ready',
     });
   });
 
-  it('updates the active track and queued copy with a fresh remote stream', () => {
-    const queue = [{
-      id: 'netease:fresh',
-      remoteId: 'fresh',
-      name: 'Fresh',
-      fileName: 'Fresh',
-      src: '',
-      source: 'remote' as const,
-      provider: 'netease' as const,
-    }];
-    const resolvedAt = 1_786_441_600_000;
+  it('adds an uploaded track to the personal library without an account', () => {
+    const upload = {
+      id: 'upload:one',
+      name: '我的歌曲',
+      fileName: 'my-song.mp3',
+      src: 'blob:my-song',
+      source: 'upload' as const,
+    };
 
-    useMusicStore.getState().playQueueTrack(queue, 0);
-    useMusicStore.getState().setTrackSource('netease:fresh', 'http://127.0.0.1:3000/api/audio?url=fresh', resolvedAt);
+    useMusicStore.getState().addUploadedTrack(upload);
+    useMusicStore.getState().playQueueTrack([upload], 0);
 
-    expect(useMusicStore.getState().track).toMatchObject({
-      src: 'http://127.0.0.1:3000/api/audio?url=fresh',
-      streamResolvedAt: resolvedAt,
-    });
-    expect(useMusicStore.getState().queue[0]).toMatchObject({
-      src: 'http://127.0.0.1:3000/api/audio?url=fresh',
-      streamResolvedAt: resolvedAt,
+    expect(useMusicStore.getState()).toMatchObject({
+      uploads: [upload],
+      track: { id: 'upload:one', source: 'upload' },
     });
   });
 
-  it('preserves local ownership when a local track is queued', () => {
+  it('preserves upload ownership when a user file is queued', () => {
     const queue = [
       {
-        id: 'local:one',
+        id: 'upload:one',
         name: 'Local one',
         fileName: 'one.mp3',
         src: 'blob:one',
-        source: 'local' as const,
+        source: 'upload' as const,
       },
     ];
 
     useMusicStore.getState().playQueueTrack(queue, 0);
 
-    expect(useMusicStore.getState().track).toMatchObject({ id: 'local:one', source: 'local', src: 'blob:one' });
+    expect(useMusicStore.getState().track).toMatchObject({ id: 'upload:one', source: 'upload', src: 'blob:one' });
   });
 
   it('cycles playback modes and clamps playback preferences', () => {
@@ -152,7 +142,7 @@ describe('music store', () => {
       name: id,
       fileName: `${id}.mp3`,
       src: `blob:${id}`,
-      source: 'local' as const,
+      source: 'system' as const,
     }));
     const [one, two, three] = tracks;
     if (!one || !two || !three) throw new Error('test track fixtures are incomplete');

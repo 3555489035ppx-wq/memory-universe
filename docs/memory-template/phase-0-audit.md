@@ -90,7 +90,7 @@ THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
 | 照片纹理与 LOD | `src/scene/textures/LocalTextureManager.ts`、`useManagedTexture.ts`、`src/scene/lod/lodPolicy.ts` | 模板层不能自行创建/释放 Blob URL 或另造纹理缓存 |
 | 记忆数据与持久化 | `src/domain/memory.ts`、`src/data/repositories/*`、IndexedDB repositories | Template session 只保存可序列化状态，不复制数据库边界 |
 | 导入、备份、恢复 | `src/features/import/*`、`src/engine/backup/*` | 模板只消费已解析的真实照片与 metadata |
-| 音乐、播放时钟、频谱 | `src/features/music/MusicExperience.tsx`、`src/stores/musicStore.ts`、`musicService.ts` | P0 继续使用现有 HTMLAudioElement；不引入 Tone.js/Meyda |
+| 音乐、播放时钟、频谱 | `src/features/music/MusicExperience.tsx`、`src/stores/musicStore.ts`、`musicLibrary.ts` | P0 继续使用现有 HTMLAudioElement；不引入 Tone.js/Meyda |
 | 视觉 token 与全局样式 | `tokens.css`、`src/styles/tokens.css`、`src/styles/globals.css`、`typography.css`、`motion.css` | GlassButton/模板 HUD 扩展现有 token，不重写既有页面 |
 
 ### 当前模板实现状态

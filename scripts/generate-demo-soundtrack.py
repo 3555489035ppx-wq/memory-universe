@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent.parent
-OUTPUT = ROOT / "public" / "demo" / "demo-soundtrack.wav"
+OUTPUT = ROOT / "public" / "music" / "high-school" / "memento-ambience.wav"
 SAMPLE_RATE = 22_050
 DURATION_SECONDS = 180
 

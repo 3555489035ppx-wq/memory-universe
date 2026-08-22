@@ -1,0 +1,26 @@
+[
+  {
+    "id": "highschool_03",
+    "title": "开源人之歌 · 伴奏",
+    "artist": "林旅强 / 庄表伟",
+    "category": "高中回忆",
+    "duration": 217,
+    "url": "/music/high-school/kai-yuan-ren-zhi-ge.mp3"
+  },
+  {
+    "id": "highschool_02",
+    "title": "那年夏天 · MEMENTO 氛围音",
+    "artist": "Memuniverse Studio",
+    "category": "高中回忆",
+    "duration": 180,
+    "url": "/music/high-school/memento-ambience.wav"
+  },
+  {
+    "id": "highschool_01",
+    "title": "特别的人",
+    "artist": "方大同",
+    "category": "高中回忆",
+    "duration": 259,
+    "url": "/music/high-school/te-bie-de-ren-fang-datong.mp3"
+  }
+]

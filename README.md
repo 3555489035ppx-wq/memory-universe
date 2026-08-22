@@ -40,7 +40,7 @@ Memory Universe combines:
 - Theme-based memory templates
 - Time, people, place, and emotion as different observation modes
 - A 3D memory space for proximity, grouping, and movement
-- Music as the emotional timeline rather than a background player
+- Music as a selectable playback timeline rather than a third-party account connection
 - Human confirmation for any future AI organization suggestion
 - Local backup, recovery, and export boundaries
 
@@ -69,7 +69,7 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-  A[Input<br/>photos / EXIF / notes / music preference] --> B[Context<br/>time / people / place / emotion / theme]
+  A[Input<br/>photos / EXIF / notes] --> B[Context<br/>time / people / place / emotion / theme]
   B --> C[AI Processing<br/>cluster / summarize / suggest relationships / pace]
   C --> D[Human Review<br/>confirm / edit / reject / regenerate]
   D --> E[Output<br/>tags / story blocks / template suggestions / confidence]
@@ -77,13 +77,13 @@ flowchart LR
   F --> G[Next Step<br/>playable 3D universe]
 ```
 
-The current public demo intentionally uses preset memory metadata, local images, a local soundtrack, and a deterministic template engine. Online AI is a future integration, not a hidden claim in the Demo.
+The current public demo intentionally uses preset memory metadata, local images, bundled local soundtracks, and a deterministic template engine. The high-school memory Demo starts with the user-provided **特别的人** track; open the music layer to switch tracks or upload an MP3/WAV for the current session. Online AI is a future integration, not a hidden claim in the Demo. The music layer is a browser-local input system and does not drive visual analysis or scene styling.
 
 ## Core Experience
 
 ### High-school memory Demo · complete
 
-The public route loads the **那年夏天** template with 96 built-in demo photos and a local audio track. It does not require login, photo import, or a music account.
+The public route loads the **那年夏天** template with 96 built-in demo photos and bundled local audio tracks. It does not require an account or photo import; open the music layer to choose a track or upload your own MP3/WAV for the current session.
 
 Recommended 3-minute flow:
 
@@ -128,7 +128,7 @@ These entries are documented as future scope and are not presented as empty, com
 
 ## Current Boundary
 
-The complete public experience is the deterministic high-school memory Demo. Personal import, archive, backup, and export are real local flows; online AI organization, cross-device sync, sharing, and additional templates remain future work. This keeps the product story honest and gives future work a clear place to start.
+The complete public experience is the deterministic high-school memory Demo. Personal import, archive, backup, and export are real local flows. The music library works without account setup: system tracks are deployed with the site, while user uploads stay in the current browser session. Online AI organization, cross-device sync, sharing, and additional templates remain future work. This keeps the product story honest and gives future work a clear place to start.
 
 ## Local Development
 
@@ -152,4 +152,4 @@ pnpm run build
 
 The public Demo assets are tracked with their source and license information in [`CREDITS.md`](CREDITS.md) and [`public/demo/demo-asset-credits.json`](public/demo/demo-asset-credits.json). Do not commit real personal photos, GPS/EXIF data, backups, tokens, or music sessions.
 
-The repository does not yet declare a final open-source license. Confirm dependency, image, audio, and connector rights before reuse.
+The repository does not yet declare a final open-source license. Confirm dependency, image, and audio rights before reuse.

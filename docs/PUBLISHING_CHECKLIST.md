@@ -10,7 +10,7 @@
 - [ ] `/universe?source=demo&demo=high-school` 可直接体验。
 - [ ] Demo 图片全部来自 `public/demo/`，不依赖外部图片 URL。
 - [ ] `public/demo/demo-asset-credits.json` 与 `CREDITS.md` 同步。
-- [ ] Demo 音轨是本地 WAV，不上传商业歌曲或账号会话。
+- [ ] Demo 音乐全部随仓库本地发布，未上传未授权商业歌曲或账号会话；音频来源和许可证已记录在 `CREDITS.md`。
 
 ## 安全检查
 
@@ -37,7 +37,7 @@ rg -n --hidden --glob '!.git/**' --glob '!node_modules/**' --glob '!dist/**' --g
 1. 在 Vercel 导入 GitHub 仓库。
 2. Framework 选择 Vite，Install Command 使用 `pnpm install --frozen-lockfile`，Build Command 使用 `pnpm run build`。
 3. 保留仓库中的 `vercel.json`，保证 `/universe`、`/archive`、`/settings` 等深层路由回退到 `index.html`。
-4. 不配置音乐账号 Cookie。公开 Demo 使用本地音轨；远程音乐连接器仍由使用者在自己电脑运行。
+4. 不配置音乐账号、Cookie 或第三方连接服务。公开 Demo 使用仓库内置音轨；用户上传的 MP3 / WAV 只在当前浏览器中使用。
 5. 发布后检查首页、Demo、档案、隐私页和刷新深层路由。
 
 ## Cloudflare Pages 部署
