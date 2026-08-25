@@ -24,3 +24,5 @@ qa-*.png
 build-output.txt
 lint-output.txt
 public/demo/music-local/
+
+.vercel
