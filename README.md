@@ -1,145 +1,67 @@
-# Memory Universe
+# Memory Universe · 记忆宇宙
 
-> AI-powered Emotional Memory Experience Platform.
+将照片、音乐与故事组织成可探索的 3D 记忆空间，从时间、人物、地点与情绪重新走近一段回忆。
 
-Memory Universe is not a normal photo album or a video player. It turns photos, music, stories, and relationships into a memory experience that can be entered again: explored through time, people, place, and emotion, then replayed as a spatial story.
+[在线演示](https://memory-universe-two.vercel.app/) · [体验路径](#三分钟体验) · [本地开发](#本地开发) · [隐私说明](PRIVACY.md)
 
-[Live Demo](https://memory-universe-two.vercel.app/) · [GitHub](https://github.com/3555489035ppx-wq/memory-universe)
+![Memory Universe 首页](docs/assets/memuniverse-home.png)
 
-![Memory Universe homepage](docs/assets/memuniverse-home.png)
+> **当前完整演示：高中回忆「那年夏天」。** 使用预设元数据、内置照片、本地音轨与确定性模板引擎；在线 AI 整理尚未接入。
 
-## Demo
+## 让回忆保留关系
 
-- 公开网址：<https://memory-universe-two.vercel.app/>
-
-## Product Introduction
-
-We take more photos than ever, but most photo libraries only answer “where is this file?”. They rarely help us revisit the relationship, mood, and story behind a memory. Memory Universe uses spatial relationships and a continuous music timeline to make the act of remembering feel exploratory rather than archival.
-
-The product is Local First（本地优先）: personal photos, metadata, derived images, backups, and sessions stay in the current browser by default.
-
-## User Problem
-
-**Target users**
-
-- People who want to revisit a meaningful period rather than scroll a timeline
-- Families and individuals with growing personal photo libraries
-- Privacy-conscious users who do not want to upload personal memories just to explore them
-
-**Core problems**
-
-1. A linear timeline turns meaningful photos into undifferentiated thumbnails.
-2. Folders preserve files but not relationships, emotion, or narrative.
-3. Creating a coherent memory video requires too much manual editing.
-4. Online AI and music services can introduce privacy and availability concerns.
-
-## Solution
-
-Memory Universe combines:
-
-- Theme-based memory templates
-- Time, people, place, and emotion as different observation modes
-- A 3D memory space for proximity, grouping, and movement
-- Music as a selectable playback timeline rather than a third-party account connection
-- Human confirmation for any future AI organization suggestion
-- Local backup, recovery, and export boundaries
-
-## Product Goal
-
-Help a user move from scattered photos to a personal memory experience without giving up control of the original files:
+照片库擅长保存文件，却很难保留照片之间的人物关系、情绪与叙事。Memory Universe 面向希望重访某段生活的个人与家庭，用空间、主题和连续音乐时间线组织体验。
 
 ```text
-Choose a theme → Add memories → Choose music → Organize a story → Explore a 3D space → Dive deeper or export
+选择主题 → 添加回忆 → 选择音乐 → 组织故事 → 探索 3D 空间 → 深入查看或导出
 ```
 
-## User Flow
+- **多种观察方式**：按时间、人物、地点与情绪理解记忆之间的关系。
+- **空间探索**：通过聚合、距离与移动浏览照片，打开单条记忆或创建星座。
+- **音乐时间线**：选用内置音轨，或为当前会话上传 MP3/WAV；不需要第三方音乐账号。
+- **本地优先**：个人照片、元数据、衍生图像、布局与备份默认保存在当前浏览器。
 
-```mermaid
-flowchart LR
-  A[Choose memory theme] --> B[Add photos]
-  B --> C[Choose music]
-  C --> D[AI-assisted organization]
-  D --> E[Human review]
-  E --> F[Generate 3D memory universe]
-  F --> G[Explore / dive in / create constellation]
-  G --> H[Replay or export]
-```
+## 三分钟体验
 
-## AI Workflow
+1. 打开[在线演示](https://memory-universe-two.vercel.app/)。
+2. 点击 **体验高中回忆 Demo**，选择 **高中回忆 / 那年夏天**。
+3. 跟随时间线进入 3D 记忆空间，切换时间、人物、地点与情绪视角。
+4. 打开一条记忆、创建星座或重新播放。
+5. 打开音乐层切换音轨，或上传自己的 MP3/WAV 供本次会话使用。
 
-```mermaid
-flowchart LR
-  A[Input<br/>photos / EXIF / notes] --> B[Context<br/>time / people / place / emotion / theme]
-  B --> C[AI Processing<br/>cluster / summarize / suggest relationships / pace]
-  C --> D[Human Review<br/>confirm / edit / reject / regenerate]
-  D --> E[Output<br/>tags / story blocks / template suggestions / confidence]
-  E --> F[Persistence<br/>local draft and reversible memory metadata]
-  F --> G[Next Step<br/>playable 3D universe]
-```
+高中回忆演示包含 96 张内置照片和本地音轨，无需账号或导入照片。默认使用「特别的人」音轨；音乐输入不参与视觉分析，也不决定场景风格。
 
-The current public demo intentionally uses preset memory metadata, local images, bundled local soundtracks, and a deterministic template engine. The high-school memory Demo starts with the user-provided **特别的人** track; open the music layer to switch tracks or upload an MP3/WAV for the current session. Online AI is a future integration, not a hidden claim in the Demo. The music layer is a browser-local input system and does not drive visual analysis or scene styling.
+## 已实现与后续范围
 
-## Core Experience
-
-### High-school memory Demo · complete
-
-The public route loads the **那年夏天** template with 96 built-in demo photos and bundled local audio tracks. It does not require an account or photo import; open the music layer to choose a track or upload your own MP3/WAV for the current session.
-
-Recommended 3-minute flow:
-
-1. Open the [Live Demo](https://memory-universe-two.vercel.app/).
-2. Click **体验高中回忆 Demo** and choose **高中回忆 / 那年夏天**.
-3. Let the timeline enter the 3D memory space.
-4. Switch between time, people, place, and emotion.
-5. Open one memory, create a constellation, or replay the sequence.
-
-### Other templates · Coming Soon
-
-| Template | Status |
+| 范围 | 当前状态 |
 | --- | --- |
-| 恋爱回忆 | Coming Soon · 功能开发中 |
-| 分手回忆 | Coming Soon · 功能开发中 |
-| 大学回忆 | Coming Soon · 功能开发中 |
-| 工作回忆 | Coming Soon · 功能开发中 |
-| 自定义主题 | Coming Soon · 功能开发中 |
+| 高中回忆 / 那年夏天 | 完整的确定性公开 Demo |
+| 个人素材导入、归档、备份与导出 | 已有本地流程 |
+| 系统音轨与用户上传音乐 | 系统音轨随站点部署；上传音乐限当前浏览器会话 |
+| 恋爱、分手、大学、工作、自定义主题 | Coming Soon，尚未完成 |
+| 在线 AI 整理、跨设备同步与分享 | 后续范围 |
 
-These entries are documented as future scope and are not presented as empty, completed pages.
+未来 AI 整理的设计流程是：照片、EXIF 与笔记进入主题上下文，生成聚类、标签与故事建议，由用户确认、编辑或拒绝，再保存可逆元数据。此流程是接入方向，不是当前 Demo 已调用在线模型的证明。
 
-## Technical Implementation
+## 技术实现
 
-- React 19, TypeScript, Vite, and React Router
-- Three.js / React Three Fiber / Drei for spatial memory scenes
-- Zustand for scene, template, music, and interface state
-- IndexedDB for personal photos, EXIF, derived images, layouts, and backups
-- EXIFReader, pica, and fast-average-color for browser-side image processing
-- fflate and Mediabunny for backup and local export workflows
-- Vitest, Testing Library, and Playwright for regression coverage
+- React 19、TypeScript、Vite、React Router。
+- Three.js、React Three Fiber、Drei 构建空间场景。
+- Zustand 管理场景、模板、音乐和界面状态。
+- IndexedDB 保存个人照片、EXIF、衍生图片、布局与备份。
+- EXIFReader、pica、fast-average-color 处理浏览器端图像。
+- fflate、Mediabunny 支持备份与本地导出；Vitest、Testing Library、Playwright 用于回归测试。
 
-## Project Documents
+## 本地开发
 
-- [Case Study](docs/case-study.md)
-- [Product Story](docs/product-story.md)
-- [User Flow](docs/user-flow.md)
-- [Design Decisions](docs/design-decision.md)
-- [Demo Script](docs/demo-script.md)
-- [Project analysis](docs/PROJECT_ANALYSIS.md)
-- [Privacy boundary](PRIVACY.md)
-- [Publishing checklist](docs/PUBLISHING_CHECKLIST.md)
-
-## Current Boundary
-
-The complete public experience is the deterministic high-school memory Demo. Personal import, archive, backup, and export are real local flows. The music library works without account setup: system tracks are deployed with the site, while user uploads stay in the current browser session. Online AI organization, cross-device sync, sharing, and additional templates remain future work. This keeps the product story honest and gives future work a clear place to start.
-
-## Local Development
-
-Requires Node.js 20.19+ and pnpm 11.
+环境要求：Node.js 20.19+ 与 pnpm 11。
 
 ```bash
 pnpm install
 pnpm dev
 ```
 
-After the local server starts, use the development URL printed by Vite. Common checks:
+访问 Vite 输出的开发地址。检查命令：
 
 ```bash
 pnpm run lint
@@ -148,8 +70,16 @@ pnpm test
 pnpm run build
 ```
 
-## Privacy and Asset Boundary
+## 项目文档
 
-The public Demo assets are tracked with their source and license information in [`CREDITS.md`](CREDITS.md) and [`public/demo/demo-asset-credits.json`](public/demo/demo-asset-credits.json). Do not commit real personal photos, GPS/EXIF data, backups, tokens, or music sessions.
+| 产品与设计 | 工程与发布 |
+| --- | --- |
+| [案例研究](docs/case-study.md) · [产品故事](docs/product-story.md) | [项目分析](docs/PROJECT_ANALYSIS.md) |
+| [用户流程](docs/user-flow.md) · [设计决策](docs/design-decision.md) | [隐私边界](PRIVACY.md) |
+| [演示脚本](docs/demo-script.md) | [发布检查清单](docs/PUBLISHING_CHECKLIST.md) |
 
-The repository does not yet declare a final open-source license. Confirm dependency, image, and audio rights before reuse.
+## 隐私、素材与许可
+
+不要提交真实个人照片、GPS/EXIF 数据、备份、Token 或音乐会话。演示素材来源与授权信息见 [`CREDITS.md`](CREDITS.md) 和 [`demo-asset-credits.json`](public/demo/demo-asset-credits.json)。
+
+仓库尚未声明最终开源许可证。复用前需确认代码、依赖、图片与音频的使用权，公开可访问不等于可任意再分发。
